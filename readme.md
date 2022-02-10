@@ -14,7 +14,7 @@
 A Chrome extension that allows you to save important blocks of text in a convenient spot where they can be easily accessed and shared. 
 
 ## Core Features:
-- Create an account
+- Create and log in to an account
 - Save text through browser extension (highlight -> save text)
 - Create workspaces to organize 
 - Share workspaces with other users
