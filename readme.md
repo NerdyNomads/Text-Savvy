@@ -1,11 +1,8 @@
-
-
 # Text Savvy
 
 by [Nerdy Nomads](https://github.com/NerdyNomads)
 
-A web application with a browser extension that allows you to save important blocks of text in a convenient spot where you can easily access, organize and share your saved text with other users! 
-
+A web application with a browser extension that allows users to save important blocks of text in a convenient spot where they can easily access, organize and share their saved text with other users! 
 
 ## Objective: 
 Users will be able to save text located within another website, simply by highlighting the text and saving it through the browser extension. Along with the text, the extension will also save the source of the text (URL) so that users can easily revisit it. Workspaces can be created so that a user will be able to organize their collection of texts. These workspaces can also be shared between multiple users.
@@ -14,11 +11,14 @@ Users will be able to save text located within another website, simply by highli
 - Account creation and management
 - Create workspaces to organize 
 - Share workspaces with other users
-- Save text through browser extension
+- Save text 
+- Browser Extension
 
 ## Our Proposal
 - See Project Proposal on our [wiki](https://github.com/NerdyNomads/COMP4350-Project/wiki/Project-Proposal).
 
+## Architecture:
+The architecture diagram for the project can be found [here](https://github.com/NerdyNomads/COMP4350-Project/blob/develop/COMP_4350_Architecture.png).
 
 ## Contributors
 
