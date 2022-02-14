@@ -26,6 +26,9 @@ Users will be able to save text located within another website, simply by highli
 ## Architecture:
 The architecture diagram for the project can be found [here](https://github.com/NerdyNomads/COMP4350-Project/blob/develop/COMP_4350_Architecture.png).
 
+# Tools and Technologies
+- To see the tools and technologies we plan to use, see our [wiki page](https://github.com/NerdyNomads/COMP4350-Project/wiki/Project-Proposal#technologies).
+
 ## Contributors
 
 | Name  | GitHub Username | Email
