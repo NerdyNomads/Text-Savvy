@@ -7,13 +7,24 @@
     $ npm -v
     ```
     - Go to [https://nodejs.org/en/download/](https://nodejs.org/en/download/) to download the installer.
-2. Install dependencies.
+2. Go to the backend's directory.
+    ```
+    $ cd web_app/text_savvy_backend
+    ```
+3. Install dependencies.
     ```
     $ npm install
     ```
     - Update `npm` if necessary.
-3. Run the server.
+4. Run the server.
     ```
     $ npm start
     ```
-4. Visit [localhost:5000](http://localhost:5000) in Chrome. Port 5000 is where the Express server will be running on.
+5. Visit [localhost:5000](http://localhost:5000) in Chrome. Port 5000 is where the Express server will be running on.
+
+In another terminal, start the web server:
+```
+$ cd web-app
+$ npm install    
+$ npm start  
+```
