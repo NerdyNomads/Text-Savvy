@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
 import TextList from "./components/TextList";
+import Sidebar from "./components/Sidebar";
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
@@ -25,11 +26,9 @@ function App() {
                 <LoginButton/>
                 <TextList/>
                 <LogoutButton/>
+                <Sidebar/>
                 <Profile/>
             </header>
-            <body className="App-body">
-
-            </body>
         </div>
     );
 }

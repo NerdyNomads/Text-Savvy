@@ -41,6 +41,17 @@
   color: #61dafb;
 }
 
+.sidebar {
+  background-color: #FFD89D;
+  width: 30vw;
+  position: absolute;
+  left: 5vh;
+  top: 5vh;
+  height: 30vh;
+  color: black;
+  border-radius: 5vh;
+}
+
 .text-list {
   background-color: #FFD89D;
   width: 60vw;
@@ -48,6 +59,7 @@
   right: 5vh;
   height: 100vh;
   color: black;
+  padding-top: 5vh;
 }
 
 @keyframes App-logo-spin {
