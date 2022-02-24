@@ -4,6 +4,7 @@ import './App.css';
 import Profile from "./components/Profile";
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
+import TextList from "./components/TextList";
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
@@ -20,12 +21,15 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-
                 <p>{!data ? "Loading..." : data}</p>
                 <LoginButton/>
+                <TextList/>
                 <LogoutButton/>
                 <Profile/>
             </header>
+            <body className="App-body">
+
+            </body>
         </div>
     );
 }
