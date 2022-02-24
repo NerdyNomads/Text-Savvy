@@ -22,6 +22,9 @@ connection.once('open', () => {
     console.log('MongoDB database connection established successfully');
 });
 
+const workspacesRouter = require('./persistence/workspaces');
+app.use('/workspaces', workspacesRouter);
+
 // GET method to test connection
 app.get('/api', (req, res) => {
     res.send({ message: 'Express backend connected!' });
