@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Workspace = require('../models/workspaces.model');
+let Workspace = require('./models/workspaces.model');
 
 router.route('/').get((req, res) => {
     Workspace.find()

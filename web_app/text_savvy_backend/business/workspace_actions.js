@@ -1,7 +1,7 @@
 // importing objects
-import { Workspace } from '../objects/objects.js';
+import { Workspace } from '../persistence/models/workspaces.model';
 
-const workspace = Object.create(Workspace);
+const workspace = new Workspace;
 
 window.onload=function()
 {
@@ -26,12 +26,12 @@ function workspace_submit(event)
             workspace.name = pair[1];
     }
 
-    workspace.owner = account.username;         // change to some getter function 
+    // workspace.owner = account.username;         // change to some getter function 
 
     output = "Name: " + workspace.name + " " +
             "Owner: " + workspace.owner + " " +
-            "Public: " + workspace.is_public + " " +
-            "Creation Date: " + workspace.workspace_create_date;
+            "Public: " + workspace.isPublic + " " +
+            "Creation Date: " + workspace.creationDate;
     
     document.getElementById("workspace_create").innerHTML = output;
     event.preventDefault();

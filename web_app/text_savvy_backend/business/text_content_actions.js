@@ -1,7 +1,7 @@
 // importing objects
-import { Text_Content } from '../objects/objects.js';
+import { Text } from '../persistence/models/texts.model';
 
-const text_content = Object.create(Text_Content);
+const text = new Text;
 
 window.onload=function()
 {
@@ -22,20 +22,20 @@ function text_submit(event)
     
     // Loop over each pair (name and value) in the form and add it to the values array.
     for (var pair of formData) {
-        if (pair[0] == "text_content_name")
-            text_content.name = pair[1];
+        if (pair[0] == "text_name")
+            text.name = pair[1];
         else if (pair[0] == "text_value")
-            text_content.text = pair[1];
+            text.text = pair[1];
         else if (pair[0] == "source")
-            text_content.source = pair[1];
+            text.source = pair[1];
     }
 
-    workspace.text_content_list.push(text_content);         // change to some setter function
+    // workspace.text_list.push(text);         // change to some setter function
 
-    output = "Name: " + text_content.name + " " +
-            "Text: " + text_content.text + " " +
-            "Source: " + text_content.source + " " +
-            "Creation Date: " + text_content.text_create_date;
+    output = "Name: " + text.name + " " +
+            "Text: " + text.text + " " +
+            "Source: " + text.source + " " +
+            "Creation Date: " + text.creationDate;
     
     document.getElementById("text_create").innerHTML = output;
     event.preventDefault();

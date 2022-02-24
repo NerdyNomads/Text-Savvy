@@ -27,3 +27,4 @@ const textSchema = new Schema({
 const Text = mongoose.model('Text', textSchema);
 
 module.exports = Text;
+// export { Text };
