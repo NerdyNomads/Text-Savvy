@@ -1,6 +1,12 @@
 {
   "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Text Savvy",
+  "description": "Base Level Extension",
+  "version": "0.0.1",
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Open the popup"
+  },
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,4 +28,12 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
+  "background":{
+    "scripts": ["eventPage.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "contextMenus"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
