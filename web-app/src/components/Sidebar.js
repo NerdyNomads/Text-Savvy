@@ -1,4 +1,5 @@
 import React from "react";
+import LogoutButton from "./LogoutButton";
 class Sidebar extends React.Component {
     render() {
         return (
@@ -7,6 +8,7 @@ class Sidebar extends React.Component {
                 <div>
                     Please Select a Workspace...
                 </div>
+                <LogoutButton/>
             </div>
         )
     }
