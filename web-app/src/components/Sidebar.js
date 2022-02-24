@@ -1,5 +1,6 @@
 import React from "react";
 import LogoutButton from "./LogoutButton";
+import './Sidebar.css';
 class Sidebar extends React.Component {
     render() {
         return (

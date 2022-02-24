@@ -1,5 +1,6 @@
 import React from "react";
 import TextBox from "./TextBox";
+import './TextList.css';
 class TextList extends React.Component {
     render() {
         return (

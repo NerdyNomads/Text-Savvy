@@ -1,0 +1,9 @@
+.text-box {
+    background-color: white;
+    width: 55vw;
+    margin-left: 5vh;
+    margin-top: 5px;
+    color: black;
+    border-radius: 2vh;
+    font-size: 20px;
+}
