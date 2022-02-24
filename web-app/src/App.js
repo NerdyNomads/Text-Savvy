@@ -10,7 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
     const [data, setData] = React.useState(null);
-    const { isLoading } = useAuth0();
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     // Test backend connection using GET route from server.js
     React.useEffect(() => {
@@ -22,12 +22,12 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <p>{!data ? "Loading..." : data}</p>
-                <LoginButton/>
-                <TextList/>
-                <LogoutButton/>
-                <Sidebar/>
-                <Profile/>
+                    <p>{!data ? "Loading..." : data}</p>
+                    <LoginButton/>
+                    <LogoutButton/>
+                    <TextList/>
+                    <Sidebar/>
+                    <Profile/>
             </header>
         </div>
     );

@@ -52,12 +52,22 @@
   border-radius: 5vh;
 }
 
+.text-box {
+  background-color: white;
+  width: 55vw;
+  margin-left: 5vh;
+  margin-top: 5px;
+  color: black;
+  border-radius: 2vh;
+  font-size: 20px;
+}
+
 .text-list {
   background-color: #FFD89D;
   width: 60vw;
   position: absolute;
   right: 5vh;
-  height: 100vh;
+  height: 95vh;
   color: black;
   padding-top: 5vh;
 }
