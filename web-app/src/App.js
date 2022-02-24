@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios';
 
 function App() {
     const [data, setData] = React.useState(null);
@@ -14,36 +15,31 @@ function App() {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
 
-    // function handleEmailChange(email) {
-    //     setEmail(email);
-    // }
+    function handleEmailChange(event) {
+        setEmail(event.target.value);
+    }
 
-    // const handleAccountSubmit = event => {
-    //     // Get the data from the form.
-    //     // event.target represents the form that is being submitted.
-    //     var formData = new FormData(event.target);
+    function handleUsernameChange(event) {
+        setUsername(event.target.value);
+    }
 
-    //     const account = new Account;
+    function handlePasswordChange(event) {
+        setPassword(event.target.value);
+    }
 
-    //     var output = "";
+    const handleAccountSubmit = event => {
+        event.preventDefault();
 
-    //     // Loop over each pair (name and value) in the form and add it to the values array.
-    //     for (var pair of formData) {
-    //         if (pair[0] == "email")
-    //             account.email = pair[1];
-    //         else if (pair[0] == "username")
-    //             account.username = pair[1];
-    //         else if (pair[0] == "password")
-    //             account.password = pair[1];
-    //     }
-    //     output = "Email: " + account.email + " " +
-    //         "Username: " + account.username + " " +
-    //         "Password: " + account.password;
+        const account = {
+            externalLog: false,
+            email: email,
+            username: username,
+            password: password
+        }
 
-    //     console.log(output);
-
-    //     event.preventDefault();
-    // };
+        axios.post('http://localhost:5000/accounts/add', account)   
+            .then(res => console.log(res.data));
+    };
 
     // Test backend connection using GET route from server.js
     React.useEffect(() => {
@@ -62,13 +58,13 @@ function App() {
             </header>
 
             <h1>Account Input Test</h1>
-            <form id="account_form">
+            <form id="account_form" onSubmit={handleAccountSubmit}>
                 <label for="email">Email:</label><br />
-                <input type="text" id="email" name="email" /><br />
+                <input type="text" id="email" name="email" onChange={handleEmailChange}/><br />
                 <label for="username">User Name:</label><br />
-                <input type="text" id="username" name="username" /><br />
+                <input type="text" id="username" name="username" onChange={handleUsernameChange}/><br />
                 <label for="password">Password:</label><br />
-                <input type="text" id="password" name="password" /><br /><br />
+                <input type="text" id="password" name="password" onChange={handlePasswordChange}/><br /><br />
                 <input type="submit" value="submit"  />
             </form>
             <p id="account_create"></p><br />

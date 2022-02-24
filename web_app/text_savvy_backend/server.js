@@ -23,7 +23,10 @@ connection.once('open', () => {
 });
 
 const workspacesRouter = require('./persistence/workspaces');
+const accountsRouter = require('./persistence/accounts');
+
 app.use('/workspaces', workspacesRouter);
+app.use('/accounts', accountsRouter);
 
 // GET method to test connection
 app.get('/api', (req, res) => {
