@@ -49,19 +49,24 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
     // Check if the menu item that was clicked was one of the workspaces
     const matchingIds = workspaces.filter((workspace) => clickData.menuItemId === workspace.id);
 
-    if (matchingIds.length > 0) {
-        console.log("matchingIds is:", matchingIds);
+    if (matchingIds.length != 1) {
+        const errorMessage =
+            matchingIds.length === 0
+                ? "No workspace ID matched the menuID"
+                : matchingIds.length + " IDs were found. They were: " + matchingIds;
 
-        chrome.notifications.create({
-            title: "Click Notifier",
-            message:
-                "You clicked [" +
-                matchingIds[0].name +
-                ']. The text is: "' +
-                clickData.selectionText +
-                '"',
-            iconUrl: "Text Savvy Logo.png",
-            type: "basic",
-        });
+        console.error(errorMessage);
     }
+
+    chrome.notifications.create({
+        title: "Click Notifier",
+        message:
+            "You clicked [" +
+            matchingIds[0].name +
+            ']. The text is: "' +
+            clickData.selectionText +
+            '"',
+        iconUrl: "Text Savvy Logo.png",
+        type: "basic",
+    });
 });
