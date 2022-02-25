@@ -21,6 +21,25 @@
 
 
 ### Recommendations:
-1. Install ESLint (`dbaeumer.vscode-eslint`) in VSCode to integrate VSCode into your IDE.
+1. Install ESLint extension (`dbaeumer.vscode-eslint`) in VSCode.
     - See [here](https://developer.ibm.com/articles/auto-fix-and-format-your-javascript-with-eslint/) for extensions for other editors.
-2. Tutorial on how to enable linting on Save wth VSCode and ESLint, visit [here](https://www.digitalocean.com/community/tutorials/workflow-auto-eslinting).
+
+2. Enable linting on save:
+    - `CTRL` + `SHIFT` + `P`
+    - Type "Open Settings (JSON)"
+    - Add this to your `settings.json`:
+        ```
+        {
+            ...
+
+            "editor.codeActionsOnSave": {
+                "source.fixAll.eslint": true
+            },
+            
+            "eslint.validate": ["javascript"]
+
+            ...
+        }
+        ```
+
+3. To test is it is working, mess up the format of any `.js` files, then save. It should reformat itself.
