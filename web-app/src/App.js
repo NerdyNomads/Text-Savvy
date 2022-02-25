@@ -1,14 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Profile from "./components/Profile";
 import LoginButton from "./components/LoginButton";
-import LogoutButton from "./components/LogoutButton";
+import TextList from "./components/TextList";
+import Sidebar from "./components/Sidebar";
 import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
     const [data, setData] = React.useState(null);
-    const { isLoading } = useAuth0();
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     // Test backend connection using GET route from server.js
     React.useEffect(() => {
@@ -17,17 +17,19 @@ function App() {
             .then((data) => setData(data.message));
     }, []);
 
+    if (!isAuthenticated) {
+        return <LoginButton/>
+    } 
+    else {
     return (
         <div className="App">
             <header className="App-header">
-
-                <p>{!data ? "Loading..." : data}</p>
-                <LoginButton/>
-                <LogoutButton/>
-                <Profile/>
+                    <p>{!data ? "Loading..." : data}</p>
+                    <TextList/>
+                    <Sidebar/>
             </header>
         </div>
-    );
+    )};
 }
 
 export default App;
