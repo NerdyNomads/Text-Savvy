@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.178"
-  }
   },
   "proxy": "http://localhost:5000/"
 }
