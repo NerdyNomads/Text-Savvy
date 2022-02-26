@@ -17,18 +17,18 @@ function App() {
 	}, []);
 
 	if (!isAuthenticated) {
-		return <LoginButton/>;
-	} 
-	else {
+		return <LoginButton />;
+	} else {
 		return (
 			<div className="App">
 				<header className="App-header">
 					<p>{!data ? "Loading..." : data}</p>
-					<TextList/>
-					<Sidebar/>
+					<TextList />
+					<Sidebar />
 				</header>
 			</div>
-		);}
+		);
+	}
 }
 
 export default App;

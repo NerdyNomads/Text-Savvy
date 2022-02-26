@@ -36,5 +36,8 @@
       "last 1 safari version"
     ]
   },
+  "devDependencies": {
+    "@types/chrome": "^0.0.178"
+  },
   "proxy": "http://localhost:5000/"
 }
