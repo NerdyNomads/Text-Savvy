@@ -1,5 +1,12 @@
 /*global chrome*/
 
+fetch("http://localhost:5000/accounts")
+	.then((r) => r.text())
+	.then((result) => {
+		// Result now contains the response text, do what you want...
+		console.log("The fetch has been made. " + "The result is: " + result.JSON);
+	});
+
 const workspaces = [
 	{
 		id: "1",
@@ -62,4 +69,23 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
 		iconUrl: "Text Savvy Logo.png",
 		type: "basic",
 	});
+
+	const text = {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json;charset=UTF-8",
+		},
+		body: JSON.stringify({
+			text: clickData.selectionText,
+			source: clickData.pageUrl,
+			creationDate: new Date(),
+		}),
+	};
+
+	fetch("http://localhost:5000/texts/add", text)
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+		});
 });
