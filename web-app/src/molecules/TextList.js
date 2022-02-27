@@ -1,16 +1,29 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import TextBox from "../atoms/TextBox";
+
 import "./TextList.css";
-class TextList extends React.Component {
-	render() {
-		return (
-			<div className= "text-list">
-				<b>You are currently viewing: Quotes</b>
-				<TextBox/>
-				<TextBox/>
-			</div>
-		);
-	}
+
+
+
+function TextList( {list} ) {
+
+	const renderList = () => {
+		return list.map( (l) => {
+			return <TextBox key={l.id} text={l.text} source={l.source} />;
+		});
+	};
+
+	return (
+		<div className= "text-list">
+			{renderList()}
+		</div>
+	);
 }
+
+TextList.propTypes = {
+	list: PropTypes.array.isRequired
+};
 
 export default TextList;

@@ -1,9 +1,5 @@
 .text-list {
-    background-color: #FFD89D;
-    width: 60vw;
-    position: absolute;
-    right: 5vh;
-    height: 95vh;
-    color: black;
-    padding-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
