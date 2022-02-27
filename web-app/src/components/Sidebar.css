@@ -1,0 +1,10 @@
+.sidebar {
+	background-color: #ffd89d;
+	width: 30vw;
+	position: absolute;
+	left: 5vh;
+	top: 5vh;
+	height: 30vh;
+	color: black;
+	border-radius: 5vh;
+}

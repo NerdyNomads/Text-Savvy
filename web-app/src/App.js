@@ -8,8 +8,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
 function App() {
-    const [data, setData] = React.useState(null);
-    const { isLoading } = useAuth0();
+	const [data, setData] = React.useState(null);
+	const { isAuthenticated } = useAuth0();
 
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
@@ -41,55 +41,19 @@ function App() {
             .then(res => console.log(res.data));
     };
 
-    // Test backend connection using GET route from server.js
-    React.useEffect(() => {
-        fetch("/api")
-            .then((res) => res.json())
-            .then((data) => setData(data.message));
-    }, []);
-
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>{!data ? "Loading..." : data}</p>
-                <LoginButton />
-                <LogoutButton />
-                <Profile />
-            </header>
-
-            <h1>Account Input Test</h1>
-            <form id="account_form" onSubmit={handleAccountSubmit}>
-                <label for="email">Email:</label><br />
-                <input type="text" id="email" name="email" onChange={handleEmailChange}/><br />
-                <label for="username">User Name:</label><br />
-                <input type="text" id="username" name="username" onChange={handleUsernameChange}/><br />
-                <label for="password">Password:</label><br />
-                <input type="text" id="password" name="password" onChange={handlePasswordChange}/><br /><br />
-                <input type="submit" value="submit"  />
-            </form>
-            <p id="account_create"></p><br />
-
-            <h1>Workspace Input Test</h1>
-            <form id="workspace_form">
-                <label for="workspace_name">Name:</label><br />
-                <input type="text" id="workspace_name" name="workspace_name" /><br /><br />
-                <input type="submit" value="submit" />
-            </form>
-            <p id="workspace_create"></p><br />
-
-            <h1>Text Content Input Test</h1>
-            <form id="text_form">
-                <label for="text_content_name">Name:</label><br />
-                <input type="text" id="text_content_name" name="text_content_name" /><br />
-                <label for="text_value">Text:</label><br />
-                <input type="text" id="text_value" name="text_value" /><br />
-                <label for="source">Source:</label><br />
-                <input type="text" id="source" name="source" /><br /><br />
-                <input type="submit" value="submit" />
-            </form>
-            <p id="text_create"></p><br />
-        </div>
-    );
+	if (!isAuthenticated) {
+		return <LoginButton />;
+	} else {
+		return (
+			<div className="App">
+				<header className="App-header">
+					<p>{!data ? "Loading..." : data}</p>
+					<TextList />
+					<Sidebar />
+				</header>
+			</div>
+		);
+	}
 }
 
 export default App;
