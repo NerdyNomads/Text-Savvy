@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import LoginButton from "./components/LoginButton";
-import TextList from "./components/TextList";
-import Sidebar from "./components/Sidebar";
+import LoginButton from "./atoms/LoginButton";
+import TextList from "./molecules/TextList";
+import Sidebar from "./organisms/Sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
@@ -17,7 +17,9 @@ function App() {
 	}, []);
 
 	if (!isAuthenticated) {
-		return <LoginButton/>;
+		return <>
+			<LoginButton/>
+		</>;
 	} 
 	else {
 		return (
