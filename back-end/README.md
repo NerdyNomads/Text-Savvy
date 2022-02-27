@@ -9,7 +9,7 @@
     - Go to [https://nodejs.org/en/download/](https://nodejs.org/en/download/) to download the installer.
 2. Go to the backend's directory.
     ```
-    $ cd web_app/text_savvy_backend
+    $ cd back-end
     ```
 3. Install dependencies.
     ```
@@ -24,7 +24,7 @@
 
 In another terminal, start the web server:
 ```
-$ cd web-app
+$ cd front-end
 $ npm install    
 $ npm start  
 ```
