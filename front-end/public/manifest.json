@@ -13,13 +13,16 @@
     "48": "Text Savvy Logo.png",
     "128": "Text Savvy Logo.png"
   },
-  "background":{
-    "scripts": ["eventPage.js"],
+  "background": {
+    "scripts": [
+      "eventPage.js"
+    ],
     "persistent": false
   },
   "permissions": [
     "contextMenus",
-    "notifications"
+    "notifications",
+    "https://localhost5000/*"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
