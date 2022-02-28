@@ -69,7 +69,7 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
 		iconUrl: "Text Savvy Logo.png",
 		type: "basic",
 	});
-
+  
 	const text = {
 		method: "POST",
 		headers: {
