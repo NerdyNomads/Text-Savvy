@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import axios from "axios";
+import axios from "axios";
 
 import { AddIcon, PaperPlaneIcon, DeleteIcon } from "./icons";
 import "./TextBoxAdd.css";
@@ -26,18 +26,15 @@ function TextBoxAdd() {
 
   const handleOnTextSubmit = () => {
 
-    console.log(textAreaVal);
+    const text = {
+      text: textAreaVal,
+      source: "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjWisuI0qX2AhWpJjQIHbKHBJoQPAgI",
+      creationDate: new Date(),
+    };
 
-
-    // const text = {
-    //   text: e.,
-    //   source: clickData.pageUrl,
-    //   creationDate: new Date(),
-    // };
-
-    // axios
-    //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, "")
-    //   .then((res) => console.log(res.data));
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, text)
+      .then((res) => console.log(res.data));
   };
 
   editCard= <div className="TextBoxEdit">
