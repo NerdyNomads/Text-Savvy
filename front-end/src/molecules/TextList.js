@@ -5,8 +5,6 @@ import TextBox from "../atoms/TextBox";
 
 import "./TextList.css";
 
-
-
 function TextList( {list} ) {
 
   const renderList = () => {
