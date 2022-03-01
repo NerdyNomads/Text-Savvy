@@ -7,6 +7,9 @@
     margin: 10px;
     cursor: pointer;
     min-width: 355px;
+    max-width: 355px;
+    min-height: 213px;
+    max-height: 213px;
 }
 
 .text-box-add-content{
@@ -23,10 +26,12 @@
 
 .add-icon {
     align-self: auto;
+    user-select:none;
 
 }
 
 .add-label {
     align-self: auto;
     color: #AAAAAA;
+    user-select:none;
 }

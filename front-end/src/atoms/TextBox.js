@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { ChainIcon } from "./icons";
-import { TrashCanIcon } from "./icons";
-
+import { ChainIcon, TrashCanIcon } from "./icons";
 import "./TextBox.css";
 
 

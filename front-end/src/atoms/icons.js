@@ -1,4 +1,5 @@
 import React from "react";
+import "./icons.css";
 
 export function BookMarkIcon() {
   return <img alt="bookmark" src="/assets/images/bookmark.svg" className="icon"/>;
@@ -9,7 +10,7 @@ export function ChainIcon() {
 }
 
 export function DeleteIcon() {
-  return <img alt="cross" src="/assets/images/delete.svg" className="icon"/>;
+  return <img alt="cross" src="/assets/images/delete.svg" className="icon-delete"/>;
 }
 
 export function DragVerticalIcon() {

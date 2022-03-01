@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TextBox from "../atoms/TextBox";
-
+import TextBoxAdd from "../atoms/TextBoxAdd";
 import "./TextList.css";
 
 function TextList( {list} ) {
@@ -16,6 +16,7 @@ function TextList( {list} ) {
   return (
     <div className= "text-list">
       {renderList()}
+      {<TextBoxAdd showInput={false}/>}
     </div>
   );
 }

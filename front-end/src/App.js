@@ -1,12 +1,11 @@
 import React from "react";
-import "./App.css";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import LoginButton from "./atoms/LoginButton";
 import LogoutButton from "./atoms/LogoutButton";
-
 import TextList from "./molecules/TextList";
-import TextBoxAdd from "./atoms/TextBoxAdd";
-import TextBoxEdit from "./atoms/TextBoxEdit";
-import { useAuth0 } from "@auth0/auth0-react";
+import "./App.css";
+
 
 const mockData = [
   {	id: 1,
@@ -40,7 +39,7 @@ function App() {
   const { isAuthenticated } = useAuth0();
 
   if (!isAuthenticated) {
-    return <><TextBoxEdit/><LoginButton/></>;
+    return <><LoginButton/></>;
 
   } 
   else {
@@ -48,7 +47,6 @@ function App() {
       <div className="App">
         <LogoutButton/>
         <TextList list={mockData}/>
-        <TextBoxAdd/>
         
       </div>
     );}
