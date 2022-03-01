@@ -31,3 +31,11 @@ export function ShareIcon() {
 export function TrashCanIcon() {
   return <img alt="trash can" src="/assets/images/trash_can.svg" className="icon"/>;
 }
+
+export function AddIcon() {
+  return <img alt="add" src="/assets/images/add.svg" className="icon"/>;
+}
+
+export function PaperPlaneIcon() {
+  return <img alt="send" src="/assets/images/paper_plane.svg" className="icon"/>;
+}

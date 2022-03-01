@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./TextBox.css";
+
 import { ChainIcon } from "./icons";
 import { TrashCanIcon } from "./icons";
+
+import "./TextBox.css";
 
 
 const MAX_CHARACTERS = 142;
