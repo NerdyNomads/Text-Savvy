@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 
 // import axios from "axios";
 
@@ -8,9 +7,9 @@ import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
 
-function TextBoxAdd({showInput}) {
+function TextBoxAdd() {
 
-  const [cardRender, setCardRender] = useState();
+  const [edit, setEdit] = useState(false);
   const [textAreaVal, setTextAreaVal] = useState();
 
   let editCard;
@@ -18,12 +17,17 @@ function TextBoxAdd({showInput}) {
 
 
   const handleOnTextCancel = () => {
-    setCardRender(addSign);
+    setTextAreaVal("");
+    setEdit(false);
+  };
+  const handleAddCardClick = () => {
+    setEdit(true);
   };
 
-  const handleOnTextSubmit = (text) => {
+  const handleOnTextSubmit = () => {
 
-    console.log(text);
+    console.log(textAreaVal);
+
 
     // const text = {
     //   text: e.,
@@ -35,11 +39,6 @@ function TextBoxAdd({showInput}) {
     //   .post(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, "")
     //   .then((res) => console.log(res.data));
   };
-
-  useEffect(() => {
-    console.log(textAreaVal);
-  }, [textAreaVal]);
-
 
   editCard= <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
@@ -63,16 +62,14 @@ function TextBoxAdd({showInput}) {
         }/>
     </div>
     <div className="edit-footer">
-      <div className="send-icon" onClick={handleOnTextSubmit(textAreaVal)}>
+      <div className="send-icon" onClick={handleOnTextSubmit}>
         <PaperPlaneIcon/>
       </div>
     </div>
 
   </div>;
 
-  const handleAddCardClick = () => {
-    setCardRender(editCard);
-  };
+
 
   addSign = <div className="TextBoxAdd" onClick={handleAddCardClick}>
     <div className="text-box-add-content">
@@ -83,25 +80,9 @@ function TextBoxAdd({showInput}) {
     </div>
   </div>;
 
-  useEffect(() => {
-    if (showInput) {
-      setCardRender(editCard);
-    } else {
-      setCardRender(addSign);
-    }
-  }, [showInput]);
-
- 
-
-
   return (
-    <>{cardRender}</>
+    <>{ edit ? editCard : addSign}</>
   );
 }
-
-TextBoxAdd.propTypes = {
-  showInput: PropTypes.bool.isRequired,
-
-};
 
 export default TextBoxAdd;
