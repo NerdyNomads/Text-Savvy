@@ -3,21 +3,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const accountSchema = new Schema ({
-    externalLog: {
-        type: Boolean,
-        required: true
-    },
-    email: {
+    auth0Id: {
         type: String,
         required: true
     },
-    username: {
+    auth0IdProvider: {
         type: String,
         required: true
     },
-    password: {
-        type: String,
-        required: true
+    workspaces: {
+        type: Array,
     }
 });
 

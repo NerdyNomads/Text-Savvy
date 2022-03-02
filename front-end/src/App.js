@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import LoginButton from "./components/LoginButton";
 import TextList from "./components/TextList";
@@ -7,38 +7,55 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 function App() {
-	const { isAuthenticated } = useAuth0();
+	const { isAuthenticated, user } = useAuth0();
 
-	const [email, setEmail] = useState(null);
-	const [username, setUsername] = useState(null);
-	const [password, setPassword] = useState(null);
+	/**
+	 * This function only runs when the state "isAuthenticated" changes.
+	 * If someone is currently logged in, then this checks if the account needs to be added to the database.
+	 */
+	useEffect(async () => {
+		if (isAuthenticated) {
+			let userId = user.sub;
+			let auth0IdProperties = userId.split("|");
 
-	function handleEmailChange(event) {
-		setEmail(event.target.value);
+			let auth0IdProvider = auth0IdProperties[0];
+			let auth0Id = auth0IdProperties[1];
+
+			if (await isNewAccount(auth0Id, auth0IdProvider)) {
+				addNewAccount(auth0Id, auth0IdProvider);
+			}
+		}
+	}, [isAuthenticated]);
+
+	/**
+	 * Checks if the user that is logged in has been added to the database.
+	 * 
+	 * @param {*} id 			The Auth0 ID of the current user.
+	 * @param {*} idProvider 	The Auth0 ID Provider of the current user.
+	 * @returns 				If no account exists in the database, return true.
+	 */
+	async function isNewAccount(id, idProvider) {
+		let result = await axios.get("http://localhost:5000/accounts/auth0/" + id + "/" + idProvider);
+
+		return result?.data.length == 0;
 	}
 
-	function handleUsernameChange(event) {
-		setUsername(event.target.value);
-	}
-
-	function handlePasswordChange(event) {
-		setPassword(event.target.value);
-	}
-
-	const handleAccountSubmit = (event) => {
-		event.preventDefault();
-
+	/**
+	 * Adds a new account to the database.
+	 * 
+	 * @param {*} id 			The Auth0 ID of the current user.
+	 * @param {*} idProvider 	The Auth0 ID Provider of the current user.
+	 */
+	async function addNewAccount(id, idProvider) {
 		const account = {
-			externalLog: false,
-			email: email,
-			username: username,
-			password: password,
+			auth0Id: id,
+			auth0IdProvider: idProvider,
+			workspaces: []
 		};
 
-		axios
-			.post("http://localhost:5000/accounts/add", account)
+		await axios.post("http://localhost:5000/accounts/add", account)
 			.then((res) => console.log(res.data));
-	};
+	}
 
 	if (!isAuthenticated) {
 		return <LoginButton />;
@@ -49,65 +66,6 @@ function App() {
 					<TextList />
 					<Sidebar />
 				</header>
-				<h1>Account Input Test</h1>
-				<form id="account_form" onSubmit={handleAccountSubmit}>
-					<label htmlFor="email">Email:</label>
-					<br />
-					<input type="text" id="email" name="email" onChange={handleEmailChange} />
-					<br />
-					<label htmlFor="username">User Name:</label>
-					<br />
-					<input
-						type="text"
-						id="username"
-						name="username"
-						onChange={handleUsernameChange}
-					/>
-					<br />
-					<label htmlFor="password">Password:</label>
-					<br />
-					<input
-						type="text"
-						id="password"
-						name="password"
-						onChange={handlePasswordChange}
-					/>
-					<br />
-					<br />
-					<input type="submit" value="submit" />
-				</form>
-				<p id="account_create"></p>
-				<br />
-				<h1>Workspace Input Test</h1>
-				<form id="workspace_form">
-					<label htmlFor="workspace_name">Name:</label>
-					<br />
-					<input type="text" id="workspace_name" name="workspace_name" />
-					<br />
-					<br />
-					<input type="submit" value="submit" />
-				</form>
-				<p id="workspace_create"></p>
-				<br />
-				<h1>Text Content Input Test</h1>
-				<form id="text_form">
-					<label htmlFor="text_content_name">Name:</label>
-					<br />
-					<input type="text" id="text_content_name" name="text_content_name" />
-					<br />
-					<label htmlFor="text_value">Text:</label>
-					<br />
-					<input type="text" id="text_value" name="text_value" />
-					<br />
-					<label htmlFor="source">Source:</label>
-					<br />
-					<input type="text" id="source" name="source" />
-					<br />
-					<br />
-					<input type="submit" value="submit" />
-				</form>
-				<p id="text_create"></p>
-				<br />
 			</div>
 		);
 	}
