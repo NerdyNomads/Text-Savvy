@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
