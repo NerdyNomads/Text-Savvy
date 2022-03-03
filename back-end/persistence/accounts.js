@@ -17,11 +17,10 @@ router.route('/').get((req, res) => {
  * 
  * Get the account with the corresponding Auth0 ID and ID provider.
  */
-router.route('/auth0/:id/:provider').get((req, res) => {
-    let id = req.params.id;
-    let provider = req.params.provider;
+router.route('/auth0/:auth0Id').get((req, res) => {
+    let auth0Id = req.params.auth0Id;
 
-    Account.find({auth0Id: id, auth0IdProvider: provider})
+    Account.find({ auth0Id: auth0Id })
         .then(account => res.json(account))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -33,10 +32,11 @@ router.route('/auth0/:id/:provider').get((req, res) => {
  */
 router.route('/add').post((req, res) => {
     const auth0Id = req.body.auth0Id;
-    const auth0IdProvider = req.body.auth0IdProvider;
+    const name = req.body.name;
+    const email = req.body.email;
     const workspaces = [];
 
-    const newAccount = new Account({ auth0Id, auth0IdProvider, workspaces });
+    const newAccount = new Account({ auth0Id, name, email, workspaces });
 
     newAccount.save()
         .then(() => res.json('Account added!'))

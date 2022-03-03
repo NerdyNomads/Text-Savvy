@@ -16,13 +16,10 @@ function App() {
 	useEffect(async () => {
 		if (isAuthenticated) {
 			let userId = user.sub;
-			let auth0IdProperties = userId.split("|");
+			let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
 
-			let auth0IdProvider = auth0IdProperties[0];
-			let auth0Id = auth0IdProperties[1];
-
-			if (await isNewAccount(auth0Id, auth0IdProvider)) {
-				addNewAccount(auth0Id, auth0IdProvider);
+			if (await isNewAccount(auth0Id)) {
+				addNewAccount(auth0Id);
 			}
 		}
 	}, [isAuthenticated]);
@@ -30,12 +27,11 @@ function App() {
 	/**
 	 * Checks if the user that is logged in has been added to the database.
 	 * 
-	 * @param {*} id 			The Auth0 ID of the current user.
-	 * @param {*} idProvider 	The Auth0 ID Provider of the current user.
+	 * @param {*} auth0Id 		The Auth0 ID of the current user.
 	 * @returns 				If no account exists in the database, return true.
 	 */
-	async function isNewAccount(id, idProvider) {
-		let result = await axios.get("http://localhost:5000/accounts/auth0/" + id + "/" + idProvider);
+	async function isNewAccount(auth0Id) {
+		let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/` + auth0Id);
 
 		return result?.data.length == 0;
 	}
@@ -43,17 +39,17 @@ function App() {
 	/**
 	 * Adds a new account to the database.
 	 * 
-	 * @param {*} id 			The Auth0 ID of the current user.
-	 * @param {*} idProvider 	The Auth0 ID Provider of the current user.
+	 * @param {*} auth0Id 			The Auth0 ID of the current user.
 	 */
-	async function addNewAccount(id, idProvider) {
+	async function addNewAccount(auth0Id) {
 		const account = {
-			auth0Id: id,
-			auth0IdProvider: idProvider,
+			auth0Id: auth0Id,
+			name: user.name,
+			email: user.email,
 			workspaces: []
 		};
 
-		await axios.post("http://localhost:5000/accounts/add", account)
+		await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/add/`, account)
 			.then((res) => console.log(res.data));
 	}
 
