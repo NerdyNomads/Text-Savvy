@@ -13,12 +13,8 @@ parserOptions:
 plugins:
   - react
 rules:
-  indent:
-    - error
-    - tab
-  linebreak-style:
-    - error
-    - windows
+  indent: ["error", 2]
+  linebreak-style: 0
   quotes:
     - error
     - double

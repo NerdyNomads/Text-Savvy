@@ -1,0 +1,84 @@
+.TextBoxEdit{
+    width: 355px;
+    height: 213px;
+    background-color: rgb(255, 255, 255);    
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+    margin: 10px;
+
+    min-width: 355px;
+    max-width: 355px;
+    min-height: 213px;
+    max-height: 213px;
+
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: center;
+    height: 100%;
+}
+
+.edit-header{
+  display: flex;
+  justify-content: end;
+}
+
+.delete-icon{
+  user-select:none;
+  cursor: pointer;
+  padding: 15px 20px;
+  padding-bottom: 0;
+  }
+
+.edit-body{
+    flex: 2;
+}
+
+.text-area {
+  border-style: hidden;
+  outline: none;
+  width: calc(100% - 70px);
+  margin: 0 20px;
+  padding: 0 15px;
+  word-break: break-all;
+  resize: none; 
+  font-family: inherit;
+  font-size: inherit;
+  height: 130px;
+}
+
+.edit-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.send-icon{
+  margin: 15px 20px;
+  margin-top: 0;
+  user-select:none;
+  cursor: pointer;
+}
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+/* custom scrollbar ends */ 
+
