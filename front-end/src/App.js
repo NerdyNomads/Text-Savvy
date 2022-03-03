@@ -7,7 +7,6 @@ import "./App.css";
 
 import axios from "axios";
 
-
 const mockData = [
   {	id: 1,
     text: "It does not matter how fast you go as long as you do not stop It does not matter how fast you go as long as you do not stop. do not stop.do nop. do not stop.do nop. do not stop.do n",
@@ -35,24 +34,9 @@ const mockData = [
 
   },];
 
-function App(){
+function App() {
 
-  const { isAuthenticated, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
-
-  /**
-   * This function only runs when the state "isAuthenticated" changes.
-   * If someone is currently logged in, then this checks if the account needs to be added to the database.
-   */
-  useEffect(async () => {
-    if (isAuthenticated) {
-      let userId = user.sub;
-      let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
-
-      if (await isNewAccount(auth0Id)) {
-        addNewAccount(auth0Id);
-      }
-    }
-  }, [isAuthenticated]);
+  const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
   /**
    * Checks if the user that is logged in has been added to the database.
@@ -83,9 +67,7 @@ function App(){
       .then((res) => console.log(res.data));
   }
 
-
-  useEffect(() => {
-
+  useEffect(async () => {
     if(isLoading){
       console.log("app is loading");
       return;
@@ -95,7 +77,17 @@ function App(){
       console.log("not authenticated. redirecting to login");
       loginWithRedirect();
       return;
+    
+    // If someone is currently logged in, then this checks if the account needs to be added to the database.
+    } else {
+      let userId = user.sub;
+      let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
+
+      if (await isNewAccount(auth0Id)) {
+        addNewAccount(auth0Id);
+      }
     }
+
     getToken({});
 
   }, [isLoading, isAuthenticated]);
