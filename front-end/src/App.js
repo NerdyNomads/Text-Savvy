@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
-import LoginButton from "./atoms/LoginButton";
 import LogoutButton from "./atoms/LogoutButton";
 import TextList from "./molecules/TextList";
 import "./App.css";
+
 
 
 const mockData = [
@@ -30,26 +31,49 @@ const mockData = [
   {
     id: 4,
     text: "According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway. Because bees don’t care what humans think is impossible.” SEQ. 75 - “INTRO TO BARRY” INT. BENSON HOUSE - DAY ANGLE ON: Sneakers on the ground. Camera PANS UP to reveal BARRY BENSON’S BEDROOM ANGLE ON: Barry’s hand flipping through different sweaters in his closet. BARRY Yellow black, yellow black, yellow black, yellow black, yellow black, yellow black...oohh, black and yellow... ANGLE ON: ",
-
     source: "https://cdn.vox-cdn.com/thumbor/zL48ecvX2NkW1cU0FEfgrCc7Rgo=/0x0:900x500/920x613/filters:focal(378x178:522x322):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/49493993/this-is-fine.0.jpg"
 
   },];
 
-function App() {
-  const { isAuthenticated } = useAuth0();
+function App(){
 
+  const { isAuthenticated, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+
+
+  useEffect(() => {
+
+    if(isLoading){
+      console.log("app is loading");
+      return;
+    }
+
+    if(!isAuthenticated){
+      console.log("not authenticated. redirecting to login");
+      loginWithRedirect();
+      return;
+    }
+    getToken({});
+
+  }, [isLoading, isAuthenticated]);
+
+  const getToken = (options) => {
+    console.log(`retrieving token for '${options.audience}'`);
+    getAccessTokenSilently(options).then()
+      .catch(e => {
+        console.error("failed to get token!", e);
+      });
+  };
+		
   if (!isAuthenticated) {
-    return <><LoginButton/></>;
-
-  } 
-  else {
+    return <></>;
+  } else {
     return (
       <div className="App">
         <LogoutButton/>
         <TextList list={mockData}/>
-        
       </div>
-    );}
+    );
+  }	
 }
 
 export default App;
