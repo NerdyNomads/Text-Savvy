@@ -7,6 +7,15 @@ fetch("http://localhost:5000/accounts")
     console.log("The fetch has been made. " + "The result is: " + result.JSON);
   });
 
+// Context menu items
+//--------------------------------------------------------------
+
+const parentContextMenuItem = {
+  id: "parent",
+  title: "Add to workspace",
+  contexts: ["selection"],
+};
+
 const workspaces = [
   {
     id: "1",
@@ -26,11 +35,11 @@ const workspaces = [
   },
 ];
 
-const parentContextMenuItem = {
-  id: "parent",
-  title: "Add to workspace",
-  contexts: ["selection"],
-};
+// Adding and removing the items
+//--------------------------------------------------------------
+
+// Make sure any other instance of our menus are removed first
+chrome.contextMenus.removeAll();
 
 chrome.contextMenus.create(parentContextMenuItem);
 
@@ -44,6 +53,9 @@ workspaces.map(({ id, name }) =>
   })
 );
 
+// Handling when a menu Item is clicked
+//--------------------------------------------------------------
+
 // Add functionality when an item is clicked
 chrome.contextMenus.onClicked.addListener((clickData) => {
   // Check if the menu item that was clicked was one of the workspaces
@@ -51,7 +63,9 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
 
   if (matchingIds.length != 1) {
     const errorMessage =
-			matchingIds.length === 0 ? "No workspace ID matched the menuID" : matchingIds.length + " IDs were found. They were: " + matchingIds;
+      matchingIds.length === 0
+        ? "No workspace ID matched the menuID"
+        : matchingIds.length + " IDs were found. They were: " + matchingIds;
 
     console.error(errorMessage);
   }
@@ -59,15 +73,11 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
   chrome.notifications.create({
     title: "Click Notifier",
     message:
-			"You clicked [" +
-			matchingIds[0].name +
-			"]. The text is: '" +
-			clickData.selectionText +
-			"'",
+      "You clicked [" + matchingIds[0].name + "]. The text is: '" + clickData.selectionText + "'",
     iconUrl: "Text Savvy Logo.png",
     type: "basic",
   });
-  
+
   const text = {
     method: "POST",
     headers: {
