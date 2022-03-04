@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
-import LogoutButton from "./atoms/LogoutButton";
-import TextList from "./molecules/TextList";
-
+import SideBar from "./organisms/Sidebar";
+import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
 
 function App() {
-  const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
+  
   const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
-  const [ textItems, setTextItems ] = useState(null);
-
-  /**
-   * Grabs data from the db.
-   * 
-   * @returns 				returns data from the db. 
-   */
-  async function getTexts() {
-    let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts`);
-    return result?.data;
-  }
-
-  useEffect(async () => {
-    let texts = await getTexts();
-    setDataIsLoaded(true);
-    if (dataIsLoaded) {
-      setTextItems(texts);
-    }
-  }, [dataIsLoaded]);
+  
 
   /**
    * Checks if the user that is logged in has been added to the database.
@@ -99,10 +79,8 @@ function App() {
   } else {
     return (
       <div className="App">
-        <LogoutButton/>
-        { textItems &&
-          <TextList list={textItems}/>
-        }    
+        <SideBar/>
+        <Dashboard/>
       </div>
     );
   }	

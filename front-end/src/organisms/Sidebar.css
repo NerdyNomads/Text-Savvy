@@ -1,10 +1,12 @@
-.sidebar {
-    background-color: #FFD89D;
-    width: 30vw;
-    position: absolute;
-    left: 5vh;
-    top: 5vh;
-    height: 30vh;
-    color: black;
-    border-radius: 5vh;
+.SideBar {
+    z-index: 2;
+
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #FFFFFF;
+    max-width: 200px;
+    min-width: 200px;
+    height: 100vh;
 }
