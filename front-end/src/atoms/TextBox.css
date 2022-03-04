@@ -28,6 +28,7 @@
 
 .source {
     user-select:none;
+    cursor:pointer;
 }
 
 .divider {

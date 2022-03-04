@@ -23,6 +23,16 @@ function TextBox({text, source}) {
     alert(`Temporary: ${text}`);
   };
 
+  const handleCopyLink = () => {
+    const temp = document.createElement("textarea");
+    temp.value = source;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    document.body.removeChild(temp);
+
+    alert(`Link copied: ${source}`);
+  };
 
   const handleDelete = () => {
     alert("Temporary: delete");
@@ -36,9 +46,9 @@ function TextBox({text, source}) {
       </div>
       <div className="divider"/>
       <div className="card-footer">
-        <a href={source} className="source" target="_blank" rel="noreferrer" >
+        <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
           <ChainIcon />
-        </a>
+        </div>
         <div onClick={handleDelete} className="delete">
           <TrashCanIcon/>
         </div>
