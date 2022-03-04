@@ -3,9 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import LogoutButton from "./atoms/LogoutButton";
 import TextList from "./molecules/TextList";
+
 import "./App.css";
 
 import axios from "axios";
+
 
 function App() {
   const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
@@ -91,7 +93,7 @@ function App() {
         console.error("failed to get token!", e);
       });
   };
-		
+
   if (!isAuthenticated) {
     return <></>;
   } else {

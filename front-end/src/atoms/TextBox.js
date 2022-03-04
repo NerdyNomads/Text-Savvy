@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { ChainIcon, TrashCanIcon } from "./icons";
+import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
 
 import axios from "axios";
@@ -34,27 +35,26 @@ function TextBox({textItem}) {
     alert(`Temporary: ${textItem.text}`);
   };
 
-
-  // const handleDelete = () => {
-  //   setIsDeleted(true);
-  //   // alert(`Status: ${status}`);
-  // };
-
   return (
-    <div className="TextBox">
-      <div className="text" onClick={handleCardClick}>
-        {formatText(textItem.text)}
-      </div>
-      <div className="divider"/>
-      <div className="card-footer">
-        <a href={textItem.source} className="source" target="_blank" rel="noreferrer" >
-          <ChainIcon />
-        </a>
-        <div onClick={() => handleDelete(textItem._id)} className="delete">
-          <TrashCanIcon/>
+    <>
+      <div className="TextBox">
+        <div className="text" onClick={handleCardClick}>
+          {formatText(textItem.text)}
+        </div>
+        <div className="divider"/>
+        <div className="card-footer">
+          <a href={textItem.source} className="source" target="_blank" rel="noreferrer" >
+            <ChainIcon />
+          </a>
+          <div onClick={() => handleDelete(textItem._id)} className="delete">
+            <TrashCanIcon/>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* //Text Pop Up */}
+      <TextBoxPopUp show={true} text={textItem.text} source={textItem.source}/>
+    </>
   );
 }
 

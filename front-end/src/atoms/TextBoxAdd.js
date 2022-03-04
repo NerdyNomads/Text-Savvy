@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import axios from "axios";
 
-import { AddIcon, PaperPlaneIcon, DeleteIcon } from "./icons";
+import { AddIcon, PaperPlaneIcon, ExitIcon } from "./icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
@@ -42,7 +42,7 @@ function TextBoxAdd() {
   editCard= <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
       <div className="delete-icon">
-        <DeleteIcon/>
+        <ExitIcon/>
       </div>
     </div>
     <div className="edit-body">
