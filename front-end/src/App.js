@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
+
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 import LogoutButton from "./atoms/LogoutButton";
 import TextList from "./molecules/TextList";
 
 import "./App.css";
-
-import axios from "axios";
 
 
 function App() {
@@ -102,7 +102,7 @@ function App() {
         <LogoutButton/>
         { textItems &&
           <TextList list={textItems}/>
-        }
+        }    
       </div>
     );
   }	

@@ -13,6 +13,7 @@ const MAX_CHARACTERS = 142;
 
 function TextBox({textItem}) {
   const [ texts, setTexts ] = useState([]);
+  const [showTextPopUp, setShowTextPopUp] = useState(false);
 
   const handleDelete = (id) => {
     axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`).then(() => {
@@ -22,23 +23,19 @@ function TextBox({textItem}) {
     alert(`Deleted text with ID: ${textItem._id}`);
   };
 
+
   const formatText = (t) => {
     if (t.length > MAX_CHARACTERS) {
       t = t.slice(0, MAX_CHARACTERS-4);
       t = `"${t}..."`;
     }
-
     return t;
-  };
-
-  const handleCardClick = () => {
-    alert(`Temporary: ${textItem.text}`);
   };
 
   return (
     <>
       <div className="TextBox">
-        <div className="text" onClick={handleCardClick}>
+        <div className="text" onClick={() => setShowTextPopUp(true)}>
           {formatText(textItem.text)}
         </div>
         <div className="divider"/>
@@ -53,7 +50,7 @@ function TextBox({textItem}) {
       </div>
 
       {/* //Text Pop Up */}
-      <TextBoxPopUp show={true} text={textItem.text} source={textItem.source}/>
+      <TextBoxPopUp show={showTextPopUp} text={textItem.text} source={textItem.source}/>
     </>
   );
 }
