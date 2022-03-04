@@ -32,6 +32,12 @@ function TextBox({text, source}) {
     document.body.removeChild(temp);
 
     alert(`Link copied: ${source}`);
+
+    text = document.getElementById("link");
+    if (text.childElementCount == 0) {
+      temp.className = "textarea";
+      text.appendChild(temp);
+    }
   };
 
   const handleDelete = () => {
@@ -48,6 +54,8 @@ function TextBox({text, source}) {
       <div className="card-footer">
         <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
           <ChainIcon />
+        </div>
+        <div id="link">
         </div>
         <div onClick={handleDelete} className="delete">
           <TrashCanIcon/>

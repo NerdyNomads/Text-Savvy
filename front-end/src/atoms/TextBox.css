@@ -19,6 +19,14 @@
     cursor: pointer;
 }
 
+.textarea {
+    resize: none;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    height: 30px;
+    width: 300px;
+}
+
 .card-footer {
     margin: 13px 20px;
     display: flex;
