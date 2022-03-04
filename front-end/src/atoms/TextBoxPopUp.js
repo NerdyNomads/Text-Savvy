@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { ChainIconSmallIcon, ExitIcon } from "./icons";
@@ -7,24 +7,18 @@ import "./TextBoxPopUp.css";
 
 const MAX_CHAR_FOR_SOURCE_TO_SHOW = 50;
 
-function TextBoxPopUp( {show, text, source,  } ) {
-
-  const [display, setDisplay] = useState(false);
+function TextBoxPopUp( {text, source, onChangeVisibility} ) {
 
   const handleBackgroundClick = (e) => {
     // clicked outside of modal
     if(e.target.className == "TextBoxPopUp-background") {
-      setDisplay(false);
+      onChangeVisibility(false);
     }
   };
 
   const handleExitClick = () => {
-    setDisplay(false);
+    onChangeVisibility(false);
   };
-
-  useEffect(() => {
-    setDisplay(show);
-  }, [show]);
 
   const handleOnSourceClick = () => {
     alert("Temporary: Link Clicked");
@@ -35,7 +29,6 @@ function TextBoxPopUp( {show, text, source,  } ) {
   };
 
   return (
-    display &&
     <div className="TextBoxPopUp-background" onClick={handleBackgroundClick}>
       <div className="TextBoxPopUp">
         <div className="TextBoxPopUp-exit" onClick={handleExitClick}>
@@ -60,11 +53,8 @@ function TextBoxPopUp( {show, text, source,  } ) {
 TextBoxPopUp.propTypes = {
   text: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
-  show: PropTypes.bool
+  onChangeVisibility: PropTypes.func.isRequired,
 };
 
-TextBoxPopUp.defaultProps = {
-  show: true
-};
 
 export default TextBoxPopUp;

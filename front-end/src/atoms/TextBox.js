@@ -32,6 +32,10 @@ function TextBox({textItem}) {
     return t;
   };
 
+  const handleOnChangeVisibility = (visible) => {
+    setShowTextPopUp(visible);
+  };
+
   return (
     <>
       <div className="TextBox">
@@ -49,8 +53,8 @@ function TextBox({textItem}) {
         </div>
       </div>
 
-      {/* //Text Pop Up */}
-      <TextBoxPopUp show={showTextPopUp} text={textItem.text} source={textItem.source}/>
+      {/* Text Pop Up */}
+      { showTextPopUp && <TextBoxPopUp onChangeVisibility={handleOnChangeVisibility} text={textItem.text} source={textItem.source}/>}
     </>
   );
 }
