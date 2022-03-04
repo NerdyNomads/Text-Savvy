@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable */
+
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import LoginButton from "./atoms/LoginButton";
@@ -6,6 +8,7 @@ import LogoutButton from "./atoms/LogoutButton";
 import TextList from "./molecules/TextList";
 import "./App.css";
 
+import axios from "axios";
 
 const mockData = [
   {	id: 1,
@@ -36,7 +39,27 @@ const mockData = [
   },];
 
 function App() {
+  const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
   const { isAuthenticated } = useAuth0();
+  const [ textItems, setTextItems ] = useState(null);
+
+  /**
+   * Grabs data from the db.
+   * 
+   * @returns 				returns data from the db. 
+   */
+  async function getTexts() {
+    let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts`);
+    return result?.data;
+  }
+
+  useEffect(async () => {
+    let texts = await getTexts();
+    setDataIsLoaded(true);
+    if (dataIsLoaded) {
+      setTextItems(texts);
+    }
+  }, [dataIsLoaded]);
 
   if (!isAuthenticated) {
     return <><LoginButton/></>;
@@ -46,8 +69,7 @@ function App() {
     return (
       <div className="App">
         <LogoutButton/>
-        <TextList list={mockData}/>
-        
+        <TextList list={textItems}/>
       </div>
     );}
 }

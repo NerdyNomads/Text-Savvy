@@ -11,13 +11,13 @@ const textSchema = new Schema({
 		type: String,
 	},
 	creationDate: {
-		type: Date,
+		type: Number,
 	},
 	updateDate: {
-		type: Date,
+		type: Number,
 	},
 	deleteDate: {
-		type: Date,
+		type: Number,
 	},
 });
 

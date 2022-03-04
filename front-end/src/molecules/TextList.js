@@ -9,7 +9,7 @@ function TextList( {list} ) {
 
   const renderList = () => {
     return list.map( (l) => {
-      return <TextBox key={l.id} text={l.text} source={l.source} />;
+      return <TextBox key={l._id} textItem={l}/>;
     });
   };
 
