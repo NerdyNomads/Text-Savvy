@@ -19,12 +19,13 @@
     cursor: pointer;
 }
 
-.textarea {
+.textfield {
     resize: none;
     overflow-wrap: normal;
     overflow-x: scroll;
-    height: 30px;
-    width: 300px;
+    height: 15px;
+    width: 250px;
+    margin-bottom: 20px;
 }
 
 .card-footer {

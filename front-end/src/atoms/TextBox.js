@@ -8,7 +8,7 @@ import "./TextBox.css";
 const MAX_CHARACTERS = 142;
 
 
-function TextBox({text, source}) {
+function TextBox({id, text, source}) {
 
   const formatText = (t) => {
     if (t.length > MAX_CHARACTERS) {
@@ -24,7 +24,7 @@ function TextBox({text, source}) {
   };
 
   const handleCopyLink = () => {
-    const temp = document.createElement("textarea");
+    var temp = document.createElement("textarea");
     temp.value = source;
     document.body.appendChild(temp);
     temp.select();
@@ -33,9 +33,12 @@ function TextBox({text, source}) {
 
     alert(`Link copied: ${source}`);
 
-    text = document.getElementById("link");
-    if (text.childElementCount == 0) {
-      temp.className = "textarea";
+    text = document.getElementById(id);
+    if (text.childElementCount == 0) { //Show the textfield 
+      temp = document.createElement("input");
+      temp.value = source;
+      temp.readOnly = true;
+      temp.className = "textfield";
       text.appendChild(temp);
     }
   };
@@ -55,7 +58,7 @@ function TextBox({text, source}) {
         <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
           <ChainIcon />
         </div>
-        <div id="link">
+        <div id={id}>
         </div>
         <div onClick={handleDelete} className="delete">
           <TrashCanIcon/>
@@ -67,8 +70,8 @@ function TextBox({text, source}) {
 
 TextBox.propTypes = {
   text: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired
-
+  source: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default TextBox;
