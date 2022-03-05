@@ -30,11 +30,8 @@ app.use("/workspaces", workspacesRouter);
 app.use("/texts", textsRouter);
 app.use("/accounts", accountsRouter);
 
-// GET method to test connection
-app.get("/api", (req, res) => {
-	res.send({ message: "Express backend connected!" });
-});
-
 app.listen(port, () => {
 	console.log(`Server is running on port: ${port}`);
 });
+
+module.exports = app;
