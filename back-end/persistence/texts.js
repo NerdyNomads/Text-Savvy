@@ -12,12 +12,20 @@ router.route("/add").post((req, res) => {
 	const text = req.body.text;
 	const source = req.body.source;
 	const creationDate = req.body.creationDate;
+	const deleteDate = req.body.deleteDate;
+	const updateDate = req.body.updateDate;
 
-	const newText = new Text({ text, source, creationDate });
+	const newText = new Text({ text, source, creationDate, deleteDate, updateDate });
 
 	newText
 		.save()
 		.then(() => res.json("Text added!"))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/:id").delete((req, res) => {
+	Text.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Text Deleted.'))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 

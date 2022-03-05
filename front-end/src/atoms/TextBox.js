@@ -1,77 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { ChainIcon, TrashCanIcon } from "./icons";
+import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
+
+import axios from "axios";
 
 
 const MAX_CHARACTERS = 142;
 
+function TextBox({textItem}) {
+  const [ texts, setTexts ] = useState([]);
+  const [showTextPopUp, setShowTextPopUp] = useState(false);
 
-function TextBox({id, text, source}) {
+  const handleDelete = (id) => {
+    axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`).then(() => {
+      const del = texts.filter(text => id !== text._id);
+      setTexts(del);
+    });
+    alert(`Deleted text with ID: ${textItem._id}`);
+  };
+
 
   const formatText = (t) => {
     if (t.length > MAX_CHARACTERS) {
       t = t.slice(0, MAX_CHARACTERS-4);
       t = `"${t}..."`;
     }
-
     return t;
   };
 
-  const handleCardClick = () => {
-    alert(`Temporary: ${text}`);
+  const handleOnChangeVisibility = (visible) => {
+    setShowTextPopUp(visible);
   };
 
   const handleCopyLink = () => {
     var temp = document.createElement("textarea");
-    temp.value = source;
+    temp.value = textItem.source;
     document.body.appendChild(temp);
     temp.select();
     document.execCommand("copy");
     document.body.removeChild(temp);
 
-    alert(`Link copied: ${source}`);
+    alert(`Link copied: ${textItem.source}`);
 
-    var textfield = document.getElementById(id);
+    var textfield = document.getElementById(textItem._id);
     if (textfield.childElementCount == 0) { //Show the textfield 
       temp = document.createElement("input");
-      temp.value = source;
+      temp.value = textItem.source;
       temp.readOnly = true;
       temp.className = "textfield";
       textfield.appendChild(temp);
     }
   };
 
-  const handleDelete = () => {
-    alert("Temporary: delete");
-  };
-
-
   return (
-    <div className="TextBox">
-      <div className="text" onClick={handleCardClick}>
-        {formatText(text)}
+    <>
+      <div className="TextBox">
+        <div className="text" onClick={() => setShowTextPopUp(true)}>
+          {formatText(textItem.text)}
+        </div>
+        <div className="divider"/>
+        <div className="card-footer">
+          <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
+            <ChainIcon />
+          </div>
+          <div id={textItem._id}>
+          </div>
+          <div onClick={() => handleDelete(textItem._id)} className="delete">
+            <TrashCanIcon/>
+          </div>
+        </div>
       </div>
-      <div className="divider"/>
-      <div className="card-footer">
-        <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
-          <ChainIcon />
-        </div>
-        <div id={id}>
-        </div>
-        <div onClick={handleDelete} className="delete">
-          <TrashCanIcon/>
-        </div>
-      </div>
-    </div>
+
+      {/* Text Pop Up */}
+      { showTextPopUp && <TextBoxPopUp onChangeVisibility={handleOnChangeVisibility} text={textItem.text} source={textItem.source}/>}
+    </>
   );
 }
 
 TextBox.propTypes = {
-  text: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  textItem: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired,
+    creationDate: PropTypes.number.isRequired
+  })
 };
 
 export default TextBox;

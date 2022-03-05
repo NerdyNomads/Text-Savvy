@@ -5,11 +5,23 @@ export function BookMarkIcon() {
   return <img alt="bookmark" src="/assets/images/bookmark.svg" className="icon"/>;
 }
 
+export function ChainIconSmallIcon() {
+  return <img alt="chain_sm" src="/assets/images/chain_sm.svg" className="icon"/>;
+}
+
 export function ChainIcon() {
   return <img alt="link" src="/assets/images/chain.svg" className="icon"/>;
 }
 
-export function DeleteIcon() {
+export function LogoutIcon() {
+  return <img alt="logout" src="/assets/images/logout.svg" className="icon"/>;
+}
+
+export function GearSmallIcon() {
+  return <img alt="gear" src="/assets/images/gear_sm.svg" className="icon"/>;
+}
+
+export function ExitIcon() {
   return <img alt="cross" src="/assets/images/delete.svg" className="icon-delete"/>;
 }
 

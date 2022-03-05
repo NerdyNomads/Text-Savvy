@@ -6,6 +6,7 @@
     border-radius: 15px;
     margin: 10px;
     min-width: 355px;
+    min-height: 213px;
 }
 
 .TextBox:hover {     
@@ -15,6 +16,7 @@
 .text {
     margin: 45px 45px;
     margin-bottom: 70px;
+    min-height: 45px;
     max-height: 45px;
     cursor: pointer;
 }

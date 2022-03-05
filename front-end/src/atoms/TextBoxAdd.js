@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import axios from "axios";
 
-import { AddIcon, PaperPlaneIcon, DeleteIcon, ChainIcon } from "./icons";
+import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "./icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
@@ -29,7 +29,9 @@ function TextBoxAdd() {
     const text = {
       text: textAreaVal,
       source: "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjWisuI0qX2AhWpJjQIHbKHBJoQPAgI",
-      creationDate: new Date(),
+      creationDate: Date.now(),
+      updateDate: null,
+      deleteDate: null
     };
 
     axios
@@ -49,7 +51,7 @@ function TextBoxAdd() {
   editCard= <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
       <div className="delete-icon">
-        <DeleteIcon/>
+        <ExitIcon/>
       </div>
     </div>
     <div className="edit-body">
