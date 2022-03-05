@@ -10,7 +10,6 @@ import axios from "axios";
 
 const MAX_CHARACTERS = 142;
 
-
 function TextBox({textItem}) {
   const [ texts, setTexts ] = useState([]);
   const [showTextPopUp, setShowTextPopUp] = useState(false);
@@ -36,6 +35,26 @@ function TextBox({textItem}) {
     setShowTextPopUp(visible);
   };
 
+  const handleCopyLink = () => {
+    var temp = document.createElement("textarea");
+    temp.value = textItem.source;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    document.body.removeChild(temp);
+
+    alert(`Link copied: ${textItem.source}`);
+
+    var textfield = document.getElementById(textItem._id);
+    if (textfield.childElementCount == 0) { //Show the textfield 
+      temp = document.createElement("input");
+      temp.value = textItem.source;
+      temp.readOnly = true;
+      temp.className = "textfield";
+      textfield.appendChild(temp);
+    }
+  };
+
   return (
     <>
       <div className="TextBox">
@@ -44,9 +63,11 @@ function TextBox({textItem}) {
         </div>
         <div className="divider"/>
         <div className="card-footer">
-          <a href={textItem.source} className="source" target="_blank" rel="noreferrer" >
+          <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
             <ChainIcon />
-          </a>
+          </div>
+          <div id={textItem._id}>
+          </div>
           <div onClick={() => handleDelete(textItem._id)} className="delete">
             <TrashCanIcon/>
           </div>

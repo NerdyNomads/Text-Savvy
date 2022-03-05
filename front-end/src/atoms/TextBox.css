@@ -21,15 +21,27 @@
     cursor: pointer;
 }
 
+.textfield {
+    height: 15px;
+    width: 250px;
+    align-self: flex-end;
+    font-size: 12px;
+    color: #808080;
+    font-style: italic;
+    border: none;
+}
+
 .card-footer {
     margin: 13px 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 .source {
     user-select:none;
+    cursor:pointer;
 }
 
 .divider {

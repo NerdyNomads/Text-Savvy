@@ -48,13 +48,15 @@
 }
 
 .edit-footer{
+  margin: 13px 20px;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .send-icon{
-  margin: 15px 20px;
+  margin: 2px 5px;
   margin-top: 0;
   user-select:none;
   cursor: pointer;
