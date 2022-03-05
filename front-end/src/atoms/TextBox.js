@@ -10,7 +10,8 @@ import axios from "axios";
 
 const MAX_CHARACTERS = 142;
 
-function TextBox({textItem}) {
+
+function TextBox({textItem, onDelete}) {
   const [ texts, setTexts ] = useState([]);
   const [showTextPopUp, setShowTextPopUp] = useState(false);
 
@@ -19,7 +20,7 @@ function TextBox({textItem}) {
       const del = texts.filter(text => id !== text._id);
       setTexts(del);
     });
-    alert(`Deleted text with ID: ${textItem._id}`);
+    onDelete(id);
   };
 
 
@@ -86,7 +87,8 @@ TextBox.propTypes = {
     text: PropTypes.string.isRequired,
     source: PropTypes.string.isRequired,
     creationDate: PropTypes.number.isRequired
-  })
+  }),
+  onDelete: PropTypes.func.isRequired
 };
 
 export default TextBox;
