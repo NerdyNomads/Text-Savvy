@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { ChainIcon, TrashCanIcon } from "./icons";
 import "./TextBox.css";
 
+import axios from "axios";
+
 
 const MAX_CHARACTERS = 142;
 
 
-function TextBox({text, source}) {
+function TextBox({textItem}) {
+  const [ texts, setTexts ] = useState([]);
+
+  const handleDelete = (id) => {
+    axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`).then(() => {
+      const del = texts.filter(text => id !== text._id);
+      setTexts(del);
+    });
+    alert(`Deleted text with ID: ${textItem._id}`);
+  };
 
   const formatText = (t) => {
     if (t.length > MAX_CHARACTERS) {
@@ -20,26 +31,26 @@ function TextBox({text, source}) {
   };
 
   const handleCardClick = () => {
-    alert(`Temporary: ${text}`);
+    alert(`Temporary: ${textItem.text}`);
   };
 
 
-  const handleDelete = () => {
-    alert("Temporary: delete");
-  };
-
+  // const handleDelete = () => {
+  //   setIsDeleted(true);
+  //   // alert(`Status: ${status}`);
+  // };
 
   return (
     <div className="TextBox">
       <div className="text" onClick={handleCardClick}>
-        {formatText(text)}
+        {formatText(textItem.text)}
       </div>
       <div className="divider"/>
       <div className="card-footer">
-        <a href={source} className="source" target="_blank" rel="noreferrer" >
+        <a href={textItem.source} className="source" target="_blank" rel="noreferrer" >
           <ChainIcon />
         </a>
-        <div onClick={handleDelete} className="delete">
+        <div onClick={() => handleDelete(textItem._id)} className="delete">
           <TrashCanIcon/>
         </div>
       </div>
@@ -48,9 +59,12 @@ function TextBox({text, source}) {
 }
 
 TextBox.propTypes = {
-  text: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired
-
+  textItem: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired,
+    creationDate: PropTypes.number.isRequired
+  })
 };
 
 export default TextBox;

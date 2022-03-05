@@ -19,20 +19,20 @@ const parentContextMenuItem = {
 const workspaces = [
   {
     id: "1",
-    name: "Science Notes",
-  },
-  {
-    id: "2",
-    name: "Funny Quotes",
-  },
-  {
-    id: "3",
-    name: "Research Paper Notes",
-  },
-  {
-    id: "4",
-    name: "Places to Explore",
-  },
+    name: "Science Notes"
+  }
+  // {
+  //   id: "2",
+  //   name: "Funny Quotes",
+  // },
+  // {
+  //   id: "3",
+  //   name: "Research Paper Notes",
+  // },
+  // {
+  //   id: "4",
+  //   name: "Places to Explore",
+  // },
 ];
 
 // Adding and removing the items
@@ -87,7 +87,9 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
     body: JSON.stringify({
       text: clickData.selectionText,
       source: clickData.pageUrl,
-      creationDate: new Date(),
+      creationDate: Date.now(),
+      updateDate: null,
+      deleteDate: null
     }),
   };
 

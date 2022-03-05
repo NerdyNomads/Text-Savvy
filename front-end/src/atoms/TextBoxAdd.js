@@ -29,7 +29,9 @@ function TextBoxAdd() {
     const text = {
       text: textAreaVal,
       source: "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjWisuI0qX2AhWpJjQIHbKHBJoQPAgI",
-      creationDate: new Date(),
+      creationDate: Date.now(),
+      updateDate: null,
+      deleteDate: null
     };
 
     axios
