@@ -33,13 +33,13 @@ function TextBox({id, text, source}) {
 
     alert(`Link copied: ${source}`);
 
-    text = document.getElementById(id);
-    if (text.childElementCount == 0) { //Show the textfield 
+    var textfield = document.getElementById(id);
+    if (textfield.childElementCount == 0) { //Show the textfield 
       temp = document.createElement("input");
       temp.value = source;
       temp.readOnly = true;
       temp.className = "textfield";
-      text.appendChild(temp);
+      textfield.appendChild(temp);
     }
   };
 

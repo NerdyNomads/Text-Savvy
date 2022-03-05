@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import axios from "axios";
 
-import { AddIcon, PaperPlaneIcon, DeleteIcon } from "./icons";
+import { AddIcon, PaperPlaneIcon, DeleteIcon, ChainIcon } from "./icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
@@ -37,6 +37,15 @@ function TextBoxAdd() {
       .then((res) => console.log(res.data));
   };
 
+  const handleAddLink = () => {
+    var textfield = document.getElementById("test1");
+    if (textfield.childElementCount == 0) { //Show the textfield 
+      var temp = document.createElement("input");
+      temp.className = "source-field";
+      textfield.appendChild(temp);
+    }
+  };
+
   editCard= <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
       <div className="delete-icon">
@@ -58,7 +67,13 @@ function TextBoxAdd() {
           }
         }/>
     </div>
+    <div className="divider"/>
     <div className="edit-footer">
+      <div className="source" target="_blank" rel="noreferrer" onClick={handleAddLink}>
+        <ChainIcon />
+      </div>
+      <div id="test1">        
+      </div>
       <div className="send-icon" onClick={handleOnTextSubmit}>
         <PaperPlaneIcon/>
       </div>

@@ -35,3 +35,11 @@
     color: #AAAAAA;
     user-select:none;
 }
+
+.source-field {
+    height: 15px;
+    width: 250px;
+    align-self: flex-end;
+    font-size: 12px;
+    border: show;
+}
