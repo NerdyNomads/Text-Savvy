@@ -13,4 +13,4 @@
       - Milestone
       - Linked Issues
 - [ ] All linter rules passed
-- [ ] Auto-build success (TBA)
+- [ ] Auto-build success
