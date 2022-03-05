@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import PropTypes from "prop-types";
 
 import TextBox from "../atoms/TextBox";
 import TextBoxAdd from "../atoms/TextBoxAdd";
@@ -10,7 +9,6 @@ import axios from "axios";
 function TextList() {
   const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
   const [ textItems, setTextItems ] = useState(null);
-  // const [ texts, setTexts ] = useState([]);
 
   const handleDelete = (id) => {
     // delete item in JSON based on id
@@ -44,9 +42,5 @@ function TextList() {
     </div>
   );
 }
-
-// TextList.propTypes = {
-//   list: PropTypes.array.isRequired
-// };
 
 export default TextList;
