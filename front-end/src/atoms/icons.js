@@ -13,6 +13,14 @@ export function ChainIcon() {
   return <img alt="link" src="/assets/images/chain.svg" className="icon"/>;
 }
 
+export function LogoutIcon() {
+  return <img alt="logout" src="/assets/images/logout.svg" className="icon"/>;
+}
+
+export function GearSmallIcon() {
+  return <img alt="gear" src="/assets/images/gear_sm.svg" className="icon"/>;
+}
+
 export function ExitIcon() {
   return <img alt="cross" src="/assets/images/delete.svg" className="icon-delete"/>;
 }
