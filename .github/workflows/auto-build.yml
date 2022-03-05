@@ -16,14 +16,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     
-    - name: Install dependencies
+    - name: Install frontend dependencies
       working-directory: ./front-end
+      run: npm install
+
+    - name: Install backend dependencies
+      working-directory: ./back-end
       run: npm install
   
     - name: Build
       working-directory: ./front-end
       run: npm run build
 
-    - name: Run Backend Tests
+    - name: Run backend tests
       working-directory: ./back-end
       run: npm run test
