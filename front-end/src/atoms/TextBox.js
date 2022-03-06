@@ -7,20 +7,15 @@ import "./TextBox.css";
 
 import axios from "axios";
 
-
 const MAX_CHARACTERS = 142;
 
-
 function TextBox({textItem, onDelete}) {
-  const [ texts, setTexts ] = useState([]);
   const [showTextPopUp, setShowTextPopUp] = useState(false);
 
   const handleDelete = (id) => {
     axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`).then(() => {
-      const del = texts.filter(text => id !== text._id);
-      setTexts(del);
+      onDelete(id);
     });
-    onDelete(id);
   };
 
   const formatText = (t) => {

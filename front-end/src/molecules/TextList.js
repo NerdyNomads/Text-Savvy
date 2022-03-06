@@ -11,18 +11,15 @@ function TextList() {
   const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
   const [ textItems, setTextItems ] = useState(null);
 
-  const handleSubmit = async (textAdd) => {
-    console.log(textAdd);
-    const newRenderedItem = textAdd;
-    setTextItems(newRenderedItem);
-    console.log(textItems);
+  const handleSubmit = async () => {
+    let newTextItems = await getTexts();
+    setTextItems(newTextItems);
   };
   
   const handleDelete = (id) => {
     // delete item in JSON based on id
     const newRenderedItem = textItems.filter(text => id !== text._id);
     setTextItems(newRenderedItem);
-    console.log(textItems);
   };
 
   async function getTexts() {
@@ -51,7 +48,7 @@ function TextList() {
   return (
     <div className= "text-list">
       {renderList()}
-      {<TextBoxAdd showInput={false} onSubmit = {(textAdd) => handleSubmit(textAdd)}/>}
+      {<TextBoxAdd showInput={false} onSubmit = {() => handleSubmit()}/>}
     </div>
   );
 }
