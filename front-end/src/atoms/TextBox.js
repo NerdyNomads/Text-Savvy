@@ -23,7 +23,6 @@ function TextBox({textItem, onDelete}) {
     onDelete(id);
   };
 
-
   const formatText = (t) => {
     if (t.length > MAX_CHARACTERS) {
       t = t.slice(0, MAX_CHARACTERS-4);
