@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import axios from "axios";
 
@@ -6,29 +7,33 @@ import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "./icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
-
-function TextBoxAdd() {
+function TextBoxAdd({onSubmit}) {
 
   const [edit, setEdit] = useState(false);
-  const [textAreaVal, setTextAreaVal] = useState();
+  const [textAreaVal, setTextAreaVal] = useState("");
+  const [sourceFieldVal, setSourceFieldVal] = useState("");
 
   let editCard;
   let addSign;
 
-
   const handleOnTextCancel = () => {
+    resetValues();
+  };
+
+  const resetValues = () => {
     setTextAreaVal("");
+    setSourceFieldVal("");
     setEdit(false);
   };
+
   const handleAddCardClick = () => {
     setEdit(true);
   };
 
-  const handleOnTextSubmit = () => {
-
+  const handleOnTextSubmit = async () => {
     const text = {
       text: textAreaVal,
-      source: "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjWisuI0qX2AhWpJjQIHbKHBJoQPAgI",
+      source: sourceFieldVal,
       creationDate: Date.now(),
       updateDate: null,
       deleteDate: null
@@ -36,16 +41,13 @@ function TextBoxAdd() {
 
     axios
       .post(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, text)
-      .then((res) => console.log(res.data));
-  };
+      .then(() => {
+        onSubmit();
+      });
 
-  const handleAddLink = () => {
-    var textfield = document.getElementById("test1");
-    if (textfield.childElementCount == 0) { //Show the textfield 
-      var temp = document.createElement("input");
-      temp.className = "source-field";
-      textfield.appendChild(temp);
-    }
+    setTimeout(() => {
+      resetValues();
+    }, 130);
   };
 
   editCard= <div className="TextBoxEdit">
@@ -62,7 +64,6 @@ function TextBoxAdd() {
         value = {textAreaVal}
         onChange={
           (event)=>{
-            console.log(event.target.value);
             setTextAreaVal(() =>
               event.target.value
             );
@@ -71,19 +72,27 @@ function TextBoxAdd() {
     </div>
     <div className="divider"/>
     <div className="edit-footer">
-      <div className="source" target="_blank" rel="noreferrer" onClick={handleAddLink}>
+      <div className="source" target="_blank" rel="noreferrer">
         <ChainIcon />
       </div>
-      <div id="test1">        
+      <div id="source">
+        <input 
+          className="source-field" 
+          type="text" 
+          value = {sourceFieldVal}
+          onChange={
+            (event)=>{
+              setSourceFieldVal(() =>
+                event.target.value
+              );
+            }
+          }/>        
       </div>
       <div className="send-icon" onClick={handleOnTextSubmit}>
         <PaperPlaneIcon/>
       </div>
     </div>
-
   </div>;
-
-
 
   addSign = <div className="TextBoxAdd" onClick={handleAddCardClick}>
     <div className="text-box-add-content">
@@ -98,5 +107,9 @@ function TextBoxAdd() {
     <>{ edit ? editCard : addSign}</>
   );
 }
+
+TextBoxAdd.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default TextBoxAdd;

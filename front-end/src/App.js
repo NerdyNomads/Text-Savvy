@@ -42,6 +42,7 @@ function App() {
   }
 
   useEffect(async () => {
+    let abortController = new AbortController();
     if(isLoading){
       console.log("app is loading");
       return;
@@ -63,7 +64,9 @@ function App() {
     }
 
     getToken({});
-
+    return () => {  
+      abortController.abort();  
+    }; 
   }, [isLoading, isAuthenticated]);
 
   const getToken = (options) => {

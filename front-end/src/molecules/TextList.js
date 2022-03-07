@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 
 import TextBox from "../atoms/TextBox";
@@ -10,6 +11,11 @@ function TextList() {
   const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
   const [ textItems, setTextItems ] = useState(null);
 
+  const handleSubmit = async () => {
+    let newTextItems = await getTexts();
+    setTextItems(newTextItems);
+  };
+  
   const handleDelete = (id) => {
     // delete item in JSON based on id
     const newRenderedItem = textItems.filter(text => id !== text._id);
@@ -22,23 +28,27 @@ function TextList() {
   }
 
   useEffect(async () => {
+    let abortController = new AbortController();
     let dbTexts = await getTexts();
     setDataIsLoaded(true);
     if (dataIsLoaded) {
       setTextItems(dbTexts);
     }
+    return () => {  
+      abortController.abort();  
+    } 
   }, [dataIsLoaded]);
 
   const renderList = () => {
-    return textItems && textItems.map( (l) => {
-      return <TextBox key={l._id} textItem={l} onDelete = {(id) => handleDelete(id)}/>;
+    return textItems && textItems.map( (text) => {
+      return <TextBox key={text._id} textItem={text} onDelete = {(id) => handleDelete(id)}/>;
     });
   };
 
   return (
     <div className= "text-list">
       {renderList()}
-      {<TextBoxAdd showInput={false}/>}
+      {<TextBoxAdd showInput={false} onSubmit = {() => handleSubmit()}/>}
     </div>
   );
 }
