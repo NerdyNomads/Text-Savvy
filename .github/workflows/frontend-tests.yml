@@ -20,7 +20,6 @@ jobs:
       working-directory: ./front-end
       run: npm install
 
-    # TODO: Uncomment once we have frontend tests
-    # - name: Run frontend tests
-    #   working-directory: ./front-end
-    #   run: npm test
+    - name: Run frontend tests
+      working-directory: ./front-end
+      run: npm test
