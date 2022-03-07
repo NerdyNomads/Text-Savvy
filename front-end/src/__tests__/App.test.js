@@ -10,11 +10,6 @@ import Dashboard from "../pages/Dashboard";
 
 jest.mock("@auth0/auth0-react"); 
 
-jest.mock("React", () => ({
-  ...jest.requireActual("React"),
-  useEffect: jest.fn()
-}));
-
 const auth0User = {
   sub: "abc|12345",
   nickname: "Test"
