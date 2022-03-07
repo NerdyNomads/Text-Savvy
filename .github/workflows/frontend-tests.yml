@@ -1,4 +1,4 @@
-name: Auto Build
+name: Frontend Tests
 
 on:
   push:
@@ -19,7 +19,8 @@ jobs:
     - name: Install frontend dependencies
       working-directory: ./front-end
       run: npm install
-  
-    - name: Build
-      working-directory: ./front-end
-      run: npm run build
+
+    # TODO: Uncomment once we have frontend tests
+    # - name: Run frontend tests
+    #   working-directory: ./front-end
+    #   run: npm test
