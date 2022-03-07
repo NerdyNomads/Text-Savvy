@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should match the snapshot. 1`] = `"<div class=\\"TextBox\\"><div class=\\"text\\">Test Text</div><div class=\\"divider\\"></div><div class=\\"card-footer\\"><div class=\\"source\\" target=\\"_blank\\" rel=\\"noreferrer\\"><img alt=\\"link\\" src=\\"/assets/images/chain.svg\\" class=\\"icon\\"/></div><div id=\\"1\\"></div><div class=\\"delete\\"><img alt=\\"trash can\\" src=\\"/assets/images/trash_can.svg\\" class=\\"icon\\"/></div></div></div>"`;
