@@ -21,8 +21,9 @@ const workspaces = [
 
 
 const formatText = (input) => {
+  
   input = input.slice(0, MAX_TEXT_NOTIF_CHARACTERS); 
-  return `"${input}..."`;
+  return input.length > MAX_TEXT_NOTIF_CHARACTERS ? `"${input}..."` : input ;
 };
 
 const checkWorkspaceExistance = (id) => {
@@ -46,7 +47,7 @@ const createNotification = (text) => {
   chrome.notifications.create({
     title: "Text Saved",
     message:
-      `The text ${text} has been added to your workspace.`,
+      `The text "${text}" has been added to your workspace.`,
     iconUrl: "logo.png",
     type: "basic",
   });
