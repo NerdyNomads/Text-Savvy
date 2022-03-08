@@ -1,6 +1,8 @@
 /*global chrome*/
 
-fetch("http://localhost:5000/accounts")
+const serverAddr = "http://localhost:5000";
+
+fetch(`${serverAddr}/accounts`)
   .then((r) => r.text())
   .then((result) => {
     // Result now contains the response text, do what you want...
@@ -19,20 +21,8 @@ const parentContextMenuItem = {
 const workspaces = [
   {
     id: "1",
-    name: "Science Notes"
+    name: "My Workspace"
   }
-  // {
-  //   id: "2",
-  //   name: "Funny Quotes",
-  // },
-  // {
-  //   id: "3",
-  //   name: "Research Paper Notes",
-  // },
-  // {
-  //   id: "4",
-  //   name: "Places to Explore",
-  // },
 ];
 
 // Adding and removing the items
@@ -71,10 +61,10 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
   }
 
   chrome.notifications.create({
-    title: "Click Notifier",
+    title: "Text Saved",
     message:
-      "You clicked [" + matchingIds[0].name + "]. The text is: '" + clickData.selectionText + "'",
-    iconUrl: "Text Savvy Logo.png",
+      "The text has been added to your workspace: " + clickData.selectionText + ".'",
+    iconUrl: "logo.png",
     type: "basic",
   });
 
@@ -93,7 +83,7 @@ chrome.contextMenus.onClicked.addListener((clickData) => {
     }),
   };
 
-  fetch("http://localhost:5000/texts/add", text)
+  fetch(`${serverAddr}/texts/add`, text)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

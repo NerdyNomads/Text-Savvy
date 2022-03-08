@@ -5,24 +5,26 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "browser_action": {
-    "default_popup": "index.html",
-    "default_title": "Open the popup"
+    "default_popup": "popup.html"
   },
   "icons": {
-    "16": "Text Savvy Logo.png",
-    "48": "Text Savvy Logo.png",
-    "128": "Text Savvy Logo.png"
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
   },
   "background": {
     "scripts": [
-      "eventPage.js"
+      "eventPage.js",
+      "popup.js"
     ],
     "persistent": false
   },
   "permissions": [
     "contextMenus",
     "notifications",
-    "https://localhost5000/*"
+    "https://localhost:5000/*",
+    "https://localhost:3000/*"
+
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
