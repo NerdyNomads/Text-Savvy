@@ -47,8 +47,8 @@ function TextList() {
 
   return (
     <div className= "text-list">
-      {renderList()}
       {<TextBoxAdd showInput={false} onSubmit = {() => handleSubmit()}/>}
+      {renderList()}
     </div>
   );
 }

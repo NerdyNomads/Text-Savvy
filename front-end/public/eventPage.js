@@ -1,11 +1,7 @@
 /*global chrome*/
 
-fetch("http://localhost:5000/accounts")
-  .then((r) => r.text())
-  .then((result) => {
-    // Result now contains the response text, do what you want...
-    console.log("The fetch has been made. " + "The result is: " + result.JSON);
-  });
+const MAX_TEXT_NOTIF_CHARACTERS = 20;
+const serverAddr = "http://localhost:5000";
 
 // Context menu items
 //--------------------------------------------------------------
@@ -19,21 +15,77 @@ const parentContextMenuItem = {
 const workspaces = [
   {
     id: "1",
-    name: "Science Notes"
+    name: "My Workspace"
   }
-  // {
-  //   id: "2",
-  //   name: "Funny Quotes",
-  // },
-  // {
-  //   id: "3",
-  //   name: "Research Paper Notes",
-  // },
-  // {
-  //   id: "4",
-  //   name: "Places to Explore",
-  // },
 ];
+
+
+const formatText = (input) => {
+  
+  input = input.slice(0, MAX_TEXT_NOTIF_CHARACTERS); 
+  return input.length > MAX_TEXT_NOTIF_CHARACTERS ? `"${input}..."` : `"${input}"` ;
+};
+
+const checkWorkspaceExistance = (id) => {
+
+  // Check if the menu item that was clicked was one of the workspaces
+  const matchingIds = workspaces.filter((workspace) => id === workspace.id);
+
+  if (matchingIds.length != 1) {
+    const errorMessage =
+      matchingIds.length === 0
+        ? "No workspace ID matched the menuID"
+        : matchingIds.length + " IDs were found. They were: " + matchingIds;
+
+    console.error(errorMessage);
+  }
+
+};
+
+const createNotification = (text) => {
+
+  chrome.notifications.create({
+    title: "Text Saved",
+    message:
+      `The text ${text} has been added to your workspace.`,
+    iconUrl: "logo.png",
+    type: "basic",
+  });
+};
+
+const saveTextToDb = (text, source) => {
+
+  const packedData = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      text: text,
+      source: source,
+      creationDate: Date.now(),
+      updateDate: null,
+      deleteDate: null
+    }),
+  };
+
+  fetch(`${serverAddr}/texts/add`, packedData)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+
+};
+
+
+fetch(`${serverAddr}/accounts`)
+  .then((r) => r.text())
+  .then((result) => {
+    // Result now contains the response text, do what you want...
+    console.log("The fetch has been made. " + "The result is: " + result.JSON);
+  });
+
 
 // Adding and removing the items
 //--------------------------------------------------------------
@@ -58,44 +110,13 @@ workspaces.map(({ id, name }) =>
 
 // Add functionality when an item is clicked
 chrome.contextMenus.onClicked.addListener((clickData) => {
-  // Check if the menu item that was clicked was one of the workspaces
-  const matchingIds = workspaces.filter((workspace) => clickData.menuItemId === workspace.id);
+  
+  checkWorkspaceExistance(clickData.menuItemId);
 
-  if (matchingIds.length != 1) {
-    const errorMessage =
-      matchingIds.length === 0
-        ? "No workspace ID matched the menuID"
-        : matchingIds.length + " IDs were found. They were: " + matchingIds;
+  const notificationTextFormatted = formatText(clickData.selectionText);
 
-    console.error(errorMessage);
-  }
+  createNotification(notificationTextFormatted);
 
-  chrome.notifications.create({
-    title: "Click Notifier",
-    message:
-      "You clicked [" + matchingIds[0].name + "]. The text is: '" + clickData.selectionText + "'",
-    iconUrl: "Text Savvy Logo.png",
-    type: "basic",
-  });
+  saveTextToDb(clickData.selectionText, clickData.pageUrl);
 
-  const text = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify({
-      text: clickData.selectionText,
-      source: clickData.pageUrl,
-      creationDate: Date.now(),
-      updateDate: null,
-      deleteDate: null
-    }),
-  };
-
-  fetch("http://localhost:5000/texts/add", text)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
 });
