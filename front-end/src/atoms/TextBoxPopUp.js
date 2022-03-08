@@ -21,7 +21,15 @@ function TextBoxPopUp( {text, source, onChangeVisibility} ) {
   };
 
   const handleOnSourceClick = () => {
-    alert("Temporary: Link Clicked");
+    alert(`Link copied: ${source}`);
+
+    //Create a temporary element to be able to copy the source
+    var temp = document.createElement("textarea");
+    temp.value = source;
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    document.body.removeChild(temp);
   };
 
   const renderSource = (srcText) => {
@@ -39,7 +47,7 @@ function TextBoxPopUp( {text, source, onChangeVisibility} ) {
             <ChainIconSmallIcon/>
           </div>
           <div className="TextBoxPopUp-source-text">
-            <a className="TextBoxPopUp-source-text-a"href={source}>{renderSource(source)}</a>
+            <a className="TextBoxPopUp-source-text-a">{renderSource(source)}</a>
           </div>
         </div>
         <div className="TextBoxPopUp-text">
