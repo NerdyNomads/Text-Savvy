@@ -28,7 +28,7 @@ test("Should match the snapshot.", () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
-test("set data is loaded.", async () => { 
+test("TextList component should be displayed when the data has been received.", async () => { 
   axios.get.mockResolvedValueOnce({data: textItems});
 
   let realUseState = React.useState;
