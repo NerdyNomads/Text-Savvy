@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 import React from "react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
