@@ -1,7 +1,6 @@
 /*global chrome*/
 
-
-import { workspaces, formatText, workspaceExists, createNotification, saveTextToDb } from "./helper";
+import * as helper from "./helper.js";
 
 try {
   const serverAddr = "http://localhost:5000";
@@ -14,8 +13,6 @@ try {
     title: "Add to workspace",
     contexts: ["selection"],
   };
-
-
 
   fetch(`${serverAddr}/accounts`)
     .then((r) => r.text())
@@ -34,7 +31,7 @@ try {
   chrome.contextMenus.create(parentContextMenuItem);
 
   // Add all the workspaces as children
-  workspaces.map(({ id, name }) =>
+  helper.workspaces.map(({ id, name }) =>
     chrome.contextMenus.create({
       id,
       title: name,
@@ -48,14 +45,14 @@ try {
 
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
-  
-    if (workspaceExists(clickData.menuItemId)) {
+    
+    if (helper.workspaceExists(clickData.menuItemId)) {
 
-      const notificationTextFormatted = formatText(clickData.selectionText);
+      const notificationTextFormatted = helper.formatText(clickData.selectionText);
 
-      createNotification(notificationTextFormatted);
+      helper.createNotification(notificationTextFormatted);
 
-      saveTextToDb(clickData.selectionText, clickData.pageUrl);
+      helper.saveTextToDb(clickData.selectionText, clickData.pageUrl);
     }
   });
 

@@ -30,7 +30,6 @@ export const workspaceExists = (id) => {
 };
   
 export const createNotification = (text) => {
-  
   chrome.notifications.create({
     title: "Text Saved",
     message:
@@ -41,6 +40,7 @@ export const createNotification = (text) => {
 };
   
 export const saveTextToDb = (text, source) => {
+  const serverAddr = "http://localhost:5000";
   
   const packedData = {
     method: "POST",
