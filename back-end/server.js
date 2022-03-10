@@ -30,8 +30,10 @@ app.use("/workspaces", workspacesRouter);
 app.use("/texts", textsRouter);
 app.use("/accounts", accountsRouter);
 
-app.listen(port, () => {
-	console.log(`Server is running on port: ${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+	app.listen(port, () => {
+		console.log(`Server is running on port: ${port}`);
+	});
+}
 
 module.exports = app;
