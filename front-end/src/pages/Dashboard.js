@@ -6,7 +6,6 @@ import TextList from "../molecules/TextList";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
   const [ textItems, setTextItems ] = useState(null);
 
   /**
@@ -21,11 +20,11 @@ function Dashboard() {
 
   useEffect(async () => {
     let texts = await getTexts();
-    setDataIsLoaded(true);
-    if (dataIsLoaded) {
+
+    if (texts) {
       setTextItems(texts);
     }
-  }, [dataIsLoaded]);
+  }, []);
 
   return (
     <div className="Dashboard">
