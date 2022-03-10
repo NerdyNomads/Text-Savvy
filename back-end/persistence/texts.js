@@ -8,7 +8,6 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-	// const name = req.body.name;
 	const text = req.body.text;
 	const source = req.body.source;
 	const creationDate = req.body.creationDate;

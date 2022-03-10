@@ -34,7 +34,7 @@ describe("Accounts Router Tests", () => {
 			
 			// Remove test data from DB
 			await Account.findOneAndDelete({auth0Id: testAccount.auth0Id});
-		})
+		});
 
 		test("Get an account that does not exist.", async () => {
 			await request(app).get("/accounts/auth0/foo")
@@ -43,7 +43,7 @@ describe("Accounts Router Tests", () => {
 					expect(res.statusCode).toEqual(200);
 					expect(res.body).toEqual([]);
 				});
-		})
+		});
 	});
 
 	describe("POST /accounts/add", () => {
@@ -60,7 +60,7 @@ describe("Accounts Router Tests", () => {
 			await Account.findOneAndDelete({auth0Id: testAccount.auth0Id});
     	});
 
-		test("Add an invalid account to the database", async () => {
+		test("Add an invalid account to the database.", async () => {
 			await request(app).post("/accounts/add")
 				.send(invalidAccount)
 				.then((res) => {
@@ -70,7 +70,7 @@ describe("Accounts Router Tests", () => {
   	});
 
 	describe("Account schema validation", () => {
-		test("Add an account that meets all schema requirements", async () => {
+		test("Add an account that meets all schema requirements.", async () => {
 			await Account.create(testAccount)
 				.then((res) => {
 					expect(res).toBeTruthy();
@@ -78,14 +78,14 @@ describe("Accounts Router Tests", () => {
 			
 			// Remove test data from DB
 			await Account.findOneAndDelete({auth0Id: testAccount.auth0Id});
-		})
+		});
 
-		test("Add an account that is missing a required attribute", async () => {
+		test("Add an account that is missing a required attribute.", async () => {
 			await Account.create(invalidAccount)
 				.catch((err) => {
 					expect(err).toBeTruthy();
 					expect(err.message).toEqual("Account validation failed: email: Path `email` is required.");
 				});
-		})
+		});
 	});
 });
