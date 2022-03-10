@@ -33,7 +33,7 @@ describe("Chrome Extension", () => {
     });
 
     // edit to the production server when app can be deployed
-    it("redirects to the local server when ", () => {
+    it("redirects to the local server when button is clicked", () => {
       global.chrome = chrome;
       const button = container.querySelector("button");
       userEvent.click(button);
