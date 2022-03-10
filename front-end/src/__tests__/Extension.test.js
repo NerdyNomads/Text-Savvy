@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import userEvent from "@testing-library/user-event";
 import chrome from "sinon-chrome";
 import {assert} from "chai";
+import "@testing-library/jest-dom/extend-expect";
 
 import { formatText, workspaceExists, workspaces } from "../../public/helper";
 
