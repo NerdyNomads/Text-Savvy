@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const MAX_TEXT_NOTIF_CHARACTERS = 20;
 
 export const workspaces = [

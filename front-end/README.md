@@ -2,7 +2,6 @@
 
 ## Quick Start
 
-
 ### Install Dependencies
 1. Make sure `node` and `npm` are installed. To check:
     ```
@@ -37,3 +36,11 @@
 
 ### Note:
 - Ensure that the backend server is running to test the full functionality of the app. See [here](/back-end/README.md) for a tutorial on how to run the server.
+
+
+# Testing
+
+1. To test both the web app and Chrome extension, run this command on `front-end/`:
+    ```
+    $ npm test
+    ```
