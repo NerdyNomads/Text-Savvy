@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should match the snapshot. 1`] = `"<div class=\\"TextBoxPopUp-background\\"><div class=\\"TextBoxPopUp\\"><div class=\\"TextBoxPopUp-exit\\"><img alt=\\"cross\\" src=\\"/assets/images/delete.svg\\" class=\\"icon-delete\\"/></div><div class=\\"TextBoxPopUp-source\\"><div class=\\"TextBoxPopUp-source-icon\\"><img alt=\\"chain_sm\\" src=\\"/assets/images/chain_sm.svg\\" class=\\"icon\\"/></div><div class=\\"TextBoxPopUp-source-text\\"><a class=\\"TextBoxPopUp-source-text-a\\">www.abc.com...</a></div></div><div class=\\"TextBoxPopUp-text\\">Test</div></div></div>"`;
