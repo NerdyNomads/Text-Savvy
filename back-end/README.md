@@ -28,3 +28,10 @@ $ cd front-end
 $ npm install    
 $ npm start  
 ```
+
+# Testing
+
+1. To test the backend, run this command on `back-end/`:
+    ```
+    $ npm test
+    ```
