@@ -2,6 +2,8 @@
 
 by [Nerdy Nomads](https://github.com/NerdyNomads)
 
+https://user-images.githubusercontent.com/24909769/158043643-078718a1-54da-4fd8-8589-cc3f02cc9772.mp4
+
 A web application with a browser extension that allows users to save important blocks of text in a convenient spot where they can easily access, organize and share their saved text with other users!
 
 ## Table of Contents
