@@ -63,5 +63,4 @@ export const saveTextToDb = (text, source) => {
     .then((data) => {
       console.log(data);
     });
-  
 };
