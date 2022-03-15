@@ -16,7 +16,7 @@ const accountSchema = new Schema ({
         required: true
     },
     workspaces: {
-        type: Array,
+        type: Array
     }
 });
 
