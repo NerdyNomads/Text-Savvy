@@ -4,7 +4,7 @@ services:
     image: textsavvyfront:latest
     environment:
       PORT: 3000
-      PROXY_API: http://localhost:5000
+      PROXY_API: http://localhost:5000/
     ports:
       - 3000:3000
   textsavvyback:

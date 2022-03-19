@@ -17,4 +17,4 @@ COPY back-end/ .
 
 EXPOSE $PORT
 
-CMD [ "npm", "start" ]
+ENTRYPOINT npm start
