@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { EditIcon } from "./icons";
+import { EditIcon } from "../atoms/icons";
 import {trimLongText} from "../util/util";
 import "./SidebarWorkspaceItem.css";
 
