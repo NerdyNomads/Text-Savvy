@@ -10,7 +10,7 @@ import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
 
 function Sidebar() {
 
-  const { logout, user } = useAuth0();
+  const { logout } = useAuth0();
 
   const spacing = <div className="SideBar-spacing"/>;
   const divider = <div className="SideBar-divider"/>;
@@ -27,10 +27,16 @@ function Sidebar() {
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-      {/* eslint-disable-next-line react/no-unescaped-entities */ }
-      <div className={`${componentName}-title`}>{user.nickname}'s Workspace</div>
+
+      <SidebarWorkspaceItem name="My Workspace"/>
+      <SidebarWorkspaceItem name="This Is a very long Name for a workspace"/>
+      <SidebarWorkspaceItem name="wokrpsace"/>
+      
       {dividerLight}
       {spacing}
+
+      
+
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
         <div className={`${componentName}-option-logo`}><GearSmallIcon/></div>
         <div className={`${componentName}-option-text`}>Manage Account</div>
@@ -40,9 +46,7 @@ function Sidebar() {
         <div className={`${componentName}-option-text`}>Logout</div>
       </div>
       
-      <SidebarWorkspaceItem name="My Workspace"/>
-      <SidebarWorkspaceItem name="This Is a very long Name for a workspace"/>
-      <SidebarWorkspaceItem name="wokrpsace"/>
+ 
     </div>
   );
 
