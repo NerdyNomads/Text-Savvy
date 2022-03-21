@@ -22,7 +22,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build Backend
+        working-directory: ./
         run: docker build --file=backend.dockerfile -t playground-web-backend .
 
       - name: Build Frontend
+        working-directory: ./
         run: docker build --file=front-end/frontend.dockerfile -t playground-web-frontend .
