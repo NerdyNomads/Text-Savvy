@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import axios from "axios";
 
-import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "./icons";
+import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "../icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
