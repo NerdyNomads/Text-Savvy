@@ -3,29 +3,23 @@ name: Release to Docker Hub
 on:
   workflow_dispatch:
 
-stages:
-  - build
+jobs:
 
-Login-To-Docker:
-  stage: build
-  uses: docker/login-action@v1
-  with:
-    username: ${{ secrets.DOCKER_HUB_USERNAME }}
-    password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  Login-To-Docker:
+    steps:
+      - uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-Build-Backend:
-  stage: build
-  image: node:alpine3.11
-  script:
-    - echo "Building Backend..."
-    - docker build --file=backend/backend.dockerfile  -t playground-web-backend .
-    - echo "Backend Build Complete!"
+  Build-Backend:
+    steps:
+      - run: echo "Building Backend..."
+      - run: docker build --file=backend/backend.dockerfile  -t playground-web-backend .
+      - run: echo "Backend Build Complete!"
 
-Build-Frontend:
-stage: build
-image: node:alpine3.11
-script:
-  - echo "Building Frontend..."
-  - docker login
-  - docker build --file=frontend/frontend.dockerfile  -t playground-web-frontend .
-  - echo "Frontend Build Complete!"
+  Build-Frontend:
+    steps:
+      - echo "Building Frontend..."
+      - docker build --file=frontend/frontend.dockerfile  -t playground-web-frontend .
+      - echo "Frontend Build Complete!"
