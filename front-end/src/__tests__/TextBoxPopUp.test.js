@@ -3,7 +3,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-import TextBoxPopUp from "../atoms/TextBoxPopUp";
+import TextBoxPopUp from "../atoms/TextBox/TextBoxPopUp";
 
 test("Should match the snapshot.", () => { 
   let testText = "Test";

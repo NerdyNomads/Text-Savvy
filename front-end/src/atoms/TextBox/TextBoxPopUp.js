@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { ChainIconSmallIcon, ExitIcon } from "./icons";
+import { ChainIconSmallIcon, ExitIcon } from "../icons";
 
 import "./TextBoxPopUp.css";
 
