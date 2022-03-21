@@ -1,6 +1,8 @@
 name: Release to Docker Hub
 
 on:
+  push:
+    branches: [ implement-docker-image ]
   workflow_dispatch:
 
 jobs:
