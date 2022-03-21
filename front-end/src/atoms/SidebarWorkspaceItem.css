@@ -1,4 +1,4 @@
-.WorkspaceItem{
+.SidebarWorkspaceItem{
     width: calc(100% - 24);
     padding: 10px 0;
     padding-left: 24px;
@@ -9,17 +9,17 @@
     user-select: none;
 }
 
-.WorkspaceItem:hover{
+.SidebarWorkspaceItem:hover{
     background-color: #F3F3F3;
 }
 
-.WorkspaceItem:hover .WorkspaceItem-edit{
+.SidebarWorkspaceItem:hover .SidebarWorkspaceItem-edit{
     color: #7D7D7D;
     padding-right: 20px;
     visibility: visible;
 }
 
-.WorkspaceItem-edit{
+.SidebarWorkspaceItem-edit{
     visibility: hidden;
     user-select: none;
     cursor: pointer;

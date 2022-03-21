@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
-import WorkspaceItem from "../atoms/WorkspaceItem";
+import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
 
 
 function Sidebar() {
@@ -40,9 +40,9 @@ function Sidebar() {
         <div className={`${componentName}-option-text`}>Logout</div>
       </div>
       
-      <WorkspaceItem name="My Workspace"/>
-      <WorkspaceItem name="This Is a very long Name for a workspace"/>
-      <WorkspaceItem name="wokrpsace"/>
+      <SidebarWorkspaceItem name="My Workspace"/>
+      <SidebarWorkspaceItem name="This Is a very long Name for a workspace"/>
+      <SidebarWorkspaceItem name="wokrpsace"/>
     </div>
   );
 
