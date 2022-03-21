@@ -1,7 +1,6 @@
 name: Release to Docker Hub
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
