@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { ChainIcon, TrashCanIcon } from "./icons";
+import { ChainIcon, TrashCanIcon } from "../icons";
 import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
 
