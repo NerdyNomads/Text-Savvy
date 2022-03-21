@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
-
+import SidebarWorkspaceList from "../molecules/SidebarWorkspaceList";
 
 
 function Sidebar() {
@@ -71,6 +71,10 @@ function Sidebar() {
       {/* eslint-disable-next-line react/no-unescaped-entities */ }
       <div className={`${componentName}-title`}>{user.nickname}'s Workspaces</div>
 
+
+      {dividerLight}
+
+      <SidebarWorkspaceList/>
 
       {dividerLight}
       {spacing}
