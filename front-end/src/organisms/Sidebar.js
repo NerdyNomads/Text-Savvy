@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
-import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
+import SidebarWorkspaceList from "../molecules/SidebarWorkspaceList";
 
 
 function Sidebar() {
@@ -73,10 +73,7 @@ function Sidebar() {
 
       {dividerLight}
 
-      <SidebarWorkspaceItem name="My Workspace"/>
-      <SidebarWorkspaceItem name="This Is a very long Name for a workspace"/>
-      <SidebarWorkspaceItem name="wokrpsace"/>
-
+      <SidebarWorkspaceList/>
 
       {dividerLight}
       {spacing}
