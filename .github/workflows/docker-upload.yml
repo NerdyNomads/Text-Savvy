@@ -3,6 +3,7 @@ name: Release to Docker Hub
 on:
   milestone:
     types: closed
+  workflow_dispatch:
 
 jobs:
 
