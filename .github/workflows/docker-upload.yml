@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Building Backend..."
-      - run: cd back-end
+      - run: ls
       - run: docker build --file=backend.dockerfile  -t playground-web-backend .
       - run: echo "Backend Build Complete!"
 
