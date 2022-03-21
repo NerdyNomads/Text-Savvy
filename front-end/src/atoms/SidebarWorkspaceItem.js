@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { EditIcon } from "../atoms/icons";
+import { EditIcon } from "./icons";
 import {trimLongText} from "../util/util";
-import "./WorkspaceItem.css";
+import "./SidebarWorkspaceItem.css";
 
 const MAX_CHARACTER = 15;
 
-function WorkspaceItem( {name} ) {
+function SidebarWorkspaceItem( {name} ) {
 
   const  formattedName = trimLongText(name ,MAX_CHARACTER);
 
@@ -17,11 +17,11 @@ function WorkspaceItem( {name} ) {
 
   return (
       
-    <div className="WorkspaceItem">
-      <div className="WorkspaceItem-name">   
+    <div className="SidebarWorkspaceItem">
+      <div className="SidebarWorkspaceItem-name">   
         {formattedName}
       </div>
-      <div className="WorkspaceItem-edit" onClick={handleEditWorkspaceClick}> 
+      <div className="SidebarWorkspaceItem-edit" onClick={handleEditWorkspaceClick}> 
         <EditIcon/>
       </div>
     </div>
@@ -30,9 +30,9 @@ function WorkspaceItem( {name} ) {
   );
 }
 
-WorkspaceItem.propTypes = {
+SidebarWorkspaceItem.propTypes = {
   name: PropTypes.string.isRequired
 };
 
 
-export default WorkspaceItem;
+export default SidebarWorkspaceItem;
