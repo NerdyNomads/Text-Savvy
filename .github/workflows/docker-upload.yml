@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Building Backend..."
-      - run: docker build --file=backend/backend.dockerfile  -t playground-web-backend .
+      - run: docker build --file=back-end/backend.dockerfile  -t playground-web-backend .
       - run: echo "Backend Build Complete!"
 
   Build-Frontend:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Building Frontend..."
-      - run: docker build --file=frontend/frontend.dockerfile  -t playground-web-frontend .
+      - run: docker build --file=front-end/frontend.dockerfile  -t playground-web-frontend .
       - run: echo "Frontend Build Complete!"
