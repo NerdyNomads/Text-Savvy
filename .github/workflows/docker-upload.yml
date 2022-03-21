@@ -3,6 +3,9 @@ name: Release to Docker Hub
 on:
   workflow_dispatch:
 
+stages:
+  - build
+
 Login-To-Docker:
   stage: build
   uses: docker/login-action@v1
