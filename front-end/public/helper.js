@@ -60,3 +60,35 @@ export const saveTextToDb = (text, source, workspaceID) => {
     });
   return textData; 
 }; 
+
+export const workspaceIsClicked = (clickData, workspaces) => {
+  if (workspaceExists(clickData.menuItemId, workspaces)) {
+          
+    const notificationTextFormatted = formatText(clickData.selectionText);
+    
+    createNotification(notificationTextFormatted);
+    return saveTextToDb(clickData.selectionText, clickData.pageUrl, clickData.menuItemId);
+  }
+};
+
+export const updateWorkspaceToDb = (textData, clickData) => {
+  const putPackedData = {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      $push: {texts: textData},
+      creationDate: null,
+      updateDate: Date.now(),
+      deleteDate: null
+    }),
+  };
+
+  fetch(`${serverAddr}/workspaces/update/${clickData.menuItemId}`, putPackedData)
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+}; 

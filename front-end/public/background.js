@@ -10,16 +10,8 @@ try {
   const parentContextMenuItem = {
     id: "parent",
     title: "Add to Workspace",
-    contexts: ["selection"],
+    contexts: ["selection"]
   };
-
-  // fetch(`${serverAddr}/accounts`)
-  //   .then((r) => r.text())
-  //   .then((result) => {
-  //   // Result now contains the response text, do what you want...
-  //     console.log("The fetch has been made. " + "The result is: " + JSON.stringify(result));
-  //   });
-
 
   // Adding and removing the items
   //--------------------------------------------------------------
@@ -56,35 +48,11 @@ try {
         // Result now contains the response text, do what you want...
         const workspaces = JSON.parse(result);
         var textData;
-        if (helper.workspaceExists(clickData.menuItemId, workspaces)) {
-          
-          const notificationTextFormatted = helper.formatText(clickData.selectionText);
-          
-          helper.createNotification(notificationTextFormatted);
-          textData = helper.saveTextToDb(clickData.selectionText, clickData.pageUrl, clickData.menuItemId);
-        }
-        const putPackedData = {
-          method: "PATCH",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-          body: JSON.stringify({
-            $push: {texts: textData},
-            creationDate: null,
-            updateDate: Date.now(),
-            deleteDate: null
-          }),
-        };
-      
-        fetch(`${serverAddr}/workspaces/update/${clickData.menuItemId}`, putPackedData)
-          .then(response => response.json())
-          .then((data) => {
-            console.log(data);
-          });  
-      });
-      
+        textData = helper.workspaceIsClicked(clickData, workspaces);
+        helper.updateWorkspaceToDb(textData, clickData);  
+      });      
   });
+  
 
 } catch (e) {
   console.error(e);
