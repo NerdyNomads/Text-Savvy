@@ -23,11 +23,11 @@ jobs:
 
       - name: Build Backend
         run: echo "Building Backend..."
-        run: ls
-        run: docker build --file=backend.dockerfile  -t playground-web-backend .
-        run: echo "Backend Build Complete!"
+          ls
+          docker build --file=backend.dockerfile  -t playground-web-backend .
+          echo "Backend Build Complete!"
 
       - name: Build Frontend
         run: echo "Building Frontend..."
-        run: docker build --file=front-end/frontend.dockerfile  -t playground-web-frontend .
-        run: echo "Frontend Build Complete!"
+          docker build --file=front-end/frontend.dockerfile  -t playground-web-frontend .
+          echo "Frontend Build Complete!"
