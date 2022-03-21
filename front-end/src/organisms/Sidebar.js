@@ -6,6 +6,7 @@ import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
 
 
+
 function Sidebar() {
 
   // FAKE DB FOR UI
