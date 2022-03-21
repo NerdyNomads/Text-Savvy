@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
 
-import TextBox from "../atoms/TextBox";
-import TextBoxAdd from "../atoms/TextBoxAdd";
+import TextBox from "../atoms/TextBox/TextBox";
+import TextBoxAdd from "../atoms/TextBox/TextBoxAdd";
 import "./TextList.css";
 
 import axios from "axios";
