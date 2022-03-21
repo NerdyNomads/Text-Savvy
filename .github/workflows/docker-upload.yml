@@ -25,6 +25,6 @@ jobs:
   Build-Frontend:
     runs-on: ubuntu-latest
     steps:
-      - echo "Building Frontend..."
-      - docker build --file=frontend/frontend.dockerfile  -t playground-web-frontend .
-      - echo "Frontend Build Complete!"
+      - run: echo "Building Frontend..."
+      - run: docker build --file=frontend/frontend.dockerfile  -t playground-web-frontend .
+      - run: echo "Frontend Build Complete!"
