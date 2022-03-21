@@ -5,6 +5,7 @@ import axios from "axios";
 import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
+import CollaboratorItem from "./molecules/CollaboratorItem.js";
 
 
 function App() {
@@ -84,6 +85,11 @@ function App() {
       <div className="App">
         <SideBar/>
         <Dashboard/>
+        
+        <div className="Collaborators">
+          <CollaboratorItem text="Test"/>
+          <CollaboratorItem text="Pending Text" pending={true}/>
+        </div>
       </div>
     );
   }	

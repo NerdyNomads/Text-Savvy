@@ -11,7 +11,7 @@ const workspaceSchema = new Schema({
         type: String,
         required: true
     },
-    collaborators: {
+    CollaboratorItems: {
         type: Array
     },
     isPublic: {   

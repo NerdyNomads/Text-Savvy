@@ -1,0 +1,20 @@
+.CollaboratorItem {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.CollaboratorItem > .CollaboratorItem-remove {
+  visibility: hidden;
+}
+
+.CollaboratorItem:hover > .CollaboratorItem-remove {
+  visibility: visible;
+}
+
+.CollaboratorItem-remove {
+  display: flex;
+  margin-left: auto;
+  cursor: pointer;
+  user-select: none;
+}

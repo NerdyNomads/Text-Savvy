@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import "./icons.css";
 
@@ -41,8 +42,8 @@ export function ShareIcon() {
   return <img alt="share" src="/assets/images/share.svg" className="icon"/>;
 }
 
-export function TrashCanIcon() {
-  return <img alt="trash can" src="/assets/images/trash_can.svg" className="icon"/>;
+export function TrashCanIcon(props) {
+  return <img alt="trash can" src="/assets/images/trash_can.svg" className="icon" {...props}/>;
 }
 
 export function AddIcon() {
