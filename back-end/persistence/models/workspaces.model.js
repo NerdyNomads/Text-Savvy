@@ -10,7 +10,7 @@ const workspaceSchema = new Schema({
     owner: {
         type: String
     },
-    collaborators: {
+    CollaboratorItems: {
         type: Array
     },
     isPublic: {   
