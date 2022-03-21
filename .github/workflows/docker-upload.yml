@@ -22,12 +22,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build Backend
-        run: echo "Building Backend..."
-          ls
-          docker build --file=backend.dockerfile  -t playground-web-backend .
-          echo "Backend Build Complete!"
+        run: docker build --file=backend.dockerfile -t playground-web-backend .
 
       - name: Build Frontend
-        run: echo "Building Frontend..."
-          docker build --file=front-end/frontend.dockerfile  -t playground-web-frontend .
-          echo "Frontend Build Complete!"
+        run: docker build --file=front-end/frontend.dockerfile -t playground-web-frontend .
