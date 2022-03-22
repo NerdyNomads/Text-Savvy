@@ -8,16 +8,19 @@ const textSchema = new Schema({
 		required: true,
 	},
 	source: {
-		type: String,
+		type: String
+	},
+	workspaceID: {
+		type: String
 	},
 	creationDate: {
-		type: Number,
+		type: Number
 	},
 	updateDate: {
-		type: Number,
+		type: Number
 	},
 	deleteDate: {
-		type: Number,
+		type: Number
 	},
 });
 

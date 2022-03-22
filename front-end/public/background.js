@@ -1,5 +1,4 @@
 /*global chrome*/
-
 import * as helper from "./helper.js";
 
 try {
@@ -10,17 +9,9 @@ try {
 
   const parentContextMenuItem = {
     id: "parent",
-    title: "Add to workspace",
-    contexts: ["selection"],
+    title: "Add to Workspace",
+    contexts: ["selection"]
   };
-
-  fetch(`${serverAddr}/accounts`)
-    .then((r) => r.text())
-    .then((result) => {
-    // Result now contains the response text, do what you want...
-      console.log("The fetch has been made. " + "The result is: " + result.JSON);
-    });
-
 
   // Adding and removing the items
   //--------------------------------------------------------------
@@ -31,30 +22,37 @@ try {
   chrome.contextMenus.create(parentContextMenuItem);
 
   // Add all the workspaces as children
-  helper.workspaces.map(({ id, name }) =>
-    chrome.contextMenus.create({
-      id,
-      title: name,
-      contexts: ["selection"],
-      parentId: "parent",
-    })
-  );
+  fetch(`${serverAddr}/workspaces`)
+    .then((r) => r.text())
+    .then((result) => {
+      // Result now contains the response text, do what you want...
+      const workspaces = JSON.parse(result);
+      workspaces.map((workspace) =>
+        chrome.contextMenus.create({
+          id: workspace._id,
+          title: workspace.name,
+          contexts: ["selection"],
+          parentId: "parent",
+        })
+      );
+    });
 
   // Handling when a menu Item is clicked
   //--------------------------------------------------------------
 
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
-    
-    if (helper.workspaceExists(clickData.menuItemId)) {
-
-      const notificationTextFormatted = helper.formatText(clickData.selectionText);
-
-      helper.createNotification(notificationTextFormatted);
-
-      helper.saveTextToDb(clickData.selectionText, clickData.pageUrl);
-    }
+    fetch(`${serverAddr}/workspaces`)
+      .then((r) => r.text())
+      .then((result) => {
+        // Result now contains the response text, do what you want...
+        const workspaces = JSON.parse(result);
+        var textData;
+        textData = helper.workspaceIsClicked(clickData, workspaces);
+        helper.updateWorkspaceToDb(textData, clickData);  
+      });      
   });
+  
 
 } catch (e) {
   console.error(e);

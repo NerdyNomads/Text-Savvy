@@ -62,11 +62,12 @@ Users will be able to save text located within another website, simply by highli
 
 - eg. `AB/docs/edit-project-description`
 
-| Name   | Description                                                      |
-| ------ | ---------------------------------------------------------------- |
-| `feat` | use this when changes are related to a development of a feature. |
-| `bug`  | use this when fixing issues                                      |
-| `docs` | use this when changes are documentation related                  |
+| Name       | Description                                                      |
+| ---------- | ---------------------------------------------------------------- |
+| `feat`     | use this when changes are related to a development of a feature. |
+| `bug`      | use this when fixing issues                                      |
+| `docs`     | use this when changes are documentation related                  |
+| `refactor` | use this when refactor the code base                             |
 
 ## Contributors
 
