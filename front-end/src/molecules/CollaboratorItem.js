@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TrashCanIcon } from "../atoms/icons";
-
 import "./CollaboratorItem.css";
 
-const CollaboratorItem = ({ text, pending }) => {
+const CollaboratorItem = ({ text, remove, pending }) => {
   const style = pending
     ? {
       fontStyle: "italic",
@@ -12,16 +11,12 @@ const CollaboratorItem = ({ text, pending }) => {
     }
     : {};
 
-  const clickHandler = () => {
-    console.log("Trash icon was clicked");
-  };
-
   return (
     <div className="CollaboratorItem">
       <span style={style} className="CollaboratorItem-email">
         {text}
       </span>
-      <TrashCanIcon className="CollaboratorItem-remove" onClick={clickHandler}/>
+      <TrashCanIcon className="CollaboratorItem-remove" onClick={remove}/>
     </div>
   );
 };
@@ -29,6 +24,7 @@ const CollaboratorItem = ({ text, pending }) => {
 CollaboratorItem.propTypes = {
   text: PropTypes.string.isRequired,
   pending: PropTypes.bool,
+  remove: PropTypes.func.isRequired
 };
 
 export default CollaboratorItem;
