@@ -1,6 +1,10 @@
 import React from "react";
 import "./icons.css";
 
+export function AddWorkspaceIcon(props) {
+  return <img alt="add workspace" src="/assets/images/add-workspace.svg" className="icon" {...props}/>;
+}
+
 export function BookMarkIcon() {
   return <img alt="bookmark" src="/assets/images/bookmark.svg" className="icon"/>;
 }
