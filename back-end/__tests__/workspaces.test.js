@@ -13,7 +13,6 @@ const validWorkspace = {
 };
 
 const invalidWorkspace = {
-    name: "ABCDEF",
     owner: "12345abc",
 };
 
@@ -54,31 +53,37 @@ describe("Workspaces Router Tests", () => {
     	});
   	});
 
-    // describe("PATCH /workspaces/update/:id", () => {
-    // 	test("Update an existing workspace in the database.", async () => {
-    //         let reqId = "123456781234567812345678";
+    describe("PATCH /workspaces/update/:id", () => {
+    	test("Update an existing workspace in the database.", async () => {
+            let reqId = "123456781234567812345678";
+            let newName = "WXYZ";
 
-    //         await Workspace.create(validWorkspace);
+            await Workspace.create(validWorkspace);
 
-	// 		await request(app).delete("/workspaces/delete/" + reqId)
-	// 			.expect(200)s
-	// 			.then((res) => {
-	// 				expect(res.statusCode).toEqual(200);
-	// 				expect(res.body).toEqual("Workspace Updated.");
-	// 			});
+			await request(app).patch("/workspaces/update/" + reqId)
+                .send({ name: newName })
+				.expect(200)
+				.then((res) => {
+					expect(res.statusCode).toEqual(200);
+					expect(res.body).toEqual("Workspace Updated.");
+				});
 
-	// 		// Remove test data from DB
-    //         let deletedItem = await Text.findById(testId);
-    //         expect(deletedItem).toEqual(null);
-    // 	});
+            let updatedItem = await Workspace.findById(testId);
+            expect(updatedItem.name).toEqual(newName);
 
-	// 	test("Update a workspace that is not in the database.", async () => {
-	// 		await request(app).patch("/workspaces/delete/123")
-	// 			.then((res) => {
-	// 				expect(res.statusCode).toEqual(400);
-	// 			});
-    // 	});
-  	// });
+			// Remove test data from DB
+            await Workspace.findOneAndDelete({
+                owner: validWorkspace.owner
+            });
+    	});
+
+		test("Update a workspace that is not in the database.", async () => {
+			await request(app).patch("/workspaces/update/123")
+				.then((res) => {
+					expect(res.statusCode).toEqual(400);
+				});
+    	});
+  	});
 
 	describe("Workspace schema validation", () => {
 		test("Add a workspace that meets all schema requirements.", async () => {
@@ -95,7 +100,7 @@ describe("Workspaces Router Tests", () => {
 			await Workspace.create(invalidWorkspace)
 				.catch((err) => {
 					expect(err).toBeTruthy();
-					expect(err.message).toEqual("Workspace validation failed: isPublic: Path `isPublic` is required.");
+					expect(err.message).toEqual("Workspace validation failed: name: Path `name` is required.");
 				});
 		})
 	});
