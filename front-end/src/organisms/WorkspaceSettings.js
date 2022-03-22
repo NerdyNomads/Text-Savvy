@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { ExitIcon } from "../atoms/icons";
+import { ExitIcon, AddCollab } from "../atoms/icons";
 import CollaboratorItem from "../molecules/CollaboratorItem";
 import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
@@ -28,7 +28,7 @@ function WorkspaceSettings({onChangeVisibility}) {
 
     const fakeFormattedWorkspaceData = {
       name: "My workspace",
-      collaborators: ["email1@email.com", "email2@email.com", "email2@email.com"],
+      collaborators: ["email1@email.com", "email2@email.com", "email2@email.com", "email2@email.com"],
       id: "1"
     };
 
@@ -44,9 +44,9 @@ function WorkspaceSettings({onChangeVisibility}) {
     }
   };
 
-  // const handleExitClick = () => {
-  //   onChangeVisibility(false);
-  // };
+  const handleExitClick = () => {
+    onChangeVisibility(false);
+  };
 
   const handleRemoveCollaborator = (email) => {
     console.log("Remove this collaborator: ", email);
@@ -56,22 +56,40 @@ function WorkspaceSettings({onChangeVisibility}) {
     renderedCollaborators.map(
       (col) => <CollaboratorItem key={Math.random()} email={col.email} onRemove={handleRemoveCollaborator}/>
     );
+
+  const addCollaboratorElement = <div className={`${componentName}-add-collab`}>
+    <div className={`${componentName}-add-collab-top`}>
+      <span className={`${componentName}-add-collab-label`}>Share with others:</span>
+    </div>
+    <div className={`${componentName}-add-collab-bottom`}>
+      <input className={`${componentName}-add-collab-input`} type="text" placeholder="Enter collaborator's email"/>
+      <AddCollab className={`${componentName}-add-collab-icon`}/>
+    </div>
+  </div>;
   
 
   return (
     <div className={`${componentName}-background`} onClick={handleBackgroundClick}>
       <div className={`${componentName}`}>
-        <ExitIcon/>
+        <div className={`${componentName}-top`}>
+          <div className={`${componentName}-top-pad`}/>
+          <ExitIcon className={`${componentName}-exit`} onClick={handleExitClick}/>
+        </div>
+        
         <div className={`${componentName}-header`}>
-          {/* editable workspace name */}
           {renderedName}
         </div>
         <div className={`${componentName}-body`}>
-          {/* collab list stuff */}
-          {renderColaboratorList()}
+          {addCollaboratorElement}
+          <div className={`${componentName}-collab-list`}>
+            {renderColaboratorList()}
+          </div>
         </div>
         <div className={`${componentName}-footer`}>
-          <Button label="Save"/>
+          <div className={`${componentName}-footer-pad`}/>
+          <div className={`${componentName}-save`}>
+            <Button label="Save"/>
+          </div>
         </div>
       </div>
     </div>

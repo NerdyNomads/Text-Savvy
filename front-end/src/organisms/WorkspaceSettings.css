@@ -23,4 +23,103 @@
     position: fixed;
     z-index: 51;
     top:10%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
+.WorkspaceSettings-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.WorkspaceSettings-exit{
+    padding-right: 30px;
+    padding-top: 30px;
+    user-select: none;
+    cursor: pointer;
+
+}
+
+.WorkspaceSettings-header{
+    width: 100%;
+    font-weight: 400;
+    font-size: 36px;
+    text-align: center;
+}
+
+.WorkspaceSettings-body{
+    width: calc(100% - 150px);
+    margin: 0 10px;
+    padding: 0 20px;
+
+}
+
+.WorkspaceSettings-add-collab {
+    width: 100%;
+    background-color: #F3F3F3;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.WorkspaceSettings-add-collab-label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 15px;
+    padding-top: 10px;
+}
+
+.WorkspaceSettings-add-collab-top {
+    display: flex;
+}
+
+.WorkspaceSettings-add-collab-bottom {
+
+    display: flex;
+    flex-direction: row;
+}
+
+.WorkspaceSettings-add-collab-input {
+    width: calc(100% - 40px);
+
+    border-style: hidden;
+    outline: none;
+    resize: none; 
+    
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+}
+.WorkspaceSettings-add-collab-icon {
+    margin-left: 5px;
+    margin-right: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.WorkspaceSettings-collab-list {
+    max-height: 128px;
+    overflow: scroll
+}
+
+.WorkspaceSettings-footer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.WorkspaceSettings-save{
+    padding-right: 30px;
+    padding-bottom: 30px;
 }
