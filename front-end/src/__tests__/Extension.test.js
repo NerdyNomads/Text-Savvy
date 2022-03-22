@@ -7,7 +7,7 @@ import chrome from "sinon-chrome";
 import {assert} from "chai";
 import "@testing-library/jest-dom/extend-expect";
 
-import { formatText, workspaceExists, workspaces } from "../../public/helper";
+import { formatText, workspaceExists } from "../../public/helper";
 
 let dom;
 let container;
@@ -74,29 +74,28 @@ describe("Chrome Extension", () => {
   
   describe("Test Context Menus", () => {
     test("should not print an error message when there is one (and only one) matching id.", () => {
-      expect(workspaceExists("1")).toBeTruthy();
+      let workspaces = [
+        { _id: "1" }
+      ];
+      expect(workspaceExists("1", workspaces)).toBeTruthy();
     });
 
     test("should print an error message when there is no matching id.", () => {
       expect(() => {
-        workspaceExists("99");
+        workspaceExists("99", []);
       }).toThrow("No workspace ID matched the menuID");
     });
 
     test("should print an error message when matching ids is > 1.", () => {
-      workspaces.push({
-        id: "1",
-        name: "My Workspace 2"
-      },
-      {
-        id: "1",
-        name: "My Workspace 3"
-      });
+      let workspaces = [
+        { _id: "1" },
+        { _id: "1" },
+        { _id: "1" }
+      ];
 
       expect(() => { 
-        workspaceExists("1"); 
+        workspaceExists("1", workspaces); 
       }).toThrow("3 IDs were found.");
-
     });
   });
 });

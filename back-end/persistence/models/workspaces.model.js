@@ -8,27 +8,25 @@ const workspaceSchema = new Schema({
         required: true
     },
     owner: {
-        type: String,
-        required: true
+        type: String
     },
     collaborators: {
         type: Array
     },
     isPublic: {   
-        type: Boolean,
-        required: true
+        type: Boolean
     },
     texts: {
         type: Array
     },
     creationDate: {
-        type: Date
+        type: Number
     },
     updateDate: {
-        type: Date
+        type: Number
     },
     deleteDate: {
-        type: Date
+        type: Number
     }
 });
 

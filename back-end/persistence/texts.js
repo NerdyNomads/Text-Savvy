@@ -10,14 +10,14 @@ router.route("/").get((req, res) => {
 router.route("/add").post((req, res) => {
 	const text = req.body.text;
 	const source = req.body.source;
+	const workspaceID = req.body.workspaceID;
 	const creationDate = req.body.creationDate;
 	const deleteDate = req.body.deleteDate;
 	const updateDate = req.body.updateDate;
 
-	const newText = new Text({ text, source, creationDate, deleteDate, updateDate });
+	const newText = new Text({ text, source, workspaceID, creationDate, deleteDate, updateDate });
 
-	newText
-		.save()
+	newText.save()
 		.then(() => res.json("Text added!"))
 		.catch((err) => res.status(400).json("Error: " + err));
 });

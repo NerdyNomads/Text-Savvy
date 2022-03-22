@@ -21,7 +21,6 @@
     "contextMenus",
     "notifications",
     "tabs"
-    
   ],
   
   "content_security_policy": {

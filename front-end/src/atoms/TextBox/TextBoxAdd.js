@@ -34,6 +34,7 @@ function TextBoxAdd({onSubmit}) {
     const text = {
       text: textAreaVal,
       source: sourceFieldVal,
+      workspaceID: null,
       creationDate: Date.now(),
       updateDate: null,
       deleteDate: null
