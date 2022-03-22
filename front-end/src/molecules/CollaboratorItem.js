@@ -3,22 +3,26 @@ import PropTypes from "prop-types";
 import { TrashCanIcon } from "../atoms/icons";
 import "./CollaboratorItem.css";
 
-const CollaboratorItem = ({ text, remove, pending }) => {
+const CollaboratorItem = ({ email, onRemove, pending }) => {
+
+  const handleRemoveCollaborator = () => {
+    onRemove(email);
+  };
 
   return (
     <div className="CollaboratorItem">
       <span className={`CollaboratorItem-email ${pending ? "CollaboratorItem-pending" : "" }`} >
-        {pending ? text + "*" : text }
+        {pending ? email + "*" : email }
       </span>
-      <TrashCanIcon className="CollaboratorItem-remove" onClick={remove}/>
+      <TrashCanIcon className="CollaboratorItem-remove" onClick={handleRemoveCollaborator}/>
     </div>
   );
 };
 
 CollaboratorItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   pending: PropTypes.bool,
-  remove: PropTypes.func.isRequired
+  onRemove: PropTypes.func.isRequired
 };
 
 export default CollaboratorItem;

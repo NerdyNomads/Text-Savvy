@@ -5,8 +5,6 @@ import axios from "axios";
 import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-import CollaboratorItem from "./molecules/CollaboratorItem.js";
-
 
 function App() {
   

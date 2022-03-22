@@ -7,17 +7,21 @@ import "./SidebarWorkspaceItem.css";
 
 const MAX_CHARACTER = 20;
 
-function SidebarWorkspaceItem( {name} ) {
+function SidebarWorkspaceItem( {name, onEdit, onClickWorkspace} ) {
 
   const  formattedName = trimLongText(name ,MAX_CHARACTER);
 
   const handleEditWorkspaceClick = () => {
-    console.log("clicked edit workspace.");
+    onEdit(true);
+  };
+
+  const handleWorkspaceClick = () => {
+    onClickWorkspace(true);
   };
 
   return (
       
-    <div className="SidebarWorkspaceItem">
+    <div className="SidebarWorkspaceItem" onClick={handleWorkspaceClick}>
       <div className="SidebarWorkspaceItem-name">   
         {formattedName}
       </div>
@@ -31,7 +35,9 @@ function SidebarWorkspaceItem( {name} ) {
 }
 
 SidebarWorkspaceItem.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onClickWorkspace: PropTypes.func.isRequired
 };
 
 

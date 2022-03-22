@@ -34,8 +34,8 @@ export function DragVerticalIcon() {
   return <img alt="drag vertical" src="/assets/images/drag_vertical.svg" className="icon"/>;
 }
 
-export function EditIcon() {
-  return <img alt="edit" src="/assets/images/edit.svg" className="icon"/>;
+export function EditIcon(props) {
+  return <img alt="edit" src="/assets/images/edit.svg" className="icon" {...props}/>;
 }
 
 export function GearIcon() {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { AddWorkspaceIcon } from "../atoms/icons";
 import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
+import WorkspaceSettings from "../organisms/WorkspaceSettings";
 
 import "./SidebarWorkspace.css";
 
@@ -10,6 +11,7 @@ function SidebarWorkspace( ) {
 
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
+  const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
 
   useEffect(() => {
     
@@ -23,8 +25,11 @@ function SidebarWorkspace( ) {
 
     setWorkspaceList(fakeWorkspace);
 
-  }, []);
-    
+  }, []); // empty second param in useEffect will only run once (on first load)
+  
+  useEffect(() => { 
+
+  }, [showWorkspaceSettingPopup]);
 
   const handleWorkspaceSubmit = (e) => {
     if (e.key === "Enter") {
@@ -55,15 +60,29 @@ function SidebarWorkspace( ) {
     setShowAddWorkspace(!showAddWorkspace);
   };
 
+  const handleOnWorkspaceEdit = () => {
+    console.log("EDIITS");
+
+    setShowWorkspaceSettingPopup(true);
+  };
+
+  const handleOnClickWorkspace = () => {
+    console.log("Go to this workspace");
+  };
+
   const renderList = () => (
     workspaceList && workspaceList.map( (workspaces) => 
-      <SidebarWorkspaceItem key={workspaces.id} name={workspaces.name}/>)
+      <SidebarWorkspaceItem key={workspaces.id} name={workspaces.name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
   );
 
   const header = <div className={`${componentName}-header`}>
     <span>My Workspaces</span>
     <AddWorkspaceIcon className={`${componentName}-add-icon`} onClick={handleAddWorkspace}/>
   </div>;
+
+  const handleOnChangeVisibility = (visible) => {
+    setShowWorkspaceSettingPopup(visible);
+  };
 
   return (
     <div className={`${componentName}`}>
@@ -72,6 +91,9 @@ function SidebarWorkspace( ) {
       {addWorkspaceInput}
     
       {renderList()}
+
+      {/* Workspace Settings Pop Up */}
+      { showWorkspaceSettingPopup && <WorkspaceSettings onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
 
 
     </div>
