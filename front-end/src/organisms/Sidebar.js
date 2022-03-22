@@ -36,7 +36,7 @@ function Sidebar() {
   //   }
   // ];
 
-  const { logout, user } = useAuth0();
+  const { logout } = useAuth0();
 
   const spacing = <div className="SideBar-spacing"/>;
   const divider = <div className="SideBar-divider"/>;
@@ -53,12 +53,6 @@ function Sidebar() {
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-
-      {/* eslint-disable-next-line react/no-unescaped-entities */ }
-      <div className={`${componentName}-title`}>{user.nickname}'s Workspaces</div>
-
-
-      {dividerLight}
 
       <SidebarWorkspace/>
 

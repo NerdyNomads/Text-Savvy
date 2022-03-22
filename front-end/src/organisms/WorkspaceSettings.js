@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import { ExitIcon } from "../atoms/icons";
 import CollaboratorItem from "../molecules/CollaboratorItem";
+import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 
@@ -70,7 +71,7 @@ function WorkspaceSettings({onChangeVisibility}) {
           {renderColaboratorList()}
         </div>
         <div className={`${componentName}-footer`}>
-          {/* Save Button */}
+          <Button label="Save"/>
         </div>
       </div>
     </div>
