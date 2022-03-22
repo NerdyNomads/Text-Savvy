@@ -12,10 +12,30 @@ function WorkspaceSettings({onChangeVisibility}) {
 
   const [renderedName, setRenderedName] = useState("");
   const [renderedCollaborators, setRenderedCollaborators] = useState([]);
+  const [renderSave, setRenderSave] = useState(false);
 
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) =>
     list.map((i) => ({email: i, pending: false}));
+
+  const handleCollaboratorSubmit = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      // VALIDATE EMAIL FORMAT HERE
+
+      submitCollaborator(e.target.value);
+      e.target.value = "";
+
+    }
+    
+  };
+
+  const submitCollaborator = (newCollaborator) => {
+    const newCollabList = [{email: newCollaborator, pending: true}, ...renderedCollaborators];
+    setRenderedCollaborators(newCollabList);
+    setRenderSave(true);
+  };
   
 
   useEffect(() => { 
@@ -28,7 +48,7 @@ function WorkspaceSettings({onChangeVisibility}) {
 
     const fakeFormattedWorkspaceData = {
       name: "My workspace",
-      collaborators: ["email1@email.com", "email2@email.com", "email2@email.com", "email2@email.com"],
+      collaborators: ["email2@email.com", "email2@email.com", "email2@email.com", "email2@email.com"],
       id: "1"
     };
 
@@ -54,7 +74,7 @@ function WorkspaceSettings({onChangeVisibility}) {
 
   const renderColaboratorList = () => 
     renderedCollaborators.map(
-      (col) => <CollaboratorItem key={Math.random()} email={col.email} onRemove={handleRemoveCollaborator}/>
+      (col) => <CollaboratorItem key={Math.random()} pending={col.pending} email={col.email} onRemove={handleRemoveCollaborator}/>
     );
 
   const addCollaboratorElement = <div className={`${componentName}-add-collab`}>
@@ -62,8 +82,13 @@ function WorkspaceSettings({onChangeVisibility}) {
       <span className={`${componentName}-add-collab-label`}>Share with others:</span>
     </div>
     <div className={`${componentName}-add-collab-bottom`}>
-      <input className={`${componentName}-add-collab-input`} type="text" placeholder="Enter collaborator's email"/>
-      <AddCollab className={`${componentName}-add-collab-icon`}/>
+      <input 
+        onKeyPress={(e) => handleCollaboratorSubmit(e)} 
+        className={`${componentName}-add-collab-input`} 
+        type="text" 
+        placeholder="Enter collaborator's email"
+      />
+      <AddCollab className={`${componentName}-add-collab-icon`} onClick={handleCollaboratorSubmit}/>
     </div>
   </div>;
   
@@ -72,7 +97,7 @@ function WorkspaceSettings({onChangeVisibility}) {
     <div className={`${componentName}-background`} onClick={handleBackgroundClick}>
       <div className={`${componentName}`}>
         <div className={`${componentName}-top`}>
-          <div className={`${componentName}-top-pad`}/>
+
           <ExitIcon className={`${componentName}-exit`} onClick={handleExitClick}/>
         </div>
         
@@ -88,7 +113,7 @@ function WorkspaceSettings({onChangeVisibility}) {
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-footer-pad`}/>
           <div className={`${componentName}-save`}>
-            <Button label="Save"/>
+            {renderSave && <Button label="Save"/>}
           </div>
         </div>
       </div>
