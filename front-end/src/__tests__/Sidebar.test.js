@@ -22,11 +22,6 @@ test("Should match the snapshot.", () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
-test("Show the correct username on the sidebar.", () => {
-  let wrapper = shallow(<Sidebar />);
-  expect(wrapper.text().includes(useAuth0().user.nickname + "'s Workspace")).toEqual(true);
-});
-
 test("Clicking the logout button should call Auth0's logout function.", () => {
   let wrapper = shallow(<Sidebar />);
   let logoutDiv = wrapper.find(".SideBar-logout");
