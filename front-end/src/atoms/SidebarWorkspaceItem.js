@@ -5,7 +5,7 @@ import { EditIcon } from "../atoms/icons";
 import {trimLongText} from "../util/util";
 import "./SidebarWorkspaceItem.css";
 
-const MAX_CHARACTER = 15;
+const MAX_CHARACTER = 20;
 
 function SidebarWorkspaceItem( {name} ) {
 

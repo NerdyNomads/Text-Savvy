@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
-import SidebarWorkspaceList from "../molecules/SidebarWorkspaceList";
+import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 
 function Sidebar() {
@@ -74,7 +74,7 @@ function Sidebar() {
 
       {dividerLight}
 
-      <SidebarWorkspaceList/>
+      <SidebarWorkspace/>
 
       {dividerLight}
       {spacing}
