@@ -6,6 +6,11 @@
   padding: 5px;
 }
 
+.CollaboratorItem-pending {
+  font-style: italic;
+  color: #707070;
+}
+
 .CollaboratorItem > .CollaboratorItem-remove {
   visibility: hidden;
 }
@@ -20,3 +25,4 @@
   cursor: pointer;
   user-select: none;
 }
+

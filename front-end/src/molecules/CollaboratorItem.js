@@ -4,17 +4,11 @@ import { TrashCanIcon } from "../atoms/icons";
 import "./CollaboratorItem.css";
 
 const CollaboratorItem = ({ text, remove, pending }) => {
-  const style = pending
-    ? {
-      fontStyle: "italic",
-      color: "#707070",
-    }
-    : {};
 
   return (
     <div className="CollaboratorItem">
-      <span style={style} className="CollaboratorItem-email">
-        {text}
+      <span className={`CollaboratorItem-email ${pending ? "CollaboratorItem-pending" : "" }`} >
+        {pending ? text + "*" : text }
       </span>
       <TrashCanIcon className="CollaboratorItem-remove" onClick={remove}/>
     </div>
