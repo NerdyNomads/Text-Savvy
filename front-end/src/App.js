@@ -85,11 +85,6 @@ function App() {
       <div className="App">
         <SideBar/>
         <Dashboard/>
-        
-        <div className="Collaborators">
-          <CollaboratorItem text="Test"/>
-          <CollaboratorItem text="Pending Text" pending={true}/>
-        </div>
       </div>
     );
   }	
