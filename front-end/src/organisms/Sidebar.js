@@ -2,7 +2,7 @@ import React from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-
+import Button from "../atoms/Button";
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
 import "./Sidebar.css";
 
@@ -79,6 +79,9 @@ function Sidebar() {
         <div className={`${componentName}-option-logo`}><LogoutIcon/></div>
         <div className={`${componentName}-option-text`}>Logout</div>
       </div>
+
+      {/* Temporary for reviewing purposes */}
+      <Button label="Save"/>
     </div>
   );
 
