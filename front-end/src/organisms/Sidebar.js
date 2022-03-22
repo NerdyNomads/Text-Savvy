@@ -11,20 +11,6 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 function Sidebar() {
 
   // FAKE DB FOR UI
-  // const workspaces = [
-  //   {
-  //     id: "1",
-  //     name: "Test 1"
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Test 2"
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Test 3"
-  //   }
-  // ];
 
   // const texts = [
   //   {
