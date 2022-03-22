@@ -12,12 +12,13 @@ function SidebarWorkspace( ) {
   const [ workspaceList, setWorkspaceList ] = useState([]);
 
   useEffect(() => {
-    // populate the workspace 
+    
+    // Do GET request here
     
     const fakeWorkspace = [
-      {name: "My Workspace", _id: 1},
-      {name: "eThis is a very long workspace name", _id: 2},
-      {name: "workspace1", _id: 3},
+      {name: "My Workspace", id: 1},
+      {name: "eThis is a very long workspace name", id: 2},
+      {name: "workspace1", id: 3},
     ];
 
     setWorkspaceList(fakeWorkspace);
@@ -29,7 +30,7 @@ function SidebarWorkspace( ) {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const newWorkspaceList = [...workspaceList, {_id: Math.random(), name:e.target.value}];
+      const newWorkspaceList = [...workspaceList, {id: Math.random(), name:e.target.value}];
       setWorkspaceList(newWorkspaceList);
       e.target.value = "";
 
@@ -56,7 +57,7 @@ function SidebarWorkspace( ) {
 
   const renderList = () => (
     workspaceList && workspaceList.map( (workspaces) => 
-      <SidebarWorkspaceItem key={workspaces._id} name={workspaces.name}/>)
+      <SidebarWorkspaceItem key={workspaces.id} name={workspaces.name}/>)
   );
 
   const header = <div className={`${componentName}-header`}>
