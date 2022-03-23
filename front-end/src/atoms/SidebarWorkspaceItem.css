@@ -1,0 +1,26 @@
+.SidebarWorkspaceItem{
+    width: calc(100% - 24);
+    padding: 10px 0;
+    padding-left: 24px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.SidebarWorkspaceItem:hover{
+    background-color: #F3F3F3;
+}
+
+.SidebarWorkspaceItem:hover .SidebarWorkspaceItem-edit{
+    color: #7D7D7D;
+    padding-right: 20px;
+    visibility: visible;
+}
+
+.SidebarWorkspaceItem-edit{
+    visibility: hidden;
+    user-select: none;
+    cursor: pointer;
+}

@@ -2,28 +2,14 @@ import React from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import Button from "../atoms/Button";
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
-import "./Sidebar.css";
+import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
+import "./Sidebar.css";
 
 function Sidebar() {
 
   // FAKE DB FOR UI
-  // const workspaces = [
-  //   {
-  //     id: "1",
-  //     name: "Test 1"
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Test 2"
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Test 3"
-  //   }
-  // ];
 
   // const texts = [
   //   {
@@ -50,7 +36,7 @@ function Sidebar() {
   //   }
   // ];
 
-  const { logout, user } = useAuth0();
+  const { logout } = useAuth0();
 
   const spacing = <div className="SideBar-spacing"/>;
   const divider = <div className="SideBar-divider"/>;
@@ -67,8 +53,7 @@ function Sidebar() {
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-      {/* eslint-disable-next-line react/no-unescaped-entities */ }
-      <div className={`${componentName}-title`}>{user.nickname}'s Workspace</div>
+      <SidebarWorkspace/>
       {dividerLight}
       {spacing}
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
@@ -79,12 +64,8 @@ function Sidebar() {
         <div className={`${componentName}-option-logo`}><LogoutIcon/></div>
         <div className={`${componentName}-option-text`}>Logout</div>
       </div>
-
-      {/* Temporary for reviewing purposes */}
-      <Button label="Save"/>
     </div>
   );
-
 }
 
 export default Sidebar;

@@ -6,7 +6,6 @@ import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
-
 function App() {
   
   const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();

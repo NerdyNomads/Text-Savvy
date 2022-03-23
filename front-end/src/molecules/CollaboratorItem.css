@@ -1,0 +1,28 @@
+.CollaboratorItem {
+  display: flex;
+  flex-direction: row;
+  width: calc(100%-2px);
+  border-bottom: 1px solid #C6C6C6;
+  padding: 10px;
+}
+
+.CollaboratorItem-pending {
+  font-style: italic;
+  color: #707070;
+}
+
+.CollaboratorItem > .CollaboratorItem-remove {
+  visibility: hidden;
+}
+
+.CollaboratorItem:hover > .CollaboratorItem-remove {
+  visibility: visible;
+}
+
+.CollaboratorItem-remove {
+  display: flex;
+  margin-left: auto;
+  cursor: pointer;
+  user-select: none;
+}
+
