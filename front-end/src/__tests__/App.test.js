@@ -57,8 +57,9 @@ test("Sidebar and Dashboard should be visible if user is logged in.", () => {
   });
 
   let wrapper = shallow(<App />);
-  expect(wrapper.containsMatchingElement(<Sidebar/>)).toEqual(true);
-  expect(wrapper.containsMatchingElement(<Dashboard/>)).toEqual(true);
+  const mockFunc = () => null;
+  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc}/>));
+  expect(wrapper.containsMatchingElement(<Dashboard workspaceId="1"/>));
 });
 
 test("Component should be empty if no user is logged in.", () => { 
@@ -67,9 +68,10 @@ test("Component should be empty if no user is logged in.", () => {
   });
 
   let wrapper = shallow(<App />);
+  const mockFunc = () => null;
   expect(wrapper.html()).toEqual("");
-  expect(wrapper.containsMatchingElement(<Sidebar/>)).toEqual(false);
-  expect(wrapper.containsMatchingElement(<Dashboard/>)).toEqual(false);
+  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc}/>)).toEqual(false);
+  expect(wrapper.containsMatchingElement(<Dashboard workspaceId="1"/>)).toEqual(false);
 });
 
 test("Auth0's loginWithRedirect function should be called if no user is logged in.", () => { 

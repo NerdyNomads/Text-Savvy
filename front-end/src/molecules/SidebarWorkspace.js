@@ -62,9 +62,9 @@ function SidebarWorkspace( {onSelectWorkspace} ) {
     // Do GET request here
     
     const fakeWorkspace = [
-      {name: "My Workspace", id: 1, selected: true}, // first was will always be selected = true, ad the rest are false.
-      {name: "eThis is a very long workspace name", id: 2, selected: false},
-      {name: "workspace1", id: 3, selected: false},
+      {name: "My Workspace", id: "1", selected: true}, // first was will always be selected = true, ad the rest are false.
+      {name: "eThis is a very long workspace name", id: "2", selected: false},
+      {name: "workspace1", id: "3", selected: false},
     ];
 
     if (fakeWorkspace.length > 0) {

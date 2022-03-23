@@ -24,7 +24,7 @@ const whenStable = async () => {
 };
 
 test("Should match the snapshot.", () => { 
-  let wrapper = shallow(<Dashboard />);
+  let wrapper = shallow(<Dashboard workspaceId=""/>);
   expect(wrapper.html()).toMatchSnapshot();
 });
 
@@ -37,7 +37,7 @@ test("TextList component should be displayed when the data has been received.", 
     realUseState(stubInitialState);
   });
 
-  let wrapper = mount(<Dashboard />);
+  let wrapper = mount(<Dashboard workspaceId=""/>);
   await whenStable();
   expect(axios.get).toHaveBeenCalled();
 
