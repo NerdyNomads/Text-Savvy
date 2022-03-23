@@ -26,9 +26,7 @@ function WorkspaceSettings({onChangeVisibility}) {
 
       submitCollaborator(e.target.value);
       e.target.value = "";
-
     }
-    
   };
 
   const submitCollaborator = (newCollaborator) => {
@@ -64,13 +62,9 @@ function WorkspaceSettings({onChangeVisibility}) {
     }
   };
 
-  const handleExitClick = () => {
-    onChangeVisibility(false);
-  };
+  const handleExitClick = () => onChangeVisibility(false);
 
-  const handleRemoveCollaborator = (email) => {
-    console.log("Remove this collaborator: ", email);
-  };
+  const handleRemoveCollaborator = (email) => console.log("Remove this collaborator: ", email);
 
   const renderColaboratorList = () => 
     renderedCollaborators.map(
@@ -119,7 +113,6 @@ function WorkspaceSettings({onChangeVisibility}) {
       </div>
     </div>
   );
-
 }
 
 WorkspaceSettings.propTypes = {

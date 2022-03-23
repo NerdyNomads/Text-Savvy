@@ -42,7 +42,6 @@ function SidebarWorkspace( ) {
       // Do update request here
 
     }
-    
   };
 
   const addWorkspaceInput = showAddWorkspace ?
@@ -60,15 +59,9 @@ function SidebarWorkspace( ) {
     setShowAddWorkspace(!showAddWorkspace);
   };
 
-  const handleOnWorkspaceEdit = () => {
-    console.log("EDIITS");
+  const handleOnWorkspaceEdit = () => setShowWorkspaceSettingPopup(true);
 
-    setShowWorkspaceSettingPopup(true);
-  };
-
-  const handleOnClickWorkspace = () => {
-    console.log("Go to this workspace");
-  };
+  const handleOnClickWorkspace = () => console.log("Go to this workspace");
 
   const renderList = () => (
     workspaceList && workspaceList.map( (workspaces) => 
@@ -86,20 +79,12 @@ function SidebarWorkspace( ) {
 
   return (
     <div className={`${componentName}`}>
-      
       {header}
       {addWorkspaceInput}
-    
       {renderList()}
-
       {/* Workspace Settings Pop Up */}
       { showWorkspaceSettingPopup && <WorkspaceSettings onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
-
-
     </div>
-      
-
-   
   );
 }
 

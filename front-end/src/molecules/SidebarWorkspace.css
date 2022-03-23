@@ -1,5 +1,4 @@
 .SidebarWorkspace-header{
-
     width: calc(100% - 24);
     padding: 10px 12px;
     font-weight: 400;
@@ -12,8 +11,6 @@
     background-color: rgba(65, 148, 98, 0.25);
     font-weight: 700;
     font-size: 18px;
-    
-
 }
 
 .SidebarWorkspace-add-icon{

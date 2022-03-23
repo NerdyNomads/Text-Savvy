@@ -3,9 +3,9 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
-import "./Sidebar.css";
 import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
+import "./Sidebar.css";
 
 function Sidebar() {
 
@@ -53,9 +53,7 @@ function Sidebar() {
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-
       <SidebarWorkspace/>
-
       {dividerLight}
       {spacing}
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
@@ -68,7 +66,6 @@ function Sidebar() {
       </div>
     </div>
   );
-
 }
 
 export default Sidebar;

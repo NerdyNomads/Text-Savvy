@@ -20,7 +20,6 @@ function SidebarWorkspaceItem( {name, onEdit, onClickWorkspace} ) {
   };
 
   return (
-      
     <div className="SidebarWorkspaceItem" onClick={handleWorkspaceClick}>
       <div className="SidebarWorkspaceItem-name">   
         {formattedName}
@@ -29,8 +28,6 @@ function SidebarWorkspaceItem( {name, onEdit, onClickWorkspace} ) {
         <EditIcon/>
       </div>
     </div>
-
-   
   );
 }
 
