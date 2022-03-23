@@ -26,16 +26,12 @@ function SidebarWorkspace( ) {
     setWorkspaceList(fakeWorkspace);
 
   }, []); // empty second param in useEffect will only run once (on first load)
-  
-  useEffect(() => { 
-
-  }, [showWorkspaceSettingPopup]);
 
   const handleWorkspaceSubmit = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      const newWorkspaceList = [...workspaceList, {id: Math.random(), name:e.target.value}];
+      const newWorkspaceList = [{id: Math.random(), name:e.target.value}, ...workspaceList];
       setWorkspaceList(newWorkspaceList);
       e.target.value = "";
 
@@ -55,17 +51,16 @@ function SidebarWorkspace( ) {
     </div> 
     : <></>;
 
-  const handleAddWorkspace = () => {
-    setShowAddWorkspace(!showAddWorkspace);
-  };
+  const handleAddWorkspace = () => setShowAddWorkspace(prevShow => !prevShow);
+
 
   const handleOnWorkspaceEdit = () => setShowWorkspaceSettingPopup(true);
 
   const handleOnClickWorkspace = () => console.log("Go to this workspace");
 
   const renderList = () => (
-    workspaceList && workspaceList.map( (workspaces) => 
-      <SidebarWorkspaceItem key={workspaces.id} name={workspaces.name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
+    workspaceList && workspaceList.map( ({id, name}) => 
+      <SidebarWorkspaceItem key={id} name={name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
   );
 
   const header = <div className={`${componentName}-header`}>
@@ -73,9 +68,7 @@ function SidebarWorkspace( ) {
     <AddWorkspaceIcon className={`${componentName}-add-icon`} onClick={handleAddWorkspace}/>
   </div>;
 
-  const handleOnChangeVisibility = (visible) => {
-    setShowWorkspaceSettingPopup(visible);
-  };
+  const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
   return (
     <div className={`${componentName}`}>

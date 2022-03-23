@@ -68,7 +68,7 @@ function WorkspaceSettings({onChangeVisibility}) {
 
   const renderColaboratorList = () => 
     renderedCollaborators.map(
-      (col) => <CollaboratorItem key={Math.random()} pending={col.pending} email={col.email} onRemove={handleRemoveCollaborator}/>
+      ({pending, email}) => <CollaboratorItem key={Math.random()} pending={pending} email={email} onRemove={handleRemoveCollaborator}/>
     );
 
   const addCollaboratorElement = <div className={`${componentName}-add-collab`}>
