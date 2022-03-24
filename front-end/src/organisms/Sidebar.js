@@ -54,8 +54,8 @@ function Sidebar() {
       </div>
       {divider}
       <SidebarWorkspace/>
-      {dividerLight}
       {spacing}
+      {dividerLight}
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
         <div className={`${componentName}-option-logo`}><GearSmallIcon/></div>
         <div className={`${componentName}-option-text`}>Manage Account</div>
