@@ -5,7 +5,7 @@ export function AddWorkspaceIcon(props) {
   return <img alt="add workspace" src="/assets/images/add-workspace.svg" className="icon" {...props}/>;
 }
 
-export function AddCollab(props) {
+export function AddCollabIcon(props) {
   return <img alt="add collaborator" src="/assets/images/add-collab.svg" className="icon" {...props}/>;
 }
 

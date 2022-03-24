@@ -5,3 +5,9 @@
 export const trimLongText = (input, length) => {
   return input.length > length ? `${input.slice(0, length)}...` : `${input}` ;
 };
+
+export const isValidEmail = email => (
+  email.toLowerCase().match(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  )
+);
