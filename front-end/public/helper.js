@@ -56,7 +56,7 @@ export const saveTextToDb = (text, source, workspaceID) => {
   fetch(`${serverAddr}/texts/add`, postPackedData)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      updateWorkspaceToDb(data, workspaceID);
     });
   return textData; 
 }; 
@@ -71,7 +71,7 @@ export const workspaceIsClicked = (clickData, workspaces) => {
   }
 };
 
-export const updateWorkspaceToDb = (textData, clickData) => {
+export const updateWorkspaceToDb = (textData, workspaceID) => {
   const putPackedData = {
     method: "PATCH",
     headers: {
@@ -86,7 +86,7 @@ export const updateWorkspaceToDb = (textData, clickData) => {
     }),
   };
 
-  fetch(`${serverAddr}/workspaces/update/${clickData.menuItemId}`, putPackedData)
+  fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
     .then(response => response.json())
     .then((data) => {
       console.log(data);
