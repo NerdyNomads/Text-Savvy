@@ -1,6 +1,5 @@
 const router = require('express').Router();
 let Workspace = require('./models/workspaces.model');
-const mongoose = require('mongoose');
 
 router.route('/').get((req, res) => {
     Workspace.find()
@@ -25,7 +24,7 @@ router.route('/add').post((req, res) => {
 
 router.route("/update/:id").patch((req, res) => {
     Workspace.findByIdAndUpdate(req.params.id, req.body)
-        .then(() => res.json('Text Updated.'))
+        .then(() => res.json('Workspace Updated.'))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
