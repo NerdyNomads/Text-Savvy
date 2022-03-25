@@ -17,9 +17,12 @@ router.route("/add").post((req, res) => {
 
 	const newText = new Text({ text, source, workspaceID, creationDate, deleteDate, updateDate });
 
-	newText.save()
-		.then(() => res.json("Text added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	newText.save(function (err, post) {
+        if (err) {
+            res.status(400).json('Error: ' + err);
+        }
+        res.json(post);
+    });
 });
 
 router.route("/:id").delete((req, res) => {

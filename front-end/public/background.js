@@ -47,9 +47,7 @@ try {
       .then((result) => {
         // Result now contains the response text, do what you want...
         const workspaces = JSON.parse(result);
-        var textData;
-        textData = helper.workspaceIsClicked(clickData, workspaces);
-        helper.updateWorkspaceToDb(textData, clickData);  
+        helper.workspaceIsClicked(clickData, workspaces);
       });      
   });
   
