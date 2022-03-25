@@ -23,7 +23,6 @@ function WorkspaceSettings({ onChangeVisibility }) {
   const handleAddCollaboratorKeyPress = e => {
     if(e.key === "Enter"){
       e.preventDefault();
-      document.getElementById("collab-input").value = "";
       handleCollaboratorSubmit(e.target.value);
     }
   };
