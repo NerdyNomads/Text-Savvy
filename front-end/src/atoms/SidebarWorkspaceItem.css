@@ -24,3 +24,7 @@
     user-select: none;
     cursor: pointer;
 }
+
+.SidebarWorkspaceItem-selected {
+    background-color: #F3F3F3;
+}

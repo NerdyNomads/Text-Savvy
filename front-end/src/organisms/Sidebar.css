@@ -40,6 +40,7 @@
 
 .SideBar-spacing{
     padding: 5px;
+    flex-grow: 2;
 }
 
 .SideBar-option{
