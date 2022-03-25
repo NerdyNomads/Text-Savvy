@@ -21,15 +21,24 @@ function WorkspaceSettings({onChangeVisibility}) {
   const handleCollaboratorSubmit = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-
-      // VALIDATE EMAIL FORMAT HERE
-
       submitCollaborator(e.target.value);
       e.target.value = "";
     }
   };
 
+  const handleOnClickCollabIcon = () => {
+
+    const newCollab = document.getElementById("collab-input").value;
+    document.getElementById("collab-input").value = "";
+    submitCollaborator(newCollab);
+
+  };
+
   const submitCollaborator = (newCollaborator) => {
+
+    // VALIDATE EMAIL FORMAT HERE
+
+
     const newCollabList = [{email: newCollaborator, pending: true}, ...renderedCollaborators];
     setRenderedCollaborators(newCollabList);
     setRenderSave(true);
@@ -77,12 +86,13 @@ function WorkspaceSettings({onChangeVisibility}) {
     </div>
     <div className={`${componentName}-add-collab-bottom`}>
       <input 
+        id="collab-input"
         onKeyPress={(e) => handleCollaboratorSubmit(e)} 
         className={`${componentName}-add-collab-input`} 
         type="text" 
         placeholder="Enter collaborator's email"
       />
-      <AddCollab className={`${componentName}-add-collab-icon`} onClick={handleCollaboratorSubmit}/>
+      <AddCollab className={`${componentName}-add-collab-icon`} onClick={handleOnClickCollabIcon}/>
     </div>
   </div>;
   
