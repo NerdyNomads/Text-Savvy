@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import { AddWorkspaceIcon } from "../atoms/icons";
 import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
@@ -7,25 +8,10 @@ import WorkspaceSettings from "../organisms/WorkspaceSettings";
 import "./SidebarWorkspace.css";
 
 const componentName = "SidebarWorkspace";
-function SidebarWorkspace( ) {  
-
+function SidebarWorkspace( {onSelectWorkspace} ) {  
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
-
-  useEffect(() => {
-    
-    // Do GET request here
-    
-    const fakeWorkspace = [
-      {name: "My Workspace", id: 1},
-      {name: "eThis is a very long workspace name", id: 2},
-      {name: "workspace1", id: 3},
-    ];
-
-    setWorkspaceList(fakeWorkspace);
-
-  }, []); // empty second param in useEffect will only run once (on first load)
 
   const handleWorkspaceSubmit = (e) => {
     if (e.key === "Enter") {
@@ -53,22 +39,47 @@ function SidebarWorkspace( ) {
 
   const handleAddWorkspace = () => setShowAddWorkspace(prevShow => !prevShow);
 
-
   const handleOnWorkspaceEdit = () => setShowWorkspaceSettingPopup(true);
 
-  const handleOnClickWorkspace = () => console.log("Go to this workspace");
+  const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
+
+  const handleOnClickWorkspace = (selectedId) => {
+
+    const newWorkspaceList = workspaceList.map(({id, name}) => 
+      // TODO: test is this comparitor works with string ids.
+      selectedId == id ? { id, name, selected: true } : { id, name, selected: false }
+    );
+    onSelectWorkspace(newWorkspaceList);
+  };
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({id, name}) => 
-      <SidebarWorkspaceItem key={id} name={name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
+      <SidebarWorkspaceItem key={id} selected={false} name={name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
   );
+
+  useEffect(() => {
+    
+    // Do GET request here
+    
+    const fakeWorkspace = [
+      {name: "My Workspace", id: "1", selected: true}, // first was will always be selected = true, ad the rest are false.
+      {name: "eThis is a very long workspace name", id: "2", selected: false},
+      {name: "workspace1", id: "3", selected: false},
+    ];
+
+    if (fakeWorkspace.length > 0) {
+      onSelectWorkspace(fakeWorkspace[0].id); // by default the first workspace (recently will render)
+    } // else, do not show any workspace because there aren't any workspaces
+    
+    setWorkspaceList(fakeWorkspace);
+
+  }, []); // empty second param in useEffect will only run once (on first load)
+
 
   const header = <div className={`${componentName}-header`}>
     <span>My Workspaces</span>
     <AddWorkspaceIcon className={`${componentName}-add-icon`} onClick={handleAddWorkspace}/>
   </div>;
-
-  const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
   return (
     <div className={`${componentName}`}>
@@ -80,5 +91,10 @@ function SidebarWorkspace( ) {
     </div>
   );
 }
+
+SidebarWorkspace.propTypes = {
+  onSelectWorkspace: PropTypes.func.isRequired,
+};
+
 
 export default SidebarWorkspace;

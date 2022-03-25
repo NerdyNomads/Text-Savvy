@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
 function App() {
-  
+  const [currentWorkspaceId, setCurrentWorkspaceId] = useState("");
   const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
   
 
@@ -75,14 +75,16 @@ function App() {
         console.error("failed to get token!", e);
       });
   };
+  
+  const handleGoToWorkspace = (id) => setCurrentWorkspaceId(id);
 
   if (!isAuthenticated) {
     return <></>;
   } else {
     return (
       <div className="App">
-        <SideBar/>
-        <Dashboard/>
+        <SideBar onClickWorkspace={handleGoToWorkspace}/>
+        <Dashboard workspaceId={currentWorkspaceId}/>
       </div>
     );
   }	
