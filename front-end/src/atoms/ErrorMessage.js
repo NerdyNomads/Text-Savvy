@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 
 import "./ErrorMessage.css";
 
-const ErrorMessage = ({className, message}) => (
-  <span className={`ErrorMessage ${className}`}>{message}</span>
+const ErrorMessage = ({message}) => (
+  <span  id="ErrorMessage">{message}</span>
 );
 
 ErrorMessage.propTypes = {
-  className: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired
 };
 

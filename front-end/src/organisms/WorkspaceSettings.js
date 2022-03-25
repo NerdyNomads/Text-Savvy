@@ -9,7 +9,6 @@ import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
 
-
 function WorkspaceSettings({ onChangeVisibility }) {
   const componentName = "WorkspaceSettings";
 
@@ -21,14 +20,14 @@ function WorkspaceSettings({ onChangeVisibility }) {
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
 
-  const handleKeyPress = e => {
+  const handleAddCollaboratorKeyPress = e => {
     if(e.key === "Enter"){
       e.preventDefault();
       handleCollaboratorSubmit(e.target.value);
     }
   };
 
-  const handleAddCollabOnClick = () => (
+  const handleAddCollaboratorOnClick = () => (
     handleCollaboratorSubmit(document.getElementById("add-collaborator-email-input").value)
   );
 
@@ -100,10 +99,10 @@ function WorkspaceSettings({ onChangeVisibility }) {
         <span className={`${componentName}-add-collab-label`}>Share with others:</span>
       </div>
       {/* Error Message */}
-      {error ? <ErrorMessage className={`${componentName}-add-collab-label`} message={`${error}`}/> : <></>}
+      {error ? <ErrorMessage message={`${error}`}/> : <></>}
       <div className={`${componentName}-add-collab-bottom`}>
         <input
-          onKeyPress={(e) => handleKeyPress(e)}
+          onKeyPress={(e) => handleAddCollaboratorKeyPress(e)}
           id="add-collaborator-email-input"
           className={`${componentName}-add-collab-input`}
           type="text"
@@ -111,7 +110,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
         />
         <AddCollabIcon
           className={`${componentName}-add-collab-icon`}
-          onClick={handleAddCollabOnClick}
+          onClick={handleAddCollaboratorOnClick}
         />
       </div>
     </div>
