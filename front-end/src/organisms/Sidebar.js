@@ -8,7 +8,7 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 import "./Sidebar.css";
 
-function Sidebar({onClickWorkspace}) {
+function Sidebar({ onClickWorkspace, accountId }) {
 
   // FAKE DB FOR UI
 
@@ -50,14 +50,13 @@ function Sidebar({onClickWorkspace}) {
 
   const handleGoToWorkspace = (id) => onClickWorkspace(id);
   
-
   return (
     <div className={`${componentName}`}>
       <div className={`${componentName}-logo`}>
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-      <SidebarWorkspace onSelectWorkspace={handleGoToWorkspace}/>
+      <SidebarWorkspace onSelectWorkspace={handleGoToWorkspace} accountId={accountId}/>
       {dividerLight}
       {spacing}
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
@@ -74,6 +73,7 @@ function Sidebar({onClickWorkspace}) {
 
 Sidebar.propTypes = {
   onClickWorkspace: PropTypes.func.isRequired,
+  accountId: PropTypes.string
 };
 
 

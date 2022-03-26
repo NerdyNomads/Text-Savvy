@@ -26,6 +26,17 @@ router.route('/auth0/:auth0Id').get((req, res) => {
 });
 
 /**
+ * GET
+ * 
+ * Get the list of workspaces for the corresponding account ID.
+ */
+ router.route('/workspaces/:accountId').get((req, res) => {
+    Account.findById(req.params.accountId)
+        .then(account => res.json(account))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
  * POST
  * 
  * Create a new account.
@@ -38,9 +49,18 @@ router.route('/add').post((req, res) => {
 
     const newAccount = new Account({ auth0Id, name, email, workspaces });
 
-    newAccount.save()
-        .then(() => res.json('Account added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+    newAccount.save(function (err, post) {
+        if (err) {
+            res.status(400).json('Error: ' + err);
+        }
+        res.json(post);
+    });
+});
+
+router.route("/update/:id").patch((req, res) => {
+    Account.findByIdAndUpdate(req.params.id, req.body)
+        .then(() => res.json('Account Updated.'))
+        .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
