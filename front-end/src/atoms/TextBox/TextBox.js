@@ -80,7 +80,7 @@ TextBox.propTypes = {
     _id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     source: PropTypes.string.isRequired,
-    creationDate: PropTypes.number.isRequired
+    // creationDate: PropTypes.number.isRequired
   }),
   onDelete: PropTypes.func.isRequired
 };

@@ -1,3 +1,4 @@
+/* global chrome */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -50,6 +51,15 @@ function Sidebar({onClickWorkspace}) {
 
   const handleGoToWorkspace = (id) => onClickWorkspace(id);
   
+  const handleLogout = () => {
+    let extensionId = chrome.runtime.id;        // CURRENTLY RETURNING 'UNDEFINED'
+    window.localStorage.setItem("auth0Id", "");
+    console.log(extensionId);
+    chrome.runtime.sendMessage("cdleedjmnaakoodhaldgpedjmfjpnomb", { messageFromWeb: window.localStorage });
+    // chrome.runtime.sendMessage(extensionId, { messageFromWeb: window.localStorage });
+    console.log(window.localStorage);
+    logout();
+  };
 
   return (
     <div className={`${componentName}`}>
@@ -64,7 +74,7 @@ function Sidebar({onClickWorkspace}) {
         <div className={`${componentName}-option-logo`}><GearSmallIcon/></div>
         <div className={`${componentName}-option-text`}>Manage Account</div>
       </div>
-      <div className={`${componentName}-logout ${componentName}-option`} onClick={logout}>
+      <div className={`${componentName}-logout ${componentName}-option`} onClick={handleLogout}>
         <div className={`${componentName}-option-logo`}><LogoutIcon/></div>
         <div className={`${componentName}-option-text`}>Logout</div>
       </div>

@@ -20,9 +20,16 @@
   "permissions": [
     "contextMenus",
     "notifications",
-    "tabs"
+    "tabs",
+    "scripting"
   ],
   
+  "host_permissions": ["*://localhost/*"],
+
+  "externally_connectable": {
+    "matches": ["*://localhost/*"]
+  },
+
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   }
