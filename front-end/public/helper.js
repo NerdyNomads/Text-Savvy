@@ -1,6 +1,8 @@
+/* global chrome */
 /* eslint-disable no-undef */
 const MAX_TEXT_NOTIF_CHARACTERS = 20;
-const serverAddr = "http://localhost:5000";
+
+export const serverAddr = "http://localhost:5000";
 
 export const formatText = (input) => {
   return input.length > MAX_TEXT_NOTIF_CHARACTERS ? `"${input.slice(0, MAX_TEXT_NOTIF_CHARACTERS)}..."` : `"${input}"` ;
@@ -92,3 +94,41 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
       console.log(data);
     });
 }; 
+
+export const createContextMenus = (workspaces) => {
+  var workspaceID;
+  workspaces.map((workspace) => {
+    workspaceID = workspace._id;
+    chrome.contextMenus.create({
+      id: workspace._id,
+      title: workspace.name,
+      contexts: ["selection"],
+      parentId: "parent",
+    });
+  });
+  return workspaceID;
+};
+
+export const createWorkspaceContextMenus = (workspaceIds) => {
+  // Add all the workspaces as children
+  fetch(`${serverAddr}/workspaces`)
+    .then((r) => r.text())
+    .then((workspace_result) => {
+    // Result now contains the response text, do what you want...
+      const workspaces = JSON.parse(workspace_result);
+      workspaces.map((workspace) => {
+        if (workspaceIds.indexOf(workspace._id) === -1) { // AND filter which workspace IDs are present in account array
+          workspaceIds.push(workspace._id);
+          chrome.contextMenus.create({
+            id: workspace._id,
+            title: workspace.name,
+            contexts: ["selection"],
+            parentId: "parent",
+          });
+        }
+        else {
+          console.log("Context menu(s) already exist.");
+        }
+      });
+    });
+};
