@@ -12,54 +12,32 @@ function Dashboard({ workspaceId }) {
 
   const componentName = "Dashboard";
 
-  const getCurrentWorkspace = () => {
-    // FETCH CURRENT WORKSPACE based on id
+  const getCurrentWorkspace = async () => {
+    if (workspaceId) {
+      let workspaceResult = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
+      setRenderedWorkspaceTitle(workspaceResult?.data.name);
 
-
-    const fakeWorkspace = {
-      id: "1",
-      name: "My Workspace"
-    };
-
-    setRenderedWorkspaceTitle(fakeWorkspace.name);
+      let textResult = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
+      setTextItems(textResult?.data);
+    }
   };
 
   useEffect(() => {
-
     getCurrentWorkspace(workspaceId);
-
-  }, []);
-
-  /**
-   * Grabs data from the db.
-   * 
-   * @returns 				returns data from the db. 
-   */
-  async function getTexts() {
-    let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts`);
-    return result?.data;
-  }
-
-  useEffect(async () => {
-    let texts = await getTexts();
-
-    if (texts) {
-      setTextItems(texts);
-    }
-  }, []);
+  }, [workspaceId]);
 
   return (
     <div className={`${componentName}`}>
       <div className={`${componentName}-title`}>{renderedWorkspaceTitle}</div>
       { textItems &&
-          <TextList list={textItems}/>
+          <TextList textList={textItems} workspaceId={workspaceId}/>
       }
     </div>
   );
 }
+
 Dashboard.propTypes = {
   workspaceId: PropTypes.string.isRequired,
 };
-
 
 export default Dashboard;
