@@ -81,9 +81,18 @@ function WorkspaceSettings({ onChangeVisibility }) {
 
   const handleExitClick = () => onChangeVisibility(false);
 
-  const handleRemoveCollaborator = (email) => console.log("Remove this collaborator: ", email);
+  // Removes the first instance of the input email found in the renderedCollaborators list
+  const handleRemoveCollaborator = (email) => {
+    const collabCopy = [...renderedCollaborators];
+    const removalIndex = collabCopy.findIndex(item => item.email === email);
+    if(removalIndex >= 0){
+      collabCopy.splice(removalIndex, 1);
+      setRenderedCollaborators(collabCopy);
+      setRenderSave(true);
+    }
+  };
 
-  const renderColaboratorList = () =>
+  const renderCollaboratorList = () =>
     renderedCollaborators.map(({ pending, email }) => (
       <CollaboratorItem
         key={Math.random()}
@@ -126,7 +135,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
         <div className={`${componentName}-header`}>{renderedName}</div>
         <div className={`${componentName}-body`}>
           {addCollaboratorElement}
-          <div className={`${componentName}-collab-list`}>{renderColaboratorList()}</div>
+          <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
         </div>
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-footer-pad`} />
