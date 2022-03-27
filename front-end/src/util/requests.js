@@ -1,0 +1,26 @@
+// import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+
+/**
+ * Adds a new account to the database.
+ * 
+ * @param {*} auth0Id The Auth0 ID of the current user.
+ * @param {*} user The user object containing the name and email to POST
+ */
+export async function addNewAccount(auth0Id, user) {
+  const account = {
+    auth0Id: auth0Id,
+    name: user.name,
+    email: user.email,
+    workspaces: []
+  };
+
+  let response;
+
+  await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/add/`, account)
+    .then((res) => {
+      response = res;
+    });
+
+  return response;
+}
