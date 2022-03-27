@@ -45,7 +45,7 @@ function Sidebar({ onClickWorkspace, accountId }) {
 
 Sidebar.propTypes = {
   onClickWorkspace: PropTypes.func.isRequired,
-  accountId: PropTypes.string
+  accountId: PropTypes.string.isRequired
 };
 
 

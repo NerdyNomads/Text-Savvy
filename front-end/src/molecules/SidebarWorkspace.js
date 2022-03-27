@@ -105,7 +105,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
 SidebarWorkspace.propTypes = {
   onSelectWorkspace: PropTypes.func.isRequired,
-  accountId: PropTypes.string
+  accountId: PropTypes.string.isRequired
 };
 
 
