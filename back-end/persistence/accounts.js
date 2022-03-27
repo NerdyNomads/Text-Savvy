@@ -30,9 +30,9 @@ router.route('/auth0/:auth0Id').get((req, res) => {
  * 
  * Get the list of workspaces for the corresponding account ID.
  */
- router.route('/workspaces/:accountId').get((req, res) => {
+ router.route('/:accountId/workspaces').get((req, res) => {
     Account.findById(req.params.accountId)
-        .then(account => res.json(account))
+        .then(account => res.json(account.workspaces))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

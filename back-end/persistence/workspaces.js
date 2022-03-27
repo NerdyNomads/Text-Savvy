@@ -8,6 +8,18 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:workspaceId').get((req, res) => {
+    Workspace.findById(req.params.workspaceId)
+        .then(workspace => res.json(workspace))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/byOwner/:ownerId').get((req, res) => {
+    Workspace.find({owner: req.params.ownerId})
+        .then(workspaces => res.json(workspaces))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const owner = req.body.owner;
@@ -31,7 +43,7 @@ router.route('/add').post((req, res) => {
 
 router.route("/update/:id").patch((req, res) => {
     Workspace.findByIdAndUpdate(req.params.id, req.body)
-        .then(() => res.json('Workspace Updated.'))
+        .then((workspace) => res.json(workspace))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 

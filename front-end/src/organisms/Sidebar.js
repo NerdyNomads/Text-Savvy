@@ -9,34 +9,6 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 import "./Sidebar.css";
 
 function Sidebar({ onClickWorkspace, accountId }) {
-
-  // FAKE DB FOR UI
-
-  // const texts = [
-  //   {
-  //     id: "10",
-  //     text: "Testing text from Test 1",
-  //     source: "https://www.test1.com",
-  //     workspaceID: "1",
-  //     creationDate: 1646724250020
-  //   },
-  //   {
-  //     id: "20",
-  //     text: "Testing text from Test 2",
-  //     source: "https://www.test2.com",
-  //     workspaceID: "2",
-  //     creationDate: 1646760121099,
-
-  //   },
-  //   {
-  //     id: "30",
-  //     text: "Testing text from Test 3",
-  //     source: "https://www.test3.com",
-  //     workspaceID: "3",
-  //     creationDate: 1646767121099
-  //   }
-  // ];
-
   const { logout } = useAuth0();
 
   const spacing = <div className="SideBar-spacing"/>;

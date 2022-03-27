@@ -7,6 +7,12 @@ router.route("/").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/byWorkspace/:workspaceId").get((req, res) => {
+	Text.find({workspaceID: req.params.workspaceId})
+		.then((texts) => res.json(texts))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/add").post((req, res) => {
 	const text = req.body.text;
 	const source = req.body.source;

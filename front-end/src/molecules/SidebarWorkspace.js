@@ -34,13 +34,18 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
           const newWorkspaceList = [res.data, ...workspaceList];
           setWorkspaceList(newWorkspaceList);
           updateAccountWorkspaces(newWorkspaceList);
+
+          e.target.value = "";
+          setShowAddWorkspace(false);
         });
     }
   };
 
   const updateAccountWorkspaces = async (newWorkspaceList) => {
     let id = accountId;
-    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/update/` + id, {workspaces: newWorkspaceList});
+    let workspaceIds = newWorkspaceList.map(workspace => workspace._id);
+
+    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/update/${id}`, {workspaces: workspaceIds});
   };
 
   const addWorkspaceInput = showAddWorkspace ?
@@ -61,11 +66,6 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
   const handleOnClickWorkspace = (selectedId) => {
-    // workspaceList.map(({_id, name}) => 
-    //   // TODO: test is this comparitor works with string ids.
-    //   selectedId == _id ? { _id, name, selected: true } : { _id, name, selected: false }
-    // );
-    // console.log(workspaceList);
     onSelectWorkspace(selectedId);
   };
 
@@ -75,10 +75,11 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   );
 
   useEffect( async () => {
-    
     if (accountId) {
-      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/workspaces/` + accountId);
-      let workspaces = result.data.workspaces;
+      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
+      let workspaces = result.data;
+      
+      // TODO: get workspaces you dont own, but are a collaborator of
 
       if (workspaces.length > 0) {
         onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
@@ -86,7 +87,6 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
     
       setWorkspaceList(workspaces);
     }
-
   }, [accountId]); 
 
   const header = <div className={`${componentName}-header`}>

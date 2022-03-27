@@ -7,7 +7,7 @@ import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "../icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
-function TextBoxAdd({onSubmit}) {
+function TextBoxAdd({ workspaceId, onSubmit }) {
 
   const [edit, setEdit] = useState(false);
   const [textAreaVal, setTextAreaVal] = useState("");
@@ -34,7 +34,7 @@ function TextBoxAdd({onSubmit}) {
     const text = {
       text: textAreaVal,
       source: sourceFieldVal,
-      workspaceID: null,
+      workspaceID: workspaceId,
       creationDate: Date.now(),
       updateDate: null,
       deleteDate: null
@@ -42,8 +42,8 @@ function TextBoxAdd({onSubmit}) {
 
     axios
       .post(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, text)
-      .then(() => {
-        onSubmit();
+      .then((result) => {
+        onSubmit(result.data);
       });
 
     setTimeout(() => {
@@ -110,7 +110,8 @@ function TextBoxAdd({onSubmit}) {
 }
 
 TextBoxAdd.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  workspaceId: PropTypes.string.isRequired
 };
 
 export default TextBoxAdd;

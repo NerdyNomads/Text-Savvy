@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import TextBox from "../atoms/TextBox/TextBox";
 import TextBoxAdd from "../atoms/TextBox/TextBoxAdd";
@@ -7,37 +8,30 @@ import "./TextList.css";
 
 import axios from "axios";
 
-function TextList() {
-  const [ dataIsLoaded, setDataIsLoaded ] = useState(false);
+function TextList({ textList, workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);
 
-  const handleSubmit = async () => {
-    let newTextItems = await getTexts();
+  const handleSubmit = (newTextItem) => {
+    let newTextItems = [newTextItem, ...textItems];
     setTextItems(newTextItems);
+    updateWorkspace(newTextItems);
   };
-  
+
   const handleDelete = (id) => {
     // delete item in JSON based on id
-    const newRenderedItem = textItems.filter(text => id !== text._id);
-    setTextItems(newRenderedItem);
+    const newTextItems = textItems.filter(text => id !== text._id);
+    setTextItems(newTextItems);
+    updateWorkspace(newTextItems);
   };
 
-  async function getTexts() {
-    let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts`);
-    return result?.data;
+  const updateWorkspace = async (textItems) => {
+    let textIds = textItems.map( textItem => textItem._id );
+    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/update/${workspaceId}`, {texts: textIds, updateDate: Date.now()});
   }
 
-  useEffect(async () => {
-    let abortController = new AbortController();
-    let dbTexts = await getTexts();
-    setDataIsLoaded(true);
-    if (dataIsLoaded) {
-      setTextItems(dbTexts);
-    }
-    return () => {  
-      abortController.abort();  
-    } 
-  }, [dataIsLoaded]);
+  useEffect(() => {
+    setTextItems(textList);
+  }, [textList]);
 
   const renderList = () => {
     return textItems && textItems.map( (text) => {
@@ -47,10 +41,15 @@ function TextList() {
 
   return (
     <div className= "text-list">
-      {<TextBoxAdd showInput={false} onSubmit = {() => handleSubmit()}/>}
+      {<TextBoxAdd workspaceId={workspaceId} showInput={false} onSubmit = {(newText) => handleSubmit(newText)}/>}
       {renderList()}
     </div>
   );
 }
+
+TextList.propTypes = {
+  textList: PropTypes.array.isRequired,
+  workspaceId: PropTypes.string.isRequired
+};
 
 export default TextList;
