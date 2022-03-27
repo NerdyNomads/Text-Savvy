@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import { shallow, configure, mount } from "enzyme";
+import { shallow, configure } from "enzyme";
 import { act } from "react-dom/test-utils";
 import axios  from "axios";
 
