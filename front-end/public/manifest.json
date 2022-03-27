@@ -20,8 +20,7 @@
   "permissions": [
     "contextMenus",
     "notifications",
-    "tabs",
-    "scripting"
+    "tabs"
   ],
   
   "host_permissions": ["*://localhost/*"],

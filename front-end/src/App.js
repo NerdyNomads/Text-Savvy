@@ -58,10 +58,8 @@ function App() {
     } else {
       let userId = user.sub;
       let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
-      let extensionId = chrome.runtime.id; // CURRENTLY RETURNING 'UNDEFINED'
       window.localStorage.setItem("auth0Id", auth0Id);
-      chrome.runtime.sendMessage("cdleedjmnaakoodhaldgpedjmfjpnomb", { messageFromWeb: window.localStorage });
-      // chrome.runtime.sendMessage({ messageFromWeb: window.localStorage });
+      chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
       if (await isNewAccount(auth0Id)) {
         addNewAccount(auth0Id);
       }

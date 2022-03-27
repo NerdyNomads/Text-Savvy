@@ -52,11 +52,8 @@ function Sidebar({onClickWorkspace}) {
   const handleGoToWorkspace = (id) => onClickWorkspace(id);
   
   const handleLogout = () => {
-    let extensionId = chrome.runtime.id;        // CURRENTLY RETURNING 'UNDEFINED'
     window.localStorage.setItem("auth0Id", "");
-    console.log(extensionId);
-    chrome.runtime.sendMessage("cdleedjmnaakoodhaldgpedjmfjpnomb", { messageFromWeb: window.localStorage });
-    // chrome.runtime.sendMessage(extensionId, { messageFromWeb: window.localStorage });
+    chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
     console.log(window.localStorage);
     logout();
   };
