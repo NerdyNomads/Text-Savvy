@@ -1,10 +1,7 @@
 /* global chrome */
-/* eslint-disable */
 import * as helper from "./helper.js";
 
 try {
-  const serverAddr = "http://localhost:5000";
-
   // Context menu items
   //--------------------------------------------------------------
 
@@ -28,6 +25,7 @@ try {
   chrome.runtime.onMessageExternal.addListener(
     function(request) {
       console.log(request.messageFromWeb.auth0Id);
+      // if there is an account logged in locally
       if (request.messageFromWeb.auth0Id === "") {
         isLogged = false;
         workspaceIds = [];
@@ -35,8 +33,9 @@ try {
         chrome.contextMenus.removeAll();
         chrome.contextMenus.create(parentContextMenuItem);
       }
+      // else, there is no account/user logged in
       else {
-        fetch(`${serverAddr}/accounts`)
+        fetch(`${helper.serverAddr}/accounts`)
           .then((r) => r.text())
           .then((account_result) => {
             // Result now contains the response text, do what you want...
@@ -46,47 +45,19 @@ try {
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
                 isLogged = true;
                 if (currUserId === account.auth0Id) {
-                  // Add all the workspaces as children
-                  fetch(`${serverAddr}/workspaces`)
-                    .then((r) => r.text())
-                    .then((workspace_result) => {
-                      // Result now contains the response text, do what you want...
-                      const workspaces = JSON.parse(workspace_result);
-                      workspaces.map((workspace) => {
-                        if (workspaceIds.indexOf(workspace._id) === -1) {
-                          workspaceIds.push(workspace._id);
-                          chrome.contextMenus.create({
-                            id: workspace._id,
-                            title: workspace.name,
-                            contexts: ["selection"],
-                            parentId: "parent",
-                          })
-                        }
-                        else {
-                          console.log("Context menu(s) already exist.");
-                        }
-                      });
-                    });
+                  helper.createWorkspaceContextMenus(workspaceIds);
                 }
                 // if current user is different from currently logged user
                 else {
                   workspaceIds = [];
                   currUserId = account.auth0Id;
                   // Add all the workspaces as children
-                  fetch(`${serverAddr}/workspaces`)
+                  fetch(`${helper.serverAddr}/workspaces`)
                     .then((r) => r.text())
                     .then((workspace_result) => {
                       // Result now contains the response text, do what you want...
                       const workspaces = JSON.parse(workspace_result);
-                      workspaces.map((workspace) => {
-                        workspaceIds.push(workspace._id);
-                        chrome.contextMenus.create({
-                          id: workspace._id,
-                          title: workspace.name,
-                          contexts: ["selection"],
-                          parentId: "parent",
-                        })
-                      });
+                      workspaceIds.push(helper.createContextMenus(workspaces));
                     });
                 }
               }
@@ -102,7 +73,7 @@ try {
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
     if (isLogged) {
-      fetch(`${serverAddr}/workspaces`)
+      fetch(`${helper.serverAddr}/workspaces`)
         .then((r) => r.text())
         .then((result) => {
           // Result now contains the response text, do what you want...
