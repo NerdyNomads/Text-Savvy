@@ -40,8 +40,8 @@ function App() {
       if (account) {
         setCurrentAccountId(account._id);
       } else {
-        const addResult = await addNewAccount(auth0Id,user);
-        setCurrentAccountId(addResult.data._id);
+        const response = await addNewAccount(auth0Id,user);
+        setCurrentAccountId(response.data._id);
       }
     }
 

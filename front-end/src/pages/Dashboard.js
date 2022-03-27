@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 
-import axios from "axios";
-
 import TextList from "../molecules/TextList";
 import "./Dashboard.css";
+import { getWorkspaceInfo, getWorkspaceText } from "../util/requests";
 
 function Dashboard({ workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);
@@ -14,11 +13,14 @@ function Dashboard({ workspaceId }) {
 
   const getCurrentWorkspace = async () => {
     if (workspaceId) {
-      let workspaceResult = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
+      let workspaceResult = await getWorkspaceInfo(workspaceId);
       setRenderedWorkspaceTitle(workspaceResult?.data.name);
 
-      let textResult = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
+      let textResult = await getWorkspaceText(workspaceId);
       setTextItems(textResult?.data);
+
+      console.log("Workspace result", workspaceResult);
+      console.log("text Result",textResult);
     }
   };
 

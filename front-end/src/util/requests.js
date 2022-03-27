@@ -1,4 +1,3 @@
-// import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 /**
@@ -23,4 +22,22 @@ export async function addNewAccount(auth0Id, user) {
     });
 
   return response;
+}
+
+/**
+ * Request a workspace's information
+ * 
+ * @param {*} workspaceId The workspace's id you'd like to retrieve
+ */
+export async function getWorkspaceInfo(workspaceId){
+  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
+}
+
+/**
+ * Request a workspace's stored text
+ * 
+ * @param {*} workspaceId The workspace's id you'd like to retrieve
+ */
+export async function getWorkspaceText(workspaceId){
+  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
 }
