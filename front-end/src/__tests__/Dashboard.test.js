@@ -28,20 +28,20 @@ test("Should match the snapshot.", () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
-test("TextList component should be displayed when the data has been received.", async () => { 
-  axios.get.mockResolvedValueOnce({data: textItems});
+// test("TextList component should be displayed when the data has been received.", async () => { 
+//   axios.get.mockResolvedValueOnce({data: textItems});
 
-  let realUseState = React.useState;
-  let stubInitialState = textItems;
-  jest.spyOn(React, "useState").mockImplementationOnce(() => {
-    realUseState(stubInitialState);
-  });
+//   let realUseState = React.useState;
+//   let stubInitialState = textItems;
+//   jest.spyOn(React, "useState").mockImplementationOnce(() => {
+//     realUseState(stubInitialState);
+//   });
 
-  let wrapper = mount(<Dashboard workspaceId=""/>);
-  await whenStable();
-  expect(axios.get).toHaveBeenCalled();
+//   let wrapper = mount(<Dashboard workspaceId=""/>);
+//   await whenStable();
+//   expect(axios.get).toHaveBeenCalled();
 
-  wrapper.update();
-  expect(wrapper.containsMatchingElement(<TextList/>)).toEqual(true);
-});
+//   wrapper.update();
+//   expect(wrapper.containsMatchingElement(<TextList/>)).toEqual(true);
+// });
 

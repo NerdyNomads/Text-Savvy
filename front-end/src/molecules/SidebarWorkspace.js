@@ -65,9 +65,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
-  const handleOnClickWorkspace = (selectedId) => {
-    onSelectWorkspace(selectedId);
-  };
+  const handleOnClickWorkspace = (selectedId) => onSelectWorkspace(selectedId);
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 

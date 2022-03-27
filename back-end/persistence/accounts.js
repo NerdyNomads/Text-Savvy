@@ -26,17 +26,6 @@ router.route('/auth0/:auth0Id').get((req, res) => {
 });
 
 /**
- * GET
- * 
- * Get the list of workspaces for the corresponding account ID.
- */
- router.route('/:accountId/workspaces').get((req, res) => {
-    Account.findById(req.params.accountId)
-        .then(account => res.json(account.workspaces))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-/**
  * POST
  * 
  * Create a new account.
