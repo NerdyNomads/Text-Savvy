@@ -7,7 +7,7 @@ import "./SidebarWorkspaceItem.css";
 
 const MAX_CHARACTER = 20;
 
-function SidebarWorkspaceItem( {name, onEdit, selected, onClickWorkspace} ) {
+function SidebarWorkspaceItem( {id, name, onEdit, selected, onClickWorkspace} ) {
 
   const  formattedName = trimLongText(name ,MAX_CHARACTER);
 
@@ -16,7 +16,7 @@ function SidebarWorkspaceItem( {name, onEdit, selected, onClickWorkspace} ) {
   const handleEditWorkspaceClick = () => onEdit(true);
   
 
-  const handleWorkspaceClick = () => onClickWorkspace(true);
+  const handleWorkspaceClick = () => onClickWorkspace(id);
 
 
   return (
@@ -32,6 +32,7 @@ function SidebarWorkspaceItem( {name, onEdit, selected, onClickWorkspace} ) {
 }
 
 SidebarWorkspaceItem.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onEdit: PropTypes.func.isRequired,
   onClickWorkspace: PropTypes.func.isRequired,

@@ -8,20 +8,14 @@ import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
 function App() {
+  const [currentAccountId, setCurrentAccountId] = useState(null);
   const [currentWorkspaceId, setCurrentWorkspaceId] = useState("");
   const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
   
-
-  /**
-   * Checks if the user that is logged in has been added to the database.
-   * 
-   * @param {*} auth0Id 		The Auth0 ID of the current user.
-   * @returns 				If no account exists in the database, return true.
-   */
-  async function isNewAccount(auth0Id) {
+  async function getAccount(auth0Id) {
     let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/` + auth0Id);
 
-    return result?.data.length == 0;
+    return result?.data[0];
   }
 
   /**
@@ -38,7 +32,9 @@ function App() {
     };
 
     await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/add/`, account)
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        setCurrentAccountId(res.data._id);
+      });
   }
 
   useEffect(async () => {
@@ -57,9 +53,16 @@ function App() {
     } else {
       let userId = user.sub;
       let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
+
+      // send auth0Id to web extension
       window.localStorage.setItem("auth0Id", auth0Id);
       chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
-      if (await isNewAccount(auth0Id)) {
+
+      let account = await getAccount(auth0Id);
+
+      if (account) {
+        setCurrentAccountId(account._id);
+      } else {
         addNewAccount(auth0Id);
       }
     }
@@ -85,7 +88,7 @@ function App() {
   } else {
     return (
       <div className="App">
-        <SideBar onClickWorkspace={handleGoToWorkspace}/>
+        <SideBar onClickWorkspace={handleGoToWorkspace} accountId={currentAccountId}/>
         <Dashboard workspaceId={currentWorkspaceId}/>
       </div>
     );

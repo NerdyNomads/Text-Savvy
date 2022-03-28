@@ -8,7 +8,8 @@ const workspaceSchema = new Schema({
         required: true
     },
     owner: {
-        type: String
+        type: String,
+        required: true
     },
     collaborators: {
         type: Array

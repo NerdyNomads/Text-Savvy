@@ -9,7 +9,7 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 import "./Sidebar.css";
 
-function Sidebar({onClickWorkspace}) {
+function Sidebar({ onClickWorkspace, accountId }) {
   const { logout } = useAuth0();
 
   const spacing = <div className="SideBar-spacing"/>;
@@ -24,6 +24,7 @@ function Sidebar({onClickWorkspace}) {
   const handleGoToWorkspace = (id) => onClickWorkspace(id);
   
   const handleLogout = () => {
+    // clear auth0Id and send to web extension
     window.localStorage.setItem("auth0Id", "");
     chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
     console.log(window.localStorage);
@@ -36,7 +37,7 @@ function Sidebar({onClickWorkspace}) {
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
-      <SidebarWorkspace onSelectWorkspace={handleGoToWorkspace}/>
+      <SidebarWorkspace onSelectWorkspace={handleGoToWorkspace} accountId={accountId}/>
       {dividerLight}
       {spacing}
       <div className={`${componentName}-manageacc ${componentName}-option`} onClick={handleManageAccountOnClick}>
@@ -53,6 +54,7 @@ function Sidebar({onClickWorkspace}) {
 
 Sidebar.propTypes = {
   onClickWorkspace: PropTypes.func.isRequired,
+  accountId: PropTypes.string.isRequired
 };
 
 

@@ -38,9 +38,18 @@ router.route('/add').post((req, res) => {
 
     const newAccount = new Account({ auth0Id, name, email, workspaces });
 
-    newAccount.save()
-        .then(() => res.json('Account added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+    newAccount.save(function (err, post) {
+        if (err) {
+            res.status(400).json('Error: ' + err);
+        }
+        res.json(post);
+    });
+});
+
+router.route("/update/:id").patch((req, res) => {
+    Account.findByIdAndUpdate(req.params.id, req.body)
+        .then(() => res.json('Account Updated.'))
+        .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
