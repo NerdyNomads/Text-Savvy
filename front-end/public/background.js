@@ -24,8 +24,7 @@ try {
   var isLogged = false;
   chrome.runtime.onMessageExternal.addListener(
     function(request) {
-      console.log(request.messageFromWeb.auth0Id);
-      // if there is an account logged in locally
+      // if there is no account logged in locally
       if (request.messageFromWeb.auth0Id === "") {
         isLogged = false;
         workspaceIds = [];
@@ -33,7 +32,7 @@ try {
         chrome.contextMenus.removeAll();
         chrome.contextMenus.create(parentContextMenuItem);
       }
-      // else, there is no account/user logged in
+      // else, there is an account/user logged in
       else {
         fetch(`${helper.serverAddr}/accounts`)
           .then((r) => r.text())
@@ -57,7 +56,7 @@ try {
                     .then((workspace_result) => {
                       // Result now contains the response text, do what you want...
                       const workspaces = JSON.parse(workspace_result);
-                      workspaceIds.push(helper.createContextMenus(workspaces, account));
+                      workspaceIds = helper.createContextMenus(workspaces, account);
                     });
                 }
               }

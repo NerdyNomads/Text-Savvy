@@ -89,17 +89,13 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
   };
 
   fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
-    .then(response => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-}; 
+    .then(response => response.json());}; 
 
 export const createContextMenus = (workspaces, account) => {
-  var workspaceID;
+  var workspaceIds = [];
   workspaces.map((workspace) => {
     if (account.workspaces.indexOf(workspace._id) !== -1) {
-      workspaceID = workspace._id;
+      workspaceIds.push(workspace._id);
       chrome.contextMenus.create({
         id: workspace._id,
         title: workspace.name,
@@ -108,7 +104,7 @@ export const createContextMenus = (workspaces, account) => {
       });
     }
   });
-  return workspaceID;
+  return workspaceIds;
 };
 
 export const createWorkspaceContextMenus = (workspaceIds, account) => {
@@ -119,15 +115,16 @@ export const createWorkspaceContextMenus = (workspaceIds, account) => {
     // Result now contains the response text, do what you want...
       const workspaces = JSON.parse(workspace_result);
       workspaces.map((workspace) => {
-        if ((workspaceIds.indexOf(workspace._id) === -1) && 
-          (account.workspaces.indexOf(workspace._id) !== -1)) { // AND filter which workspace IDs are present in account array
-          workspaceIds.push(workspace._id);
-          chrome.contextMenus.create({
-            id: workspace._id,
-            title: workspace.name,
-            contexts: ["selection"],
-            parentId: "parent",
-          });
+        if (workspaceIds.indexOf(workspace._id) === -1) { 
+          if (account.workspaces.indexOf(workspace._id) !== -1) { // filter which workspace IDs are present in account array
+            workspaceIds.push(workspace._id);
+            chrome.contextMenus.create({
+              id: workspace._id,
+              title: workspace.name,
+              contexts: ["selection"],
+              parentId: "parent",
+            });
+          }
         }
         else {
           console.log("Context menu(s) already exist.");
