@@ -95,21 +95,23 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
     });
 }; 
 
-export const createContextMenus = (workspaces) => {
+export const createContextMenus = (workspaces, account) => {
   var workspaceID;
   workspaces.map((workspace) => {
-    workspaceID = workspace._id;
-    chrome.contextMenus.create({
-      id: workspace._id,
-      title: workspace.name,
-      contexts: ["selection"],
-      parentId: "parent",
-    });
+    if (account.workspaces.indexOf(workspace._id) !== -1) {
+      workspaceID = workspace._id;
+      chrome.contextMenus.create({
+        id: workspace._id,
+        title: workspace.name,
+        contexts: ["selection"],
+        parentId: "parent",
+      });
+    }
   });
   return workspaceID;
 };
 
-export const createWorkspaceContextMenus = (workspaceIds) => {
+export const createWorkspaceContextMenus = (workspaceIds, account) => {
   // Add all the workspaces as children
   fetch(`${serverAddr}/workspaces`)
     .then((r) => r.text())
@@ -117,7 +119,8 @@ export const createWorkspaceContextMenus = (workspaceIds) => {
     // Result now contains the response text, do what you want...
       const workspaces = JSON.parse(workspace_result);
       workspaces.map((workspace) => {
-        if (workspaceIds.indexOf(workspace._id) === -1) { // AND filter which workspace IDs are present in account array
+        if ((workspaceIds.indexOf(workspace._id) === -1) && 
+          (account.workspaces.indexOf(workspace._id) !== -1)) { // AND filter which workspace IDs are present in account array
           workspaceIds.push(workspace._id);
           chrome.contextMenus.create({
             id: workspace._id,

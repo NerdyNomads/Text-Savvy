@@ -45,7 +45,7 @@ try {
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
                 isLogged = true;
                 if (currUserId === account.auth0Id) {
-                  helper.createWorkspaceContextMenus(workspaceIds);
+                  helper.createWorkspaceContextMenus(workspaceIds, account);
                 }
                 // if current user is different from currently logged user
                 else {
@@ -57,7 +57,7 @@ try {
                     .then((workspace_result) => {
                       // Result now contains the response text, do what you want...
                       const workspaces = JSON.parse(workspace_result);
-                      workspaceIds.push(helper.createContextMenus(workspaces));
+                      workspaceIds.push(helper.createContextMenus(workspaces, account));
                     });
                 }
               }
