@@ -91,20 +91,16 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
   fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
     .then(response => response.json());}; 
 
-export const createContextMenus = (workspaces, account) => {
-  var workspaceIds = [];
-  workspaces.map((workspace) => {
-    if (account.workspaces.indexOf(workspace._id) !== -1) {
-      workspaceIds.push(workspace._id);
-      chrome.contextMenus.create({
-        id: workspace._id,
-        title: workspace.name,
-        contexts: ["selection"],
-        parentId: "parent",
-      });
-    }
-  });
-  return workspaceIds;
+export const createContextMenus = (workspace, workspaceIds, account) => {
+  if (account.workspaces.indexOf(workspace._id) !== -1) {
+    workspaceIds.push(workspace._id);
+    chrome.contextMenus.create({
+      id: workspace._id,
+      title: workspace.name,
+      contexts: ["selection"],
+      parentId: "parent",
+    });
+  }
 };
 
 export const createWorkspaceContextMenus = (workspaceIds, account) => {
@@ -115,19 +111,9 @@ export const createWorkspaceContextMenus = (workspaceIds, account) => {
     // Result now contains the response text, do what you want...
       const workspaces = JSON.parse(workspaceResult);
       workspaces.map((workspace) => {
+        // condition to avoid creating duplicate context menus
         if (workspaceIds.indexOf(workspace._id) === -1) { 
-          if (account.workspaces.indexOf(workspace._id) !== -1) { // filter which workspace IDs are present in account array
-            workspaceIds.push(workspace._id);
-            chrome.contextMenus.create({
-              id: workspace._id,
-              title: workspace.name,
-              contexts: ["selection"],
-              parentId: "parent",
-            });
-          }
-        }
-        else {
-          console.log("Context menu(s) already exist.");
+          createContextMenus(workspace, workspaceIds, account);
         }
       });
     });

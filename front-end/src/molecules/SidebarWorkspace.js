@@ -38,6 +38,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
           e.target.value = "";
           setShowAddWorkspace(false);
         });
+      window.location.reload(false);  // to update extension with new workspace
     }
   };
 

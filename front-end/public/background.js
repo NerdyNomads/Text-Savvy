@@ -42,7 +42,6 @@ try {
               // if user is currently logged in
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
                 isLogged = true;
-                console.log(account.workspaces);
                 workspaceLength = account.workspaces.length;
                 if (currUserId === account.auth0Id) {
                   helper.createWorkspaceContextMenus(workspaceIds, account);
@@ -51,14 +50,7 @@ try {
                 else {
                   workspaceIds = [];
                   currUserId = account.auth0Id;
-                  // Add all the workspaces as children
-                  fetch(`${helper.serverAddr}/workspaces`)
-                    .then((r) => r.text())
-                    .then((workspace_result) => {
-                      // Result now contains the response text, do what you want...
-                      const workspaces = JSON.parse(workspace_result);
-                      workspaceIds = helper.createContextMenus(workspaces, account);
-                    });
+                  helper.createWorkspaceContextMenus(workspaceIds, account);
                 }
               }
             });
