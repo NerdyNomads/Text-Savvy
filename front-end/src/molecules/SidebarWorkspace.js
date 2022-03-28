@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { AddWorkspaceIcon } from "../atoms/icons";
 import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
@@ -13,6 +14,9 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
+  const [ currentWorkspaceId, setCurrentWorkspaceId ] = useState(null);
+
+  const { user } = useAuth0();
 
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
@@ -37,6 +41,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
           e.target.value = "";
           setShowAddWorkspace(false);
+          setCurrentWorkspaceId(res.data._id);
         });
     }
   };
@@ -65,7 +70,10 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
-  const handleOnClickWorkspace = (selectedId) => onSelectWorkspace(selectedId);
+  const handleOnClickWorkspace = (selectedId) => { 
+    onSelectWorkspace(selectedId);
+    setCurrentWorkspaceId(selectedId);
+  };
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
@@ -74,13 +82,15 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   useEffect( async () => {
     if (accountId) {
-      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
-      let workspaces = result.data;
+      let email = user.email;
+      let ownedWorkspaces = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
+      let collabWorkspaces = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byCollaborator/${email}/`);
       
-      // TODO: get workspaces you dont own, but are a collaborator of
+      let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
 
       if (workspaces.length > 0) {
         onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
+        setCurrentWorkspaceId(workspaces[0]._id);
       } // else, do not show any workspace because there aren't any workspaces
     
       setWorkspaceList(workspaces);
@@ -98,7 +108,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       {addWorkspaceInput}
       {renderList()}
       {/* Workspace Settings Pop Up */}
-      { showWorkspaceSettingPopup && <WorkspaceSettings onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
+      { showWorkspaceSettingPopup && <WorkspaceSettings workspaceId={currentWorkspaceId} onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
     </div>
   );
 }

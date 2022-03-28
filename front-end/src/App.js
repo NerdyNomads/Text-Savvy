@@ -78,7 +78,7 @@ function App() {
   
   const handleGoToWorkspace = (id) => setCurrentWorkspaceId(id);
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !currentAccountId) {
     return <></>;
   } else {
     return (

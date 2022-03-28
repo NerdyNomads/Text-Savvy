@@ -8,14 +8,18 @@ import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
+import axios from "axios";
 
-function WorkspaceSettings({ onChangeVisibility }) {
+function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const componentName = "WorkspaceSettings";
 
   const [renderedName, setRenderedName] = useState("");
   const [renderedCollaborators, setRenderedCollaborators] = useState([]);
   const [renderSave, setRenderSave] = useState(false);
   const [error, setError] = useState("");
+
+  const [newEmails, setNewEmails] = useState([]);
+  const [deletedEmails, setDeletedEmails] = useState([]);
 
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
@@ -34,43 +38,63 @@ function WorkspaceSettings({ onChangeVisibility }) {
   const handleCollaboratorSubmit = email => {
     // VALIDATE EMAIL FORMAT HERE
     const validEmail = isValidEmail(email);
+    const existingEmail = renderedCollaborators.filter((collaborator) => collaborator.email === email).length;
 
-    if(validEmail){
+    if(validEmail && !existingEmail){
       setError("");
       submitCollaborator(email);
       document.getElementById("add-collaborator-email-input").value = "";
-    } else {
-      setError("Must be a valid email");
+    } else if (!validEmail) {
+      setError("Must be a valid email.");
+    } else if (existingEmail) {
+      setError("User has already been added.");
     }
   };
 
-  const submitCollaborator = (newCollaborator) => {
+  const handleUpdateWorkspace = (async () => {
+    let id = workspaceId;
+    let collaborators = renderedCollaborators.map(collaborator => collaborator.email);
+
+    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/update/${id}`, {name: renderedName, collaborators: collaborators});
+
+    updateAccountsWorkspaces(newEmails, true);
+    updateAccountsWorkspaces(deletedEmails, false);
+
+    setNewEmails([]);
+    setDeletedEmails([]);
+    setRenderedCollaborators(formatCollaborators(collaborators));
+    setRenderSave(false);
+  });
+
+  const updateAccountsWorkspaces = async (emails, newEmails) => {
+    emails.forEach(async (email) => {
+      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byEmail/${email}`);
+
+      if (result.data[0]) {
+        let id = result.data[0]._id;
+        let newWorkspaces;
+        
+        // If we're adding new emails, add the current workspace to the user's workspaces.
+        // Otherwise, we're deleting emails and should filter out the current workspace from the user's workspaces.
+        if (newEmails) {
+          newWorkspaces = [ workspaceId, ...result.data[0].workspaces ];
+        } else {
+          newWorkspaces = result.data[0].workspaces.filter( workspace => workspace !== workspaceId);
+        }
+        
+        await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/update/${id}`, {workspaces: newWorkspaces});
+      }
+    });
+  };
+
+  const submitCollaborator = async (newCollaborator) => {
     const newCollabList = [{ email: newCollaborator, pending: true }, ...renderedCollaborators];
     setRenderedCollaborators(newCollabList);
     setRenderSave(true);
+
+    const newEmailList = [newCollaborator, ...newEmails];
+    setNewEmails(newEmailList);
   };
-
-  useEffect(() => {
-    // FETCH DATA Calls here
-    // (data we need: list of collaborators, workspace name, and workspaceid)
-    // we need workspaceid for patching later.
-
-    // then Convert workspace data to a format we want
-
-    const fakeFormattedWorkspaceData = {
-      name: "My workspace",
-      collaborators: [
-        "email2@email.com",
-        "email2@email.com",
-        "email2@email.com",
-        "email2@email.com",
-      ],
-      id: "1",
-    };
-
-    setRenderedCollaborators(formatCollaborators(fakeFormattedWorkspaceData.collaborators));
-    setRenderedName(fakeFormattedWorkspaceData.name);
-  }, []);
 
   const handleBackgroundClick = (e) => {
     // clicked outside of modal
@@ -89,6 +113,9 @@ function WorkspaceSettings({ onChangeVisibility }) {
       collabCopy.splice(removalIndex, 1);
       setRenderedCollaborators(collabCopy);
       setRenderSave(true);
+
+      const deletedEmailList = [email, ...deletedEmails];
+      setDeletedEmails(deletedEmailList);
     }
   };
 
@@ -101,6 +128,15 @@ function WorkspaceSettings({ onChangeVisibility }) {
         onRemove={handleRemoveCollaborator}
       />
     ));
+
+  useEffect(async () => {
+    if (workspaceId) {
+      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
+  
+      setRenderedCollaborators(formatCollaborators(result?.data.collaborators));
+      setRenderedName(result?.data.name);
+    }
+  }, [workspaceId]);
 
   const addCollaboratorElement = (
     <div className={`${componentName}-add-collab`}>
@@ -139,7 +175,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
         </div>
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-footer-pad`} />
-          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" />}</div>
+          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
       </div>
     </div>
@@ -148,6 +184,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
 
 WorkspaceSettings.propTypes = {
   onChangeVisibility: PropTypes.func.isRequired,
+  workspaceId: PropTypes.string.isRequired
 };
 
 export default WorkspaceSettings;
