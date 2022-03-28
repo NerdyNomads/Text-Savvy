@@ -20,6 +20,7 @@ try {
   chrome.contextMenus.create(parentContextMenuItem);
   
   var currUserId;
+  var workspaceLength = 0;
   var workspaceIds = [];
   var isLogged = false;
   chrome.runtime.onMessageExternal.addListener(
@@ -29,20 +30,20 @@ try {
         isLogged = false;
         workspaceIds = [];
         currUserId = "";
-        chrome.contextMenus.removeAll();
-        chrome.contextMenus.create(parentContextMenuItem);
       }
       // else, there is an account/user logged in
       else {
         fetch(`${helper.serverAddr}/accounts`)
           .then((r) => r.text())
-          .then((account_result) => {
+          .then((accountResult) => {
             // Result now contains the response text, do what you want...
-            const accounts = JSON.parse(account_result);
+            const accounts = JSON.parse(accountResult);
             accounts.map((account) => {
               // if user is currently logged in
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
                 isLogged = true;
+                console.log(account.workspaces);
+                workspaceLength = account.workspaces.length;
                 if (currUserId === account.auth0Id) {
                   helper.createWorkspaceContextMenus(workspaceIds, account);
                 }
@@ -71,7 +72,7 @@ try {
 
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
-    if (isLogged) {
+    if ((isLogged) && (workspaceLength > 0)) {
       fetch(`${helper.serverAddr}/workspaces`)
         .then((r) => r.text())
         .then((result) => {
@@ -81,6 +82,8 @@ try {
         });
     }
     else {
+      chrome.contextMenus.removeAll();
+      chrome.contextMenus.create(parentContextMenuItem);
       chrome.tabs.create({ url: "http://localhost:3000" });      
     }
   });

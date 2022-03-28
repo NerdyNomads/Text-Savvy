@@ -27,7 +27,6 @@ function Sidebar({ onClickWorkspace, accountId }) {
     // clear auth0Id and send to web extension
     window.localStorage.setItem("auth0Id", "");
     chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
-    console.log(window.localStorage);
     logout();
   };
 

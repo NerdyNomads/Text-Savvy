@@ -111,9 +111,9 @@ export const createWorkspaceContextMenus = (workspaceIds, account) => {
   // Add all the workspaces as children
   fetch(`${serverAddr}/workspaces`)
     .then((r) => r.text())
-    .then((workspace_result) => {
+    .then((workspaceResult) => {
     // Result now contains the response text, do what you want...
-      const workspaces = JSON.parse(workspace_result);
+      const workspaces = JSON.parse(workspaceResult);
       workspaces.map((workspace) => {
         if (workspaceIds.indexOf(workspace._id) === -1) { 
           if (account.workspaces.indexOf(workspace._id) !== -1) { // filter which workspace IDs are present in account array
