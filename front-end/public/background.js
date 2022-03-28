@@ -22,12 +22,12 @@ try {
   var currUserId;
   var workspaceLength = 0;
   var workspaceIds = [];
-  var isLogged = false;
+  var isLoggedIn = false;
   chrome.runtime.onMessageExternal.addListener(
     function(request) {
       // if there is no account logged in locally
       if (request.messageFromWeb.auth0Id === "") {
-        isLogged = false;
+        isLoggedIn = false;
         workspaceIds = [];
         currUserId = "";
       }
@@ -41,7 +41,7 @@ try {
             accounts.map((account) => {
               // if user is currently logged in
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
-                isLogged = true;
+                isLoggedIn = true;
                 workspaceLength = account.workspaces.length;
                 if (currUserId === account.auth0Id) {
                   helper.createWorkspaceContextMenus(workspaceIds, account);
@@ -64,7 +64,7 @@ try {
 
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
-    if ((isLogged) && (workspaceLength > 0)) {
+    if ((isLoggedIn) && (workspaceLength > 0)) {
       fetch(`${helper.serverAddr}/workspaces`)
         .then((r) => r.text())
         .then((result) => {
