@@ -23,6 +23,9 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const [newEmails, setNewEmails] = useState([]);
   const [deletedEmails, setDeletedEmails] = useState([]);
 
+  const [newEmails, setNewEmails] = useState([]);
+  const [deletedEmails, setDeletedEmails] = useState([]);
+
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
 
