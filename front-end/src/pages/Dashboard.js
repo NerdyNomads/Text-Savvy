@@ -18,9 +18,6 @@ function Dashboard({ workspaceId }) {
 
       let textResult = await getWorkspaceText(workspaceId);
       setTextItems(textResult?.data);
-
-      console.log("Workspace result", workspaceResult);
-      console.log("text Result",textResult);
     }
   };
 
