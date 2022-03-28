@@ -18,11 +18,11 @@ beforeEach(() => {
   });
 });
 
-// test("Should match the snapshot.", () => { 
-//   const mockFunc = () => null;
-//   let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc}/>);
-//   expect(wrapper.html()).toMatchSnapshot();
-// });
+test("Should match the snapshot.", () => { 
+  const mockFunc = () => null;
+  let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc}/>);
+  expect(wrapper.html()).toMatchSnapshot();
+});
 
 // test("Clicking the logout button should call Auth0's logout function.", () => {
 //   let wrapper = shallow(<Sidebar />);
