@@ -133,6 +133,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
         </div>
 
         <div className={`${componentName}-header`}>{renderedName}</div>
+        <div className = {`${componentName}-spacer`}></div>
         <div className={`${componentName}-body`}>
           {addCollaboratorElement}
           <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
