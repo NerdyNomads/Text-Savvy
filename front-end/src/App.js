@@ -5,6 +5,7 @@ import axios from "axios";
 import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
+import { addNewAccount } from "./util/requests";
 
 function App() {
   const [currentAccountId, setCurrentAccountId] = useState(null);
@@ -15,25 +16,6 @@ function App() {
     let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/` + auth0Id);
 
     return result?.data[0];
-  }
-
-  /**
-   * Adds a new account to the database.
-   * 
-   * @param {*} auth0Id 			The Auth0 ID of the current user.
-   */
-  async function addNewAccount(auth0Id) {
-    const account = {
-      auth0Id: auth0Id,
-      name: user.name,
-      email: user.email,
-      workspaces: []
-    };
-
-    await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/add/`, account)
-      .then((res) => {
-        setCurrentAccountId(res.data._id);
-      });
   }
 
   useEffect(async () => {
@@ -58,7 +40,8 @@ function App() {
       if (account) {
         setCurrentAccountId(account._id);
       } else {
-        addNewAccount(auth0Id);
+        const response = await addNewAccount(auth0Id,user);
+        setCurrentAccountId(response.data._id);
       }
     }
 

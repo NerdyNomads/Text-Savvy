@@ -8,6 +8,7 @@ import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
+import { getWorkspaceInfo } from "../util/requests";
 import axios from "axios";
 
 function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
@@ -36,7 +37,6 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   );
 
   const handleCollaboratorSubmit = email => {
-    // VALIDATE EMAIL FORMAT HERE
     const validEmail = isValidEmail(email);
     const existingEmail = renderedCollaborators.filter((collaborator) => collaborator.email === email).length;
 
@@ -96,6 +96,13 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     setNewEmails(newEmailList);
   };
 
+  useEffect(async () => {
+    const {name, collaborators} = (await getWorkspaceInfo(workspaceId)).data;
+
+    setRenderedCollaborators(formatCollaborators(collaborators));
+    setRenderedName(name);
+  }, []);
+
   const handleBackgroundClick = (e) => {
     // clicked outside of modal
     if (e.target.className == `${componentName}-background`) {
@@ -129,15 +136,8 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       />
     ));
 
-  useEffect(async () => {
-    if (workspaceId) {
-      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
-  
-      setRenderedCollaborators(formatCollaborators(result?.data.collaborators));
-      setRenderedName(result?.data.name);
-    }
-  }, [workspaceId]);
-
+  // Workspace Edit Pop-up
+  //------------------------------
   const addCollaboratorElement = (
     <div className={`${componentName}-add-collab`}>
       <div className={`${componentName}-add-collab-top`}>
