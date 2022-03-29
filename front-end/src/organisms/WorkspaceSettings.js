@@ -8,8 +8,9 @@ import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
+import { getWorkspaceInfo } from "../util/requests";
 
-function WorkspaceSettings({ onChangeVisibility }) {
+function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const componentName = "WorkspaceSettings";
 
   const [renderedName, setRenderedName] = useState("");
@@ -32,7 +33,6 @@ function WorkspaceSettings({ onChangeVisibility }) {
   );
 
   const handleCollaboratorSubmit = email => {
-    // VALIDATE EMAIL FORMAT HERE
     const validEmail = isValidEmail(email);
 
     if(validEmail){
@@ -50,26 +50,11 @@ function WorkspaceSettings({ onChangeVisibility }) {
     setRenderSave(true);
   };
 
-  useEffect(() => {
-    // FETCH DATA Calls here
-    // (data we need: list of collaborators, workspace name, and workspaceid)
-    // we need workspaceid for patching later.
+  useEffect(async () => {
+    const {name, collaborators} = (await getWorkspaceInfo(workspaceId)).data;
 
-    // then Convert workspace data to a format we want
-
-    const fakeFormattedWorkspaceData = {
-      name: "My workspace",
-      collaborators: [
-        "email2@email.com",
-        "email2@email.com",
-        "email2@email.com",
-        "email2@email.com",
-      ],
-      id: "1",
-    };
-
-    setRenderedCollaborators(formatCollaborators(fakeFormattedWorkspaceData.collaborators));
-    setRenderedName(fakeFormattedWorkspaceData.name);
+    setRenderedCollaborators(formatCollaborators(collaborators));
+    setRenderedName(name);
   }, []);
 
   const handleBackgroundClick = (e) => {
@@ -102,6 +87,8 @@ function WorkspaceSettings({ onChangeVisibility }) {
       />
     ));
 
+  // Workspace Edit Pop-up
+  //------------------------------
   const addCollaboratorElement = (
     <div className={`${componentName}-add-collab`}>
       <div className={`${componentName}-add-collab-top`}>
@@ -148,6 +135,7 @@ function WorkspaceSettings({ onChangeVisibility }) {
 
 WorkspaceSettings.propTypes = {
   onChangeVisibility: PropTypes.func.isRequired,
+  workspaceId: PropTypes.string.isRequired
 };
 
 export default WorkspaceSettings;

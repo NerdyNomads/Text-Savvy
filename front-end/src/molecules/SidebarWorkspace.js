@@ -13,6 +13,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
+  const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
 
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
@@ -61,7 +62,10 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleAddWorkspace = () => setShowAddWorkspace(prevShow => !prevShow);
 
-  const handleOnWorkspaceEdit = () => setShowWorkspaceSettingPopup(true);
+  const handleOnWorkspaceEdit = workspaceId => {
+    setShowWorkspaceSettingPopup(true);
+    setEditingWorkspaceId(workspaceId);
+  };
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
@@ -69,7 +73,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
-      <SidebarWorkspaceItem key={_id} id={_id} selected={false} name={name} onEdit={handleOnWorkspaceEdit} onClickWorkspace={handleOnClickWorkspace}/>)
+      <SidebarWorkspaceItem key={_id} id={_id} selected={false} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={handleOnClickWorkspace}/>)
   );
 
   useEffect( async () => {
@@ -98,7 +102,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       {addWorkspaceInput}
       {renderList()}
       {/* Workspace Settings Pop Up */}
-      { showWorkspaceSettingPopup && <WorkspaceSettings onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
+      { showWorkspaceSettingPopup && <WorkspaceSettings workspaceId={editingWorkspaceId} onChangeVisibility={(visible) => handleOnChangeVisibility(visible)}/>}
     </div>
   );
 }
