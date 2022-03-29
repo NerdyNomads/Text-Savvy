@@ -138,6 +138,11 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     }
   };
 
+  const handleDeleteWorkspace = () => {
+    //Todo: Add popup for confirmation
+    console.log("Deleting workspace with ID: ");
+  };
+
   const renderCollaboratorList = () =>
     renderedCollaborators.map(({ pending, email }) => (
       <CollaboratorItem
