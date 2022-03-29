@@ -134,7 +134,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
   const handleDeleteWorkspace = () => {
     //Todo: Add popup for confirmation
-    console.log("Deleting workspace with ID: ");
+    console.log("Deleting workspace with ID: " + workspaceId);
   };
 
   const renderCollaboratorList = () =>
@@ -214,7 +214,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
           <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
         </div>
         <div className={`${componentName}-footer`}>
-          <div className={`${componentName}-delete`}><DeleteButton label="Delete" onClick={handleDeleteWorkspace} /></div>
+          <div className={`${componentName}-delete`} onClick={handleDeleteWorkspace} ><DeleteButton label="Delete"/></div>
           <div className={`${componentName}-footer-pad`} />
           <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
