@@ -5,7 +5,6 @@
     font-weight: 400;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     cursor: pointer;
 }
 
@@ -15,7 +14,7 @@
 
 .SidebarWorkspaceItem:hover .SidebarWorkspaceItem-edit{
     color: #7D7D7D;
-    padding-right: 20px;
+    padding-right: 10px;
     visibility: visible;
 }
 
@@ -27,4 +26,8 @@
 
 .SidebarWorkspaceItem-selected {
     background-color: #F3F3F3;
+}
+
+.SidebarWorkspaceItem-spacing {
+    flex-grow: 2;
 }

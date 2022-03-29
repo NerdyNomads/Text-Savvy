@@ -1,0 +1,21 @@
+.DeleteButton {
+    background-color: #CE1515;
+    color: #E5E5E5;
+    border-radius: 8px;
+
+    font-size: 21px;
+    font-weight: 500;
+    text-align: center;
+
+    padding: 10px 25px;
+    margin: 1px;
+
+    cursor: pointer;
+    user-select: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+}

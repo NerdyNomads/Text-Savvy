@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { ExitIcon, AddCollabIcon, EditIcon, SaveIcon } from "../atoms/icons";
 import ErrorMessage from "../atoms/ErrorMessage";
 import CollaboratorItem from "../molecules/CollaboratorItem";
-import Button from "../atoms/Button";
+import Button  from "../atoms/Button";
+import DeleteButton from "../atoms/DeleteButton";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
@@ -131,6 +132,11 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     }
   };
 
+  const handleDeleteWorkspace = () => {
+    //Todo: Add popup for confirmation
+    console.log("Deleting workspace with ID: ");
+  };
+
   const renderCollaboratorList = () =>
     renderedCollaborators.map(({ pending, email }) => (
       <CollaboratorItem
@@ -208,6 +214,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
           <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
         </div>
         <div className={`${componentName}-footer`}>
+          <div className={`${componentName}-delete`}><DeleteButton label="Delete" onClick={handleDeleteWorkspace} /></div>
           <div className={`${componentName}-footer-pad`} />
           <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
