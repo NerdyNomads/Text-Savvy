@@ -2,6 +2,8 @@
 /* eslint-disable no-undef */
 const MAX_TEXT_NOTIF_CHARACTERS = 20;
 
+export const serverAddr = "http://localhost:5000";
+
 export const formatText = (input) => {
   return input.length > MAX_TEXT_NOTIF_CHARACTERS ? `"${input.slice(0, MAX_TEXT_NOTIF_CHARACTERS)}..."` : `"${input}"` ;
 };
@@ -53,7 +55,7 @@ export const saveTextToDb = (text, source, workspaceID) => {
     body: JSON.stringify(textData),
   };
     
-  fetch(`${process.env.REACT_APP_BACKEND_SERVER}/texts/add`, postPackedData)
+  fetch(`${serverAddr}/texts/add`, postPackedData)
     .then((response) => response.json())
     .then((data) => {
       updateWorkspaceToDb(data, workspaceID);
@@ -86,7 +88,7 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
     }),
   };
 
-  fetch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/update/${workspaceID}`, putPackedData)
+  fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
     .then(response => response.json());}; 
 
 export const createContextMenus = (workspace, workspaceIds, account) => {
@@ -103,7 +105,7 @@ export const createContextMenus = (workspace, workspaceIds, account) => {
 
 export const createWorkspaceContextMenus = (workspaceIds, account) => {
   // Add all the workspaces as children
-  fetch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces`)
+  fetch(`${serverAddr}/workspaces`)
     .then((r) => r.text())
     .then((workspaceResult) => {
     // Result now contains the response text, do what you want...
