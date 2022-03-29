@@ -15,7 +15,7 @@ function DeleteButton({label}) {
 
 DeleteButton.propTypes = {
     label: PropTypes.string.isRequired
-  };
+};
   
 
 export default DeleteButton;
