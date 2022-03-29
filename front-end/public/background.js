@@ -33,7 +33,7 @@ try {
       }
       // else, there is an account/user logged in
       else {
-        fetch(`${helper.serverAddr}/accounts`)
+        fetch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts`)
           .then((r) => r.text())
           .then((accountResult) => {
             // Result now contains the response text, do what you want...
@@ -65,7 +65,7 @@ try {
   // Add functionality when an item is clicked
   chrome.contextMenus.onClicked.addListener((clickData) => {
     if ((isLoggedIn) && (workspaceLength > 0)) {
-      fetch(`${helper.serverAddr}/workspaces`)
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces`)
         .then((r) => r.text())
         .then((result) => {
           // Result now contains the response text, do what you want...
