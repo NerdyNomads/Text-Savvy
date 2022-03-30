@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 
 import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-import { addNewAccount } from "./util/requests";
+import { addNewAccount, getAccountByAuth0Id } from "./util/requests";
 
 function App() {
   const [currentAccountId, setCurrentAccountId] = useState(null);
@@ -13,8 +12,7 @@ function App() {
   const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
   
   async function getAccount(auth0Id) {
-    let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/` + auth0Id);
-
+    let result = await getAccountByAuth0Id(auth0Id);
     return result?.data[0];
   }
 

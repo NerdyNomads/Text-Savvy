@@ -8,8 +8,7 @@ import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
-import { getWorkspaceInfo } from "../util/requests";
-import axios from "axios";
+import { getAccountByEmail, getWorkspaceInfo, updateWorkspace, updateAccountWorkspaces } from "../util/requests";
 
 function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const componentName = "WorkspaceSettings";
@@ -52,10 +51,14 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   };
 
   const handleUpdateWorkspace = (async () => {
-    let id = workspaceId;
     let collaborators = renderedCollaborators.map(collaborator => collaborator.email);
 
-    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/update/${id}`, {name: renderedName, collaborators: collaborators});
+    let updatedWorkspace = {
+      name: renderedName, 
+      collaborators: collaborators,
+      updateDate: Date.now()
+    };
+    await updateWorkspace(workspaceId, updatedWorkspace);
 
     updateAccountsWorkspaces(newEmails, true);
     updateAccountsWorkspaces(deletedEmails, false);
@@ -68,7 +71,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
   const updateAccountsWorkspaces = async (emails, newEmails) => {
     emails.forEach(async (email) => {
-      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byEmail/${email}`);
+      let result = await getAccountByEmail(email);
 
       if (result.data[0]) {
         let id = result.data[0]._id;
@@ -82,7 +85,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
           newWorkspaces = result.data[0].workspaces.filter( workspace => workspace !== workspaceId);
         }
         
-        await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/update/${id}`, {workspaces: newWorkspaces});
+        await updateAccountWorkspaces(id, newWorkspaces);
       }
     });
   };
