@@ -28,21 +28,22 @@ describe("Texts Router Tests", () => {
 	});
 
 	describe("POST /texts/add", () => {
-    	// test("Add a valid text to the database.", async () => {
-		// 	await request(app).post("/texts/add")
-		// 		.send(testText)
-		// 		.expect(200)
-		// 		.then((res) => {
-		// 			expect(res.statusCode).toEqual(200);
-		// 			expect(res.body).toEqual("Text added!");
-		// 		});
+    	test("Add a valid text to the database.", async () => {
+			await request(app).post("/texts/add")
+				.send(testText)
+				.expect(200)
+				.then((res) => {
+					expect(res.statusCode).toEqual(200);
+					expect(res.body.text).toEqual(testText.text);
+					expect(res.body.source).toEqual(testText.source);
+				});
 
-		// 	// Remove test data from DB
-		// 	await Text.findOneAndDelete({
-        //         text: testText.text,
-        //         source: testText.source
-        //     });
-    	// });
+			// Remove test data from DB
+			await Text.findOneAndDelete({
+                text: testText.text,
+                source: testText.source
+            });
+    	});
 
 		test("Add an invalid text to the database.", async () => {
 			await request(app).post("/texts/add")
