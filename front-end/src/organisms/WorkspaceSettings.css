@@ -112,6 +112,18 @@
     user-select: none;
 }
 
+.WorkspaceSettings-edit-header-icon {
+    margin-left: 15px;
+    /* margin-right: 15px; */
+    cursor: pointer;
+    user-select: none;
+}
+
+.WorkspaceSettings-title-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .WorkspaceSettings-collab-list {
     max-height: 128px;
     overflow: auto;

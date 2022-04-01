@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { ExitIcon, AddCollabIcon } from "../atoms/icons";
+import { ExitIcon, AddCollabIcon, EditIcon } from "../atoms/icons";
 import ErrorMessage from "../atoms/ErrorMessage";
 import CollaboratorItem from "../molecules/CollaboratorItem";
 import Button from "../atoms/Button";
@@ -17,6 +17,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const [renderedCollaborators, setRenderedCollaborators] = useState([]);
   const [renderSave, setRenderSave] = useState(false);
   const [error, setError] = useState("");
+  const [editingTitle, setEditingTitle] = useState(false);
 
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
@@ -119,7 +120,14 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
           <ExitIcon className={`${componentName}-exit`} onClick={handleExitClick} />
         </div>
 
-        <div className={`${componentName}-header`}>{renderedName}</div>
+        <div className={`${componentName}-header`}>
+          {/* Decide to display the header or the text box */}
+          {editingTitle ? 
+            <input type={"text"} className={`${componentName}-title-input`}/> :
+            <>{renderedName}</>}
+          <EditIcon className={`${componentName}-edit-header-icon`} 
+            onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+        </div>
         <div className={`${componentName}-body`}>
           {addCollaboratorElement}
           <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
