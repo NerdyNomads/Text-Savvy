@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import { ExitIcon, AddCollabIcon, EditIcon } from "../atoms/icons";
+import { ExitIcon, AddCollabIcon, EditIcon, SaveIcon } from "../atoms/icons";
 import ErrorMessage from "../atoms/ErrorMessage";
 import CollaboratorItem from "../molecules/CollaboratorItem";
 import Button from "../atoms/Button";
@@ -87,6 +87,17 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         onRemove={handleRemoveCollaborator}
       />
     ));
+  
+  const header = editingTitle ? 
+    <>
+      <input type={"text"} className={`${componentName}-title-input`}/> 
+      <SaveIcon className={`${componentName}-edit-header-icon`} onClick={() => setEditingTitle(edit => !edit)} />
+    </> :
+    <>
+      {renderedName}
+      <EditIcon className={`${componentName}-edit-header-icon`} 
+        onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+    </>;
 
   // Workspace Edit Pop-up
   //------------------------------
@@ -122,11 +133,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
         <div className={`${componentName}-header`}>
           {/* Decide to display the header or the text box */}
-          {editingTitle ? 
-            <input type={"text"} className={`${componentName}-title-input`}/> :
-            <>{renderedName}</>}
-          <EditIcon className={`${componentName}-edit-header-icon`} 
-            onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+          {header}
         </div>
         <div className={`${componentName}-body`}>
           {addCollaboratorElement}

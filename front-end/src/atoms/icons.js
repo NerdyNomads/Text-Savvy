@@ -45,6 +45,10 @@ export function GearIcon() {
   return <img alt="gear" src="/assets/images/gear.svg" className="icon"/>;
 }
 
+export function SaveIcon(props) {
+  return <img alt="save" src="/assets/images/save.svg" className="icon" {...props}/>;
+}
+
 export function ShareIcon() {
   return <img alt="share" src="/assets/images/share.svg" className="icon"/>;
 }
