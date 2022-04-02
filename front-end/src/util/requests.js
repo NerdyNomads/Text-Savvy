@@ -85,6 +85,10 @@ export async function updateAccountWorkspaces(id, workspaceIds) {
  * 
  * @param {*} id        The id of the workspace.
  * @param {*} workspace This contains any new updates for the given workspace.
+ *                      
+ * Expected workspace properties: 
+ * - Adding/deleting texts:       { texts: [numbers] (ids), updateDate: Date.now() }
+ * - Updating name/collaborators: { name: "String", collaborators: [collaboratorObjects] (emails), updateDate: Date.now() }
  */
 export async function updateWorkspace(id, workspace) {
   await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/update/${id}`, workspace);
