@@ -50,6 +50,8 @@ test("Clicking the '+' button on the header should show the input field.", () =>
 });
 
 test("Adding a workspace name into input field and pressing 'Enter' should add it to the database.", async () => { 
+  axios.post.mockResolvedValueOnce({data: {_id: "123"}});
+
   const mockFunc = () => null;
   let wrapper = mount(<SidebarWorkspace onSelectWorkspace={mockFunc} accountId=""/>);
   await whenStable();
@@ -58,6 +60,10 @@ test("Adding a workspace name into input field and pressing 'Enter' should add i
   addIcon.simulate("click");
   
   let inputField = wrapper.find(".SidebarWorkspace-add-input").first();
-  inputField.simulate("keypress", {key: "Enter", target: {value: "Workspace Name"}});
+
+  await act( async () => {
+    inputField.simulate("keypress", {key: "Enter", target: {value: "Workspace Name"}});
+  });
+
   expect(axios.post).toBeCalledTimes(1);
 });
