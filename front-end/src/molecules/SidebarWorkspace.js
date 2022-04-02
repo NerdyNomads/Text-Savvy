@@ -28,7 +28,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
       let workspaceIds = newWorkspaceList.map(workspace => workspace._id);
       updateAccountWorkspaces(accountId, workspaceIds);
-
+      window.location.reload(false);  // to update extension with new workspace
       e.target.value = "";
       setShowAddWorkspace(false);
       setEditingWorkspaceId(response.data._id);

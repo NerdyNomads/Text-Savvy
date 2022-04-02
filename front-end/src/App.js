@@ -1,3 +1,4 @@
+/* global chrome */
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -32,6 +33,10 @@ function App() {
     } else {
       let userId = user.sub;
       let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
+
+      // send auth0Id to web extension
+      window.localStorage.setItem("auth0Id", auth0Id);
+      chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
 
       let account = await getAccount(auth0Id);
 

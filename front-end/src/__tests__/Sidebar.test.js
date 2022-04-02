@@ -29,12 +29,16 @@ test("Should match the snapshot.", () => {
 });
 
 test("Clicking the logout button should call Auth0's logout function.", () => {
+  global.chrome = {
+    runtime: {
+      sendMessage: jest.fn()
+    }
+  };
   const mockFunc = () => null;
   let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc} accountId=""/>);
 
   let logoutDiv = wrapper.find(".SideBar-logout");
   expect(logoutDiv.length).toEqual(1);
-
   logoutDiv.simulate("click");
   expect(useAuth0().logout).toHaveBeenCalledTimes(1);
 });

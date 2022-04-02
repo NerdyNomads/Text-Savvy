@@ -1,6 +1,8 @@
+/* global chrome */
 /* eslint-disable no-undef */
 const MAX_TEXT_NOTIF_CHARACTERS = 20;
-const serverAddr = "http://localhost:5000";
+
+export const serverAddr = "http://localhost:5000";
 
 export const formatText = (input) => {
   return input.length > MAX_TEXT_NOTIF_CHARACTERS ? `"${input.slice(0, MAX_TEXT_NOTIF_CHARACTERS)}..."` : `"${input}"` ;
@@ -87,8 +89,32 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
   };
 
   fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
-    .then(response => response.json())
-    .then((data) => {
-      console.log(data);
+    .then(response => response.json());}; 
+
+export const createContextMenus = (workspace, workspaceIds, account) => {
+  if (account.workspaces.indexOf(workspace._id) !== -1) {
+    workspaceIds.push(workspace._id);
+    chrome.contextMenus.create({
+      id: workspace._id,
+      title: workspace.name,
+      contexts: ["selection"],
+      parentId: "parent",
     });
-}; 
+  }
+};
+
+export const createWorkspaceContextMenus = (workspaceIds, account) => {
+  // Add all the workspaces as children
+  fetch(`${serverAddr}/workspaces`)
+    .then((r) => r.text())
+    .then((workspaceResult) => {
+    // Result now contains the response text, do what you want...
+      const workspaces = JSON.parse(workspaceResult);
+      workspaces.map((workspace) => {
+        // condition to avoid creating duplicate context menus
+        if (workspaceIds.indexOf(workspace._id) === -1) { 
+          createContextMenus(workspace, workspaceIds, account);
+        }
+      });
+    });
+};

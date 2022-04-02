@@ -50,6 +50,10 @@ test("Clicking the '+' button on the header should show the input field.", () =>
 });
 
 test("Adding a workspace name into input field and pressing 'Enter' should add it to the database.", async () => { 
+  Object.defineProperty(window, "location", {
+    configurable: true,
+    value: { reload: jest.fn() },
+  });
   axios.post.mockResolvedValueOnce({data: {_id: "123"}});
 
   const mockFunc = () => null;
