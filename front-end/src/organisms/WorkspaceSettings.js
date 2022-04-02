@@ -94,7 +94,6 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
     if(newTitle){
       setRenderedName(newTitle);
-      document.getElementById("edit-title-input").value = "";
       setEditingTitle(false);
       setRenderSave(true);
     } else {
@@ -107,8 +106,8 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       {/* <label className={`${componentName}-edit-title-label`}>Workspace Title</label> */}
       {titleError ? <ErrorMessage message={`${titleError}`}/> : <></>}
       <div className={`${componentName}-header-edit`}>
-        <input type={"text"} id={"edit-title-input"} className={`${componentName}-title-input`}/> 
-        <SaveIcon className={`${componentName}-edit-header-icon`} onClick={updateTitle} />
+        <input type={"text"} id={"edit-title-input"} className={`${componentName}-title-input`} defaultValue={renderedName}/> 
+        <SaveIcon className={`${componentName}-save-header-icon`} onClick={updateTitle} />
       </div>
     </> :
     <>
