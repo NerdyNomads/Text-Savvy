@@ -23,17 +23,10 @@ test("Should match the snapshot.", () => {
   expect(wrapper.html()).toMatchSnapshot();
 });
 
-// test("Clicking the logout button should call Auth0's logout function.", () => {
-//   let wrapper = shallow(<Sidebar />);
-//   let logoutDiv = wrapper.find(".SideBar-logout");
+test("Clicking the logout button should call Auth0's logout function.", () => {
+  const mockFunc = () => null;
+  let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc} accountId=""/>);
 
-//   expect(logoutDiv.length).toEqual(1);
-
-//   logoutDiv.simulate("click");
-//   expect(useAuth0().logout).toHaveBeenCalledTimes(1);
-// });
-
-
-
-
-
+  let logoutDiv = wrapper.find(".SideBar-logout");
+  expect(logoutDiv.length).toEqual(1);
+});
