@@ -22,6 +22,11 @@ jest.mock("../molecules/TextList", () => {
   return TextList;
 });
 
+jest.mock("../organisms/Sidebar", () => {
+  const Sidebar = () => <div />;
+  return Sidebar;
+});
+
 const whenStable = async () => {
   await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
@@ -40,13 +45,18 @@ beforeEach(() => {
   axios.post.mockResolvedValueOnce({data: [auth0User]});
 });
 
-test("Should match the snapshot.", () => { 
+test("Should match the snapshot.", async () => { 
   useAuth0.mockReturnValue({
     isAuthenticated: true,
-    user: auth0User
+    user: auth0User,
+    getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
   });
 
-  let wrapper = shallow(<App />);
+  axios.get.mockResolvedValue({data: [{_id: "123"}]});
+
+  let wrapper = mount(<App />);
+  await whenStable();
+  wrapper.update();
   expect(wrapper.html()).toMatchSnapshot();
 });
 
@@ -58,7 +68,7 @@ test("Sidebar and Dashboard should be visible if user is logged in.", () => {
 
   let wrapper = shallow(<App />);
   const mockFunc = () => null;
-  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc}/>));
+  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc} accountId=""/>));
   expect(wrapper.containsMatchingElement(<Dashboard workspaceId="1"/>));
 });
 
@@ -70,7 +80,7 @@ test("Component should be empty if no user is logged in.", () => {
   let wrapper = shallow(<App />);
   const mockFunc = () => null;
   expect(wrapper.html()).toEqual("");
-  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc}/>)).toEqual(false);
+  expect(wrapper.containsMatchingElement(<Sidebar onClickWorkspace={mockFunc} accountId=""/>)).toEqual(false);
   expect(wrapper.containsMatchingElement(<Dashboard workspaceId="1"/>)).toEqual(false);
 });
 
