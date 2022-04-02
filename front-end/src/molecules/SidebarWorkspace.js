@@ -20,6 +20,13 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
   const [ currentWorkspaceId, setCurrentWorkspaceId ] = useState("");
 
+  // Updates which workspace is highlighted and selected in the dashboard
+  const updateSelectedWorkspace = workspaceId =>{
+    setSelectedWorkspaceId(workspaceId);
+    setEditingWorkspaceId(workspaceId);
+    onSelectWorkspace(workspaceId);
+  };
+
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -33,7 +40,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       window.location.reload(false);  // to update extension with new workspace
       e.target.value = "";
       setShowAddWorkspace(false);
-      setEditingWorkspaceId(response.data._id);
+      updateSelectedWorkspace(response.data._id);
     }
   };
 
@@ -52,21 +59,14 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnWorkspaceEdit = workspaceId => {
     setShowWorkspaceSettingPopup(true);
-    setEditingWorkspaceId(workspaceId);
+    updateSelectedWorkspace(workspaceId);
   };
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
-
-  const handleOnClickWorkspace = (selectedId) => { 
-    onSelectWorkspace(selectedId);
-    setSelectedWorkspaceId(selectedId);
-    setEditingWorkspaceId(selectedId);
-  };
-
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
-      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === selectedWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={handleOnClickWorkspace}/>)
+      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === selectedWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={updateSelectedWorkspace}/>)
   );
 
   useEffect( async () => {
