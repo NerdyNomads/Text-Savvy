@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should match the snapshot. 1`] = `"<div class=\\"SidebarWorkspace\\"><div class=\\"SidebarWorkspace-header\\"><span>My Workspaces</span><img alt=\\"add workspace\\" src=\\"/assets/images/add-workspace.svg\\" class=\\"SidebarWorkspace-add-icon\\"/></div></div>"`;
