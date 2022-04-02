@@ -13,12 +13,12 @@ export function BookMarkIcon() {
   return <img alt="bookmark" src="/assets/images/bookmark.svg" className="icon"/>;
 }
 
-export function ChainIconSmallIcon() {
-  return <img alt="chain_sm" src="/assets/images/chain_sm.svg" className="icon"/>;
+export function ChainIconSmallIcon(props) {
+  return <img alt="chain_sm" src="/assets/images/chain_sm.svg" className="icon" {...props}/>;
 }
 
-export function ChainIcon() {
-  return <img alt="link" src="/assets/images/chain.svg" className="icon"/>;
+export function ChainIcon(props) {
+  return <img alt="link" src="/assets/images/chain.svg" className="icon" {...props}/>;
 }
 
 export function LogoutIcon() {

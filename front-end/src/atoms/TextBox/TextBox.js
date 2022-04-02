@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import { trimLongText } from "../../util/util";
 import { ChainIcon, TrashCanIcon } from "../icons";
 import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
@@ -38,16 +39,10 @@ function TextBox({textItem, onDelete}) {
     navigator.clipboard.writeText(temp.value);
     document.body.removeChild(temp);
 
-    alert(`Link copied: ${textItem.source}`);
+    // alert(`Link copied: ${textItem.source}`);
 
-    var textfield = document.getElementById(textItem._id);
-    if (textfield.childElementCount == 0) { //Show the textfield 
-      temp = document.createElement("input");
-      temp.value = textItem.source;
-      temp.readOnly = true;
-      temp.className = "textfield";
-      textfield.appendChild(temp);
-    }
+    var tooltip = document.getElementById(textItem._id);
+    tooltip.innerHTML = "Copied!";
   };
 
   return (
@@ -58,10 +53,12 @@ function TextBox({textItem, onDelete}) {
         </div>
         <div className="divider"/>
         <div className="card-footer">
-          <div className="source" target="_blank" rel="noreferrer" onClick={handleCopyLink}>
-            <ChainIcon />
-          </div>
-          <div id={textItem._id}>
+          <div className="TextBox-source-tooltip">
+            <div className="TextBox-source" onClick={handleCopyLink}>
+              <span id={textItem._id} className="TextBox-source-tooltip-text">click to copy link</span>
+              <ChainIcon className="TextBox-source-icon"/>
+              <div className="TextBox-source-text">{trimLongText(textItem.source, 30)}</div>
+            </div>
           </div>
           <div onClick={() => handleDelete(textItem._id)} className="delete">
             <TrashCanIcon/>
