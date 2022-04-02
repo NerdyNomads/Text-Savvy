@@ -24,7 +24,7 @@ beforeEach(() => {
 
 test("Should match the snapshot.", () => { 
   const mockFunc = () => null;
-  let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc}/>);
+  let wrapper = shallow(<Sidebar onClickWorkspace={mockFunc} accountId=""/>);
   expect(wrapper.html()).toMatchSnapshot();
 });
 
