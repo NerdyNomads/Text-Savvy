@@ -106,15 +106,14 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       {/* <label className={`${componentName}-edit-title-label`}>Workspace Title</label> */}
       {titleError ? <ErrorMessage message={`${titleError}`}/> : <></>}
       <div className={`${componentName}-header-edit`}>
-        <input type={"text"} id={"edit-title-input"} className={`${componentName}-title-input`} defaultValue={renderedName}/> 
-        <SaveIcon className={`${componentName}-save-header-icon`} onClick={updateTitle} />
+        <input type={"text"} id={"edit-title-input"} className={`${componentName}-header-edit-input`} defaultValue={renderedName}/> 
+        <SaveIcon className={`${componentName}-header-edit-icon`} onClick={updateTitle} />
       </div>
     </> :
     <>
       <div className={`${componentName}-header-text`}>
-        {renderedName}
-        <EditIcon className={`${componentName}-edit-header-icon`} 
-          onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+        <div className={`${componentName}-header-text-title`}>{renderedName}</div>
+        <EditIcon className={`${componentName}-header-text-icon`} onClick={() => setEditingTitle(edit =>  !edit)}/>
       </div>
     </>;
 
