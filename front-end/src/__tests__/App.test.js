@@ -45,13 +45,18 @@ beforeEach(() => {
   axios.post.mockResolvedValueOnce({data: [auth0User]});
 });
 
-test("Should match the snapshot.", () => { 
+test("Should match the snapshot.", async () => { 
   useAuth0.mockReturnValue({
     isAuthenticated: true,
-    user: auth0User
+    user: auth0User,
+    getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
   });
 
-  let wrapper = shallow(<App />);
+  axios.get.mockResolvedValue({data: [{_id: "123"}]});
+
+  let wrapper = mount(<App />);
+  await whenStable();
+  wrapper.update();
   expect(wrapper.html()).toMatchSnapshot();
 });
 
