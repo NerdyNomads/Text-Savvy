@@ -43,26 +43,74 @@
 }
 
 .TextBoxPopUp-source{
-    margin-left: 20px;
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
+  cursor:pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
 }
 
-.TextBoxPopUp-source-icon{
-    margin-right: 8px;
-
-}
-.TextBoxPopUp-source-text{
-    font-size: 12px;
-    line-height: 150%;
-    color: #808080;
-    align-self: center;
-    font-style: italic;
+.TextBoxPopUp-source-icon {
+  user-select:none;
+  padding: 5px;
+  padding-left: 15px;
 }
 
-.TextBoxPopUp-source-text-a{
-  all: unset;
+.TextBoxPopUp-source-text {
+  font-size: 12px;
+  padding: 5px;
+  color: #808080;
+  font-style: italic;
+
+}
+
+.TextBoxPopUp-source-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.TextBoxPopUp-source-tooltip .TextBoxPopUp-source-tooltip-text{
+  visibility: hidden;
+  background-color: #535353;
+  color: #fff;
+
+  padding: 5px 10px;
+  padding-bottom: 7px;
+  text-align: center;
+  border-radius: 4px;
+
+  font-size: 12px;
+
+  width: fit-content;
+  bottom: 110%;
+  left: 70px;
+  margin-left: -60px;
+
+  position: absolute;
+  z-index: 1;
+
+  opacity: 0;
+  transition: opacity 1s;
+  
+}
+
+/*  arrow on border */
+.TextBoxPopUp-source-tooltip .TextBoxPopUp-source-tooltip-text::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 18px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #535353 transparent transparent transparent;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.TextBoxPopUp-source-tooltip:hover .TextBoxPopUp-source-tooltip-text{
+  visibility: visible;
+  opacity: 0.8;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .TextBoxPopUp-text{
