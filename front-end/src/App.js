@@ -19,7 +19,6 @@ function App() {
   useEffect(async () => {
     let abortController = new AbortController();
     if(isLoading){
-      console.log("app is loading");
       return;
     }
 
@@ -50,7 +49,6 @@ function App() {
   }, [isLoading, isAuthenticated]);
 
   const getToken = (options) => {
-    console.log(`retrieving token for '${options.audience}'`);
     getAccessTokenSilently(options).then()
       .catch(e => {
         console.error("failed to get token!", e);
