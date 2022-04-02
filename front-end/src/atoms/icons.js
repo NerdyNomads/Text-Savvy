@@ -60,3 +60,7 @@ export function AddIcon() {
 export function PaperPlaneIcon() {
   return <img alt="send" src="/assets/images/paper_plane.svg" className="icon"/>;
 }
+
+export function LogoIcon(props) {
+  return <img alt="text savvy logo" src="/assets/images/logo.svg" className="icon" {...props}/>;
+}
