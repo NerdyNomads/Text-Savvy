@@ -16,8 +16,9 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const [renderedName, setRenderedName] = useState("");
   const [renderedCollaborators, setRenderedCollaborators] = useState([]);
   const [renderSave, setRenderSave] = useState(false);
-  const [error, setError] = useState("");
+  const [collabError, setCollabError] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
+  const [titleError, setTitleError] = useState("");
 
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
@@ -37,11 +38,11 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     const validEmail = isValidEmail(email);
 
     if(validEmail){
-      setError("");
+      setCollabError("");
       submitCollaborator(email);
       document.getElementById("add-collaborator-email-input").value = "";
     } else {
-      setError("Must be a valid email");
+      setCollabError("Must be a valid email");
     }
   };
 
@@ -87,27 +88,44 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         onRemove={handleRemoveCollaborator}
       />
     ));
+
+  const updateTitle = () => {
+    const newTitle = document.getElementById("edit-title-input").value;
+
+    if(newTitle){
+      setRenderedName(newTitle);
+      document.getElementById("edit-title-input").value = "";
+      setEditingTitle(false);
+      setRenderSave(true);
+    } else {
+      setTitleError("Please input the new title");
+    }
+  };
   
   const header = editingTitle ? 
     <>
-      <input type={"text"} className={`${componentName}-title-input`}/> 
-      <SaveIcon className={`${componentName}-edit-header-icon`} onClick={() => setEditingTitle(edit => !edit)} />
+      {/* <label className={`${componentName}-edit-title-label`}>Workspace Title</label> */}
+      {titleError ? <ErrorMessage message={`${titleError}`}/> : <></>}
+      <div className={`${componentName}-header-edit`}>
+        <input type={"text"} id={"edit-title-input"} className={`${componentName}-title-input`}/> 
+        <SaveIcon className={`${componentName}-edit-header-icon`} onClick={updateTitle} />
+      </div>
     </> :
     <>
-      {renderedName}
-      <EditIcon className={`${componentName}-edit-header-icon`} 
-        onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+      <div className={`${componentName}-header-text`}>
+        {renderedName}
+        <EditIcon className={`${componentName}-edit-header-icon`} 
+          onClick={() => setEditingTitle(edit => {console.log(`updated title state from ${editingTitle} to ${!edit}`); return !edit;})}/>
+      </div>
     </>;
 
-  // Workspace Edit Pop-up
-  //------------------------------
   const addCollaboratorElement = (
     <div className={`${componentName}-add-collab`}>
       <div className={`${componentName}-add-collab-top`}>
         <span className={`${componentName}-add-collab-label`}>Share with others:</span>
       </div>
       {/* Error Message */}
-      {error ? <ErrorMessage message={`${error}`}/> : <></>}
+      {collabError ? <ErrorMessage message={`${collabError}`}/> : <></>}
       <div className={`${componentName}-add-collab-bottom`}>
         <input
           onKeyPress={(e) => handleAddCollaboratorKeyPress(e)}

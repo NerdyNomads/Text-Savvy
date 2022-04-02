@@ -46,11 +46,16 @@
     padding-right: 30px;
 }
 
-.WorkspaceSettings-header{
+.WorkspaceSettings-header-text{
     width: 100%;
     font-weight: 400;
     font-size: 36px;
     text-align: center;
+}
+
+.WorkspaceSettings-header-edit{
+    display: flex;
+    justify-content: space-between;
 }
 
 .WorkspaceSettings-body{
@@ -122,6 +127,10 @@
 .WorkspaceSettings-title-input {
     /* margin-top: 10px;
     margin-bottom: 10px; */
+}
+
+.WorkspaceSettings-edit-title-label{
+    font-size: 16px;
 }
 
 .WorkspaceSettings-collab-list {
