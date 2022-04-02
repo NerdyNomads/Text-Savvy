@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should match the snapshot. 1`] = `"<div class=\\"CollaboratorItem\\"><span class=\\"CollaboratorItem-email \\"></span><img alt=\\"trash can\\" src=\\"/assets/images/trash_can.svg\\" class=\\"CollaboratorItem-remove\\"/></div>"`;
