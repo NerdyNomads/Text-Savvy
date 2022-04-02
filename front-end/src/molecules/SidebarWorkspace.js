@@ -14,6 +14,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
+  const [ selectedWorkspaceId, setSelectedWorkspaceId ] = useState();
 
   const { user } = useAuth0();
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
@@ -58,12 +59,14 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
 
   const handleOnClickWorkspace = (selectedId) => { 
-    setCurrentWorkspaceId(selectedId);
+    onSelectWorkspace(selectedId);
+    setSelectedWorkspaceId(selectedId);
+    setEditingWorkspaceId(selectedId);
   };
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
-      <SidebarWorkspaceItem key={_id} id={_id} selected={false} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={handleOnClickWorkspace}/>)
+      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === selectedWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={handleOnClickWorkspace}/>)
   );
 
   useEffect( async () => {
@@ -72,6 +75,12 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       let collabWorkspaces = await getCollabWorkspaces(user.email);
       let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
 
+      if (workspaces.length > 0) {
+        onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
+        setEditingWorkspaceId(workspaces[0]._id);
+        setSelectedWorkspaceId(workspaces[0]._id);
+      } // else, do not show any workspace because there aren't any workspaces
+    
       setWorkspaceList(workspaces);
     }
   }, [accountId]); 
