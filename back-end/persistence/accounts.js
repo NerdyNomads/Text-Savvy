@@ -25,6 +25,12 @@ router.route('/auth0/:auth0Id').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/byEmail/:email').get((req, res) => {
+    Account.find({ email: req.params.email })
+        .then(account => res.json(account))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 /**
  * POST
  * 

@@ -8,7 +8,7 @@ import Button from "../atoms/Button";
 import "./WorkspaceSettings.css";
 
 import { isValidEmail } from "../util/util";
-import { getWorkspaceInfo } from "../util/requests";
+import { getAccountByEmail, getWorkspaceInfo, updateWorkspace, updateAccountWorkspaces } from "../util/requests";
 
 function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const componentName = "WorkspaceSettings";
@@ -19,6 +19,9 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const [collabError, setCollabError] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleError, setTitleError] = useState("");
+
+  const [newEmails, setNewEmails] = useState([]);
+  const [deletedEmails, setDeletedEmails] = useState([]);
 
   // formats a list of strings to a list of object contains {email, pending}
   const formatCollaborators = (list) => list.map((i) => ({ email: i, pending: false }));
@@ -36,20 +39,66 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
   const handleCollaboratorSubmit = email => {
     const validEmail = isValidEmail(email);
+    const existingEmail = renderedCollaborators.filter((collaborator) => collaborator.email === email).length;
 
-    if(validEmail){
+    if(validEmail && !existingEmail){
       setCollabError("");
       submitCollaborator(email);
       document.getElementById("add-collaborator-email-input").value = "";
-    } else {
-      setCollabError("Must be a valid email");
+    } else if (!validEmail) {
+      setCollabError("Must be a valid email.");
+    } else if (existingEmail) {
+      setCollabError("User has already been added.");
     }
   };
 
-  const submitCollaborator = (newCollaborator) => {
+  const handleUpdateWorkspace = (async () => {
+    let collaborators = renderedCollaborators.map(collaborator => collaborator.email);
+
+    let updatedWorkspace = {
+      name: renderedName, 
+      collaborators: collaborators,
+      updateDate: Date.now()
+    };
+    await updateWorkspace(workspaceId, updatedWorkspace);
+
+    updateAccountsWorkspaces(newEmails, true);
+    updateAccountsWorkspaces(deletedEmails, false);
+
+    setNewEmails([]);
+    setDeletedEmails([]);
+    setRenderedCollaborators(formatCollaborators(collaborators));
+    setRenderSave(false);
+  });
+
+  const updateAccountsWorkspaces = async (emails, newEmails) => {
+    emails.forEach(async (email) => {
+      let result = await getAccountByEmail(email);
+
+      if (result.data[0]) {
+        let id = result.data[0]._id;
+        let newWorkspaces;
+        
+        // If we're adding new emails, add the current workspace to the user's workspaces.
+        // Otherwise, we're deleting emails and should filter out the current workspace from the user's workspaces.
+        if (newEmails) {
+          newWorkspaces = [ workspaceId, ...result.data[0].workspaces ];
+        } else {
+          newWorkspaces = result.data[0].workspaces.filter( workspace => workspace !== workspaceId);
+        }
+        
+        await updateAccountWorkspaces(id, newWorkspaces);
+      }
+    });
+  };
+
+  const submitCollaborator = async (newCollaborator) => {
     const newCollabList = [{ email: newCollaborator, pending: true }, ...renderedCollaborators];
     setRenderedCollaborators(newCollabList);
     setRenderSave(true);
+
+    const newEmailList = [newCollaborator, ...newEmails];
+    setNewEmails(newEmailList);
   };
 
   useEffect(async () => {
@@ -76,6 +125,9 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       collabCopy.splice(removalIndex, 1);
       setRenderedCollaborators(collabCopy);
       setRenderSave(true);
+
+      const deletedEmailList = [email, ...deletedEmails];
+      setDeletedEmails(deletedEmailList);
     }
   };
 
@@ -157,7 +209,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         </div>
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-footer-pad`} />
-          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" />}</div>
+          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
       </div>
     </div>

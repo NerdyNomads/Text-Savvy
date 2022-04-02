@@ -5,17 +5,16 @@ import { ChainIcon, TrashCanIcon } from "../icons";
 import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
 
-import axios from "axios";
+import { deleteText } from "../../util/requests";
 
 const MAX_CHARACTERS = 142;
 
 function TextBox({textItem, onDelete}) {
   const [showTextPopUp, setShowTextPopUp] = useState(false);
 
-  const handleDelete = (id) => {
-    axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`).then(() => {
-      onDelete(id);
-    });
+  const handleDelete = async (id) => {
+    await deleteText(id);
+    onDelete(id);
   };
 
   const formatText = (t) => {

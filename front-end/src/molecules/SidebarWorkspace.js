@@ -1,52 +1,38 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { AddWorkspaceIcon } from "../atoms/icons";
 import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
 import WorkspaceSettings from "../organisms/WorkspaceSettings";
-
 import "./SidebarWorkspace.css";
-import axios from "axios";
+
+import { addNewWorkspace, getCollabWorkspaces, getOwnedWorkspaces, updateAccountWorkspaces } from "../util/requests";
 
 const componentName = "SidebarWorkspace";
 function SidebarWorkspace( {onSelectWorkspace, accountId} ) {  
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
+
+  const { user } = useAuth0();
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
 
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
-      let newWorkspace = {
-        name: e.target.value,
-        owner: accountId,
-        collaborators: [],
-        isPublic: false,
-        texts: [],
-        creationDate: Date.now(),
-        updateDate: null,
-        deleteDate: null
-      };
+      const response = await addNewWorkspace(e.target.value, accountId);
+      const newWorkspaceList = [response.data, ...workspaceList];
+      setWorkspaceList(newWorkspaceList);
 
-      await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/add/`, newWorkspace)
-        .then( async (res) => {
-          const newWorkspaceList = [res.data, ...workspaceList];
-          setWorkspaceList(newWorkspaceList);
-          updateAccountWorkspaces(newWorkspaceList);
+      let workspaceIds = newWorkspaceList.map(workspace => workspace._id);
+      updateAccountWorkspaces(accountId, workspaceIds);
 
-          e.target.value = "";
-          setShowAddWorkspace(false);
-        });
+      e.target.value = "";
+      setShowAddWorkspace(false);
+      setEditingWorkspaceId(response.data._id);
     }
-  };
-
-  const updateAccountWorkspaces = async (newWorkspaceList) => {
-    let id = accountId;
-    let workspaceIds = newWorkspaceList.map(workspace => workspace._id);
-
-    await axios.patch(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/update/${id}`, {workspaces: workspaceIds});
   };
 
   const addWorkspaceInput = showAddWorkspace ?
@@ -69,7 +55,10 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
-  const handleOnClickWorkspace = (selectedId) => onSelectWorkspace(selectedId);
+  const handleOnClickWorkspace = (selectedId) => { 
+    onSelectWorkspace(selectedId);
+    setEditingWorkspaceId(selectedId);
+  };
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
@@ -78,13 +67,13 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   useEffect( async () => {
     if (accountId) {
-      let result = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
-      let workspaces = result.data;
-      
-      // TODO: get workspaces you dont own, but are a collaborator of
+      let ownedWorkspaces = await getOwnedWorkspaces(accountId);
+      let collabWorkspaces = await getCollabWorkspaces(user.email);
+      let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
 
       if (workspaces.length > 0) {
         onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
+        setEditingWorkspaceId(workspaces[0]._id);
       } // else, do not show any workspace because there aren't any workspaces
     
       setWorkspaceList(workspaces);
