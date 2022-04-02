@@ -35,7 +35,7 @@ function TextBox({textItem, onDelete}) {
     temp.value = textItem.source;
     document.body.appendChild(temp);
     temp.select();
-    document.execCommand("copy");
+    navigator.clipboard.writeText(temp.value);
     document.body.removeChild(temp);
 
     alert(`Link copied: ${textItem.source}`);
