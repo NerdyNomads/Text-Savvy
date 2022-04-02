@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import axios from "axios";
 
-import { AddIcon, PaperPlaneIcon, ExitIcon, ChainIcon } from "../icons";
+import { AddIcon, ExitIcon, ChainIcon, SaveIcon } from "../icons";
 import "./TextBoxAdd.css";
 import "./TextBoxEdit.css";
 
@@ -90,7 +90,7 @@ function TextBoxAdd({ workspaceId, onSubmit }) {
           }/>        
       </div>
       <div className="send-icon" onClick={handleOnTextSubmit}>
-        <PaperPlaneIcon/>
+        <SaveIcon/>
       </div>
     </div>
   </div>;
