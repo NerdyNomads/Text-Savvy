@@ -11,14 +11,25 @@
     height: 100vh;
 }
 
+.SideBar-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 10px; 
+}
+
 .SideBar-logo{
-    padding: 20px 10px;
+    padding-right: 5px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .SideBar-logo-text{
     text-align: center;
     font-weight: 700;
     font-size: x-large;
+    align-self: center;
+    padding-left: 5px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .SideBar-divider{

@@ -20,6 +20,12 @@ router.route('/byOwner/:ownerId').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/byCollaborator/:email').get((req, res) => {
+    Workspace.find({collaborators: req.params.email})
+        .then(workspaces => res.json(workspaces))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const owner = req.body.owner;

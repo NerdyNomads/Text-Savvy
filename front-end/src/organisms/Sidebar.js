@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { GearSmallIcon, LogoutIcon } from "../atoms/icons";
+import { GearSmallIcon, LogoutIcon, LogoIcon } from "../atoms/icons";
 import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 import "./Sidebar.css";
@@ -32,7 +32,8 @@ function Sidebar({ onClickWorkspace, accountId }) {
 
   return (
     <div className={`${componentName}`}>
-      <div className={`${componentName}-logo`}>
+      <div className={`${componentName}-header`}>
+        <LogoIcon className={`${componentName}-logo`}/>
         <div className={`${componentName}-logo-text`}>TextSavvy</div>
       </div>
       {divider}
