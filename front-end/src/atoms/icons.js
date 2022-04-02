@@ -45,6 +45,10 @@ export function GearIcon() {
   return <img alt="gear" src="/assets/images/gear.svg" className="icon"/>;
 }
 
+export function SaveIcon(props) {
+  return <img alt="save" src="/assets/images/save.svg" className="icon" {...props}/>;
+}
+
 export function ShareIcon() {
   return <img alt="share" src="/assets/images/share.svg" className="icon"/>;
 }
@@ -59,4 +63,8 @@ export function AddIcon() {
 
 export function PaperPlaneIcon() {
   return <img alt="send" src="/assets/images/paper_plane.svg" className="icon"/>;
+}
+
+export function LogoIcon(props) {
+  return <img alt="text savvy logo" src="/assets/images/logo.svg" className="icon" {...props}/>;
 }
