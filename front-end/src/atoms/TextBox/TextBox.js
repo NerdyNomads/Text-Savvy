@@ -59,7 +59,7 @@ function TextBox({textItem, onDelete}) {
             <div className="TextBox-source" onClick={handleCopyLink} onMouseEnter={handleOnSourceHover}>
               <span id={textItem._id} className="TextBox-source-tooltip-text"/>
               <ChainIcon className="TextBox-source-icon"/>
-              <div className="TextBox-source-text">{trimLongText(textItem.source, 30)}</div>
+              <div className="TextBox-source-text">{trimLongText(textItem.source || "", 30)}</div>
             </div>
           </div>
           <div onClick={() => handleDelete(textItem._id)} className="delete">
