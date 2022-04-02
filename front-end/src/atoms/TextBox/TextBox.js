@@ -39,8 +39,6 @@ function TextBox({textItem, onDelete}) {
     navigator.clipboard.writeText(temp.value);
     document.body.removeChild(temp);
 
-    // alert(`Link copied: ${textItem.source}`);
-
     var tooltip = document.getElementById(textItem._id);
     tooltip.innerHTML = "Copied!";
   };
@@ -55,7 +53,7 @@ function TextBox({textItem, onDelete}) {
         <div className="card-footer">
           <div className="TextBox-source-tooltip">
             <div className="TextBox-source" onClick={handleCopyLink}>
-              <span id={textItem._id} className="TextBox-source-tooltip-text">click to copy link</span>
+              <span id={textItem._id} className="TextBox-source-tooltip-text">Click to copy link</span>
               <ChainIcon className="TextBox-source-icon"/>
               <div className="TextBox-source-text">{trimLongText(textItem.source, 30)}</div>
             </div>
