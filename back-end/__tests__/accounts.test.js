@@ -47,18 +47,21 @@ describe("Accounts Router Tests", () => {
 	});
 
 	describe("POST /accounts/add", () => {
-    	// test("Add a valid account to the database.", async () => {
-		// 	await request(app).post("/accounts/add")
-		// 		.send(testAccount)
-		// 		.expect(200)
-		// 		.then((res) => {
-		// 			expect(res.statusCode).toEqual(200);
-		// 			expect(res.body).toEqual("Account added!");
-		// 		});
+    	test("Add a valid account to the database.", async () => {
+			await request(app).post("/accounts/add")
+				.send(testAccount)
+				.expect(200)
+				.then((res) => {
+					expect(res.statusCode).toEqual(200);
+					expect(res.body.auth0Id).toEqual(testAccount.auth0Id);
+					expect(res.body.name).toEqual(testAccount.name);
+					expect(res.body.email).toEqual(testAccount.email);
+					expect(res.body.workspaces).toEqual([]);
+				});
 
-		// 	// Remove test data from DB
-		// 	await Account.findOneAndDelete({auth0Id: testAccount.auth0Id});
-    	// });
+			// Remove test data from DB
+			await Account.findOneAndDelete({auth0Id: testAccount.auth0Id});
+    	});
 
 		test("Add an invalid account to the database.", async () => {
 			await request(app).post("/accounts/add")
