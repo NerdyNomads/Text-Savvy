@@ -34,11 +34,11 @@ export async function getWorkspaceInfo(workspaceId) {
 }
 
 /**
- * Request a workspace's stored text
+ * Request a workspace's stored texts
  * 
  * @param {*} workspaceId The workspace's id you'd like to retrieve
  */
-export async function getWorkspaceText(workspaceId) {
+export async function getWorkspaceTexts(workspaceId) {
   return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
 }
 
@@ -137,4 +137,22 @@ export async function getAccountByAuth0Id(auth0Id) {
  */
 export async function deleteText(id) {
   await axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/texts/${id}`);
+}
+
+/**
+ * Delete the workspace with the given id.
+ * 
+ * @param {*} id The id of the workspace.
+ */
+export async function deleteWorkspace(id) {
+  await axios.delete(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/delete/${id}`);
+}
+
+/**
+ * Request for the accounts that owns or is a collaborator of the given workspace id.
+ * 
+ * @param {*} id The id of the workspace.
+ */
+export async function getWorkspaceAccounts(workspaceId) {
+  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byWorkspace/${workspaceId}/`);
 }

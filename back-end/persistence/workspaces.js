@@ -53,4 +53,10 @@ router.route("/update/:id").patch((req, res) => {
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/delete/:id").delete((req, res) => {
+    Workspace.findByIdAndDelete(req.params.id)
+        .then((workspace) => res.json(workspace))
+        .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

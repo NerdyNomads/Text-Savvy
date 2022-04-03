@@ -4,18 +4,17 @@ import PropTypes from "prop-types";
 
 import './DeleteButton.css';
 
-function DeleteButton({label}) {
-
+function DeleteButton({label, onClick}) {
   return (
-    <div className="DeleteButton">
+    <div className="DeleteButton" onClick={onClick}>
         {label}
     </div>
   );
 }
 
 DeleteButton.propTypes = {
-    label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func
 };
   
-
 export default DeleteButton;

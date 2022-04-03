@@ -31,6 +31,12 @@ router.route('/byEmail/:email').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/byWorkspace/:workspaceId').get((req, res) => {
+    Account.find({ workspaces: req.params.workspaceId })
+        .then(accounts => res.json(accounts))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 /**
  * POST
  * 
