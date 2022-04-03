@@ -209,7 +209,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         </div>
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-footer-pad`} />
-          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
+          <div className={`${componentName}-save`}>{renderSave && <Button className={`${componentName}-save-btn`} label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
       </div>
     </div>

@@ -155,7 +155,7 @@ describe("Workspaces Router Tests", () => {
   	});
 
     describe("PATCH /workspaces/update/:id", () => {
-    	test("Update an existing workspace in the database.", async () => {
+    	test("Update an existing workspace's name in the database.", async () => {
             let reqId = "123456781234567812345678";
             let newName = "WXYZ";
 
@@ -169,6 +169,27 @@ describe("Workspaces Router Tests", () => {
 
             let updatedItem = await Workspace.findById(testId);
             expect(updatedItem.name).toEqual(newName);
+
+			// Remove test data from DB
+            await Workspace.findOneAndDelete({
+                owner: validWorkspace.owner
+            });
+    	});
+
+		test("Update an existing workspace's collaborators in the database.", async () => {
+            let reqId = "123456781234567812345678";
+            let newCollaborators = ["abcdef@email.com", "ghijk@email.com"];
+
+            await Workspace.create(validWorkspace);
+
+			await request(app).patch("/workspaces/update/" + reqId)
+                .send({ collaborators: newCollaborators })
+				.then((res) => {
+					expect(res.statusCode).toEqual(200);					
+				});
+
+            let updatedItem = await Workspace.findById(testId);
+            expect(updatedItem.collaborators).toEqual(newCollaborators);
 
 			// Remove test data from DB
             await Workspace.findOneAndDelete({
