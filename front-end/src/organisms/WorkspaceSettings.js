@@ -72,6 +72,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     setDeletedEmails([]);
     setRenderedCollaborators(formatCollaborators(collaborators));
     setRenderSave(false);
+    window.location.reload(false);
   });
 
   const updateAccountsWorkspaces = async (emails, newEmails) => {

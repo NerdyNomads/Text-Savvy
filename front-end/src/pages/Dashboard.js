@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TextList from "../molecules/TextList";
 import "./Dashboard.css";
-import { getWorkspaceInfo, getWorkspaceText } from "../util/requests";
+import { getWorkspaceInfo, getWorkspaceTexts } from "../util/requests";
 
 function Dashboard({ workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);
@@ -16,7 +16,7 @@ function Dashboard({ workspaceId }) {
       let workspaceResult = await getWorkspaceInfo(workspaceId);
       setRenderedWorkspaceTitle(workspaceResult?.data.name);
 
-      let textResult = await getWorkspaceText(workspaceId);
+      let textResult = await getWorkspaceTexts(workspaceId);
       setTextItems(textResult?.data);
     }
   };

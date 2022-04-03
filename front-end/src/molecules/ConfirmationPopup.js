@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./ConfirmationPopup.css";
 import Button  from "../atoms/Button";
 import DeleteButton  from "../atoms/DeleteButton";
+import { getWorkspaceAccounts, updateAccountWorkspaces, deleteWorkspace, deleteText, getWorkspaceTexts } from "../util/requests";
 
 function ConfirmationPopup({ onChangeDeleteVisibility, workspaceId }) {
   const componentName = "ConfirmationPopup";
@@ -20,10 +21,22 @@ function ConfirmationPopup({ onChangeDeleteVisibility, workspaceId }) {
     onChangeDeleteVisibility(false);
   };
 
-  const handleDelete = () => {
-    //Put code to delete this workspace here
-    console.log("Deleting workspace with ID: " + workspaceId);
+  const handleDelete = async () => {
+    await deleteWorkspace(workspaceId);
+
+    let texts = (await getWorkspaceTexts(workspaceId)).data;
+    texts.forEach( async (text) => {
+      await deleteText(text._id);
+    });
+
+    let accounts = (await getWorkspaceAccounts(workspaceId)).data;
+    accounts.forEach( async (account) => {
+      let newWorkspaces = account.workspaces.filter(workspace => workspace !== workspaceId);
+      await updateAccountWorkspaces(account._id, newWorkspaces);
+    });
+
     onChangeDeleteVisibility(false);
+    window.location.reload(false);
   };
 
   return (
