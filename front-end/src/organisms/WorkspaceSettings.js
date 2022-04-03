@@ -217,7 +217,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         <div className={`${componentName}-footer`}>
           <div className={`${componentName}-delete`} onClick={handleOnWorkspaceDelete}><DeleteButton label="Delete"/></div>
           <div className={`${componentName}-footer-pad`} />
-          <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
+          <div className={`${componentName}-save`}>{renderSave && <Button className={`${componentName}-save-btn`} label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
         { showDeleteWorkspacePopup && <ConfirmationPopup workspaceId={workspaceId} onChangeDeleteVisibility={(visible) => handleOnChangePopupVisibility(visible)}/>}
       </div>
