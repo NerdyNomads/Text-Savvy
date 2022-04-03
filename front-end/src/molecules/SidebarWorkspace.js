@@ -17,6 +17,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const { user } = useAuth0();
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
+  const [ currentWorkspaceId, setCurrentWorkspaceId ] = useState("");
 
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
@@ -55,9 +56,9 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
+
   const handleOnClickWorkspace = (selectedId) => { 
-    onSelectWorkspace(selectedId);
-    setEditingWorkspaceId(selectedId);
+    setCurrentWorkspaceId(selectedId);
   };
 
   const renderList = () => (
@@ -71,14 +72,31 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       let collabWorkspaces = await getCollabWorkspaces(user.email);
       let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
 
-      if (workspaces.length > 0) {
-        onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
-        setEditingWorkspaceId(workspaces[0]._id);
-      } // else, do not show any workspace because there aren't any workspaces
-    
       setWorkspaceList(workspaces);
     }
   }, [accountId]); 
+
+  useEffect(() => {
+    if (workspaceList.length > 0){
+
+      var retrievedWorkspace = localStorage.getItem("currentWorkspaceId");
+      if (retrievedWorkspace == null) {
+        localStorage.setItem("currentWorkspaceId" , workspaceList[0]._id);
+      }
+
+      retrievedWorkspace = localStorage.getItem("currentWorkspaceId");
+      onSelectWorkspace(retrievedWorkspace);
+      setCurrentWorkspaceId(retrievedWorkspace);
+    } // else, do not show any workspace because there aren't any workspaces
+  }, [workspaceList]);
+
+  useEffect(() => {
+    if (currentWorkspaceId != "") {
+      onSelectWorkspace(currentWorkspaceId);
+      setEditingWorkspaceId(currentWorkspaceId);
+      localStorage.setItem("currentWorkspaceId", currentWorkspaceId);
+    }
+  }, [currentWorkspaceId]);
 
   const header = <div className={`${componentName}-header`}>
     <span>My Workspaces</span>
