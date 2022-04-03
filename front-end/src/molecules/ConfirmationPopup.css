@@ -1,0 +1,61 @@
+.ConfirmationPopup {
+    width: 400px;
+    height: 100px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+
+    position: fixed;
+    z-index: 51;
+    top:20%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
+.ConfirmationPopup-background {
+    background-color: rgba(0, 0, 0, 0.692);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ConfirmationPopup-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+}
+
+.ConfirmationPopup-header-label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.ConfirmationPopup-cancel {
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+.ConfirmationPopup-confirm {
+    padding-bottom: 30px;
+}
+
+.ConfirmationPopup-spacing {
+    width:25%;
+}
