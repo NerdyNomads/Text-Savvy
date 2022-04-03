@@ -14,7 +14,6 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
-  const [ selectedWorkspaceId, setSelectedWorkspaceId ] = useState();
 
   const { user } = useAuth0();
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
@@ -22,9 +21,10 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   // Updates which workspace is highlighted and selected in the dashboard
   const updateSelectedWorkspace = workspaceId =>{
-    setSelectedWorkspaceId(workspaceId);
+    setCurrentWorkspaceId(workspaceId);
     setEditingWorkspaceId(workspaceId);
     onSelectWorkspace(workspaceId);
+    localStorage.setItem("currentWorkspaceId", workspaceId);
   };
 
   const handleWorkspaceSubmit = async (e) => {
@@ -66,7 +66,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
-      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === selectedWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={updateSelectedWorkspace}/>)
+      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === currentWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={updateSelectedWorkspace}/>)
   );
 
   useEffect( async () => {
@@ -74,12 +74,6 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       let ownedWorkspaces = await getOwnedWorkspaces(accountId);
       let collabWorkspaces = await getCollabWorkspaces(user.email);
       let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
-
-      if (workspaces.length > 0) {
-        onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
-        setEditingWorkspaceId(workspaces[0]._id);
-        setSelectedWorkspaceId(workspaces[0]._id);
-      } // else, do not show any workspace because there aren't any workspaces
     
       setWorkspaceList(workspaces);
     }
