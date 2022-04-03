@@ -25,8 +25,16 @@ export function LogoutIcon() {
   return <img alt="logout" src="/assets/images/logout.svg" className="icon"/>;
 }
 
+export function GearIcon(props) {
+  return <img alt="gear" src="/assets/images/gear.svg" className="icon" {...props}/>;
+}
+
 export function GearSmallIcon() {
   return <img alt="gear" src="/assets/images/gear_sm.svg" className="icon"/>;
+}
+
+export function GearSmallGreyIcon() {
+  return <img alt="gear" src="/assets/images/gear_sm_grey.svg" className="icon"/>;
 }
 
 export function ExitIcon(props) {
@@ -39,10 +47,6 @@ export function DragVerticalIcon() {
 
 export function EditIcon(props) {
   return <img alt="edit" src="/assets/images/edit.svg" className="icon" {...props}/>;
-}
-
-export function GearIcon() {
-  return <img alt="gear" src="/assets/images/gear.svg" className="icon"/>;
 }
 
 export function SaveIcon(props) {
