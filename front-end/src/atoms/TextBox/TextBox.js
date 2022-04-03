@@ -42,6 +42,11 @@ function TextBox({textItem, onDelete}) {
     tooltip.innerHTML = "Copied!";
   };
 
+  const handleOnSourceHover = () => {
+    var tooltip = document.getElementById(textItem._id);
+    tooltip.innerHTML = "Click to copy source";
+  };
+
   return (
     <>
       <div className="TextBox">
@@ -51,10 +56,10 @@ function TextBox({textItem, onDelete}) {
         <div className="divider"/>
         <div className="card-footer">
           <div className="TextBox-source-tooltip">
-            <div className="TextBox-source" onClick={handleCopyLink}>
-              <span id={textItem._id} className="TextBox-source-tooltip-text">Click to copy link</span>
+            <div className="TextBox-source" onClick={handleCopyLink} onMouseEnter={handleOnSourceHover}>
+              <span id={textItem._id} className="TextBox-source-tooltip-text"/>
               <ChainIcon className="TextBox-source-icon"/>
-              <div className="TextBox-source-text">{trimLongText(textItem.source, 30)}</div>
+              <div className="TextBox-source-text">{trimLongText(textItem.source || "", 30)}</div>
             </div>
           </div>
           <div onClick={() => handleDelete(textItem._id)} className="delete">
@@ -64,7 +69,7 @@ function TextBox({textItem, onDelete}) {
       </div>
 
       {/* Text Pop Up */}
-      { showTextPopUp && <TextBoxPopUp onChangeVisibility={handleOnChangeVisibility} text={textItem.text} source={textItem.source}/>}
+      { showTextPopUp && <TextBoxPopUp onChangeVisibility={handleOnChangeVisibility} textItem={textItem}/>}
     </>
   );
 }
