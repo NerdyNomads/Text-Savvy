@@ -24,9 +24,11 @@ function Sidebar({ onClickWorkspace, accountId }) {
   const handleGoToWorkspace = (id) => onClickWorkspace(id);
   
   const handleLogout = () => {
-    // clear auth0Id and send to web extension
-    window.localStorage.setItem("auth0Id", "");
-    chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
+    if (chrome.runtime !== undefined) {
+      // clear auth0Id and send to web extension
+      window.localStorage.setItem("auth0Id", "");
+      chrome.runtime.sendMessage(`${process.env.REACT_APP_EXTENSION_ID}`, { messageFromWeb: window.localStorage });
+    }
     logout();
   };
 
