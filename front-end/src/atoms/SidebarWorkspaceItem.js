@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { EditIcon } from "../atoms/icons";
+import { GearSmallGreyIcon } from "../atoms/icons";
 import {trimLongText} from "../util/util";
 import "./SidebarWorkspaceItem.css";
 
@@ -25,7 +25,7 @@ function SidebarWorkspaceItem( {id, name, onEdit, selected, onClickWorkspace} ) 
         {formattedName}
       </div>
       <div className={`${componentName}-edit`} onClick={handleEditWorkspaceClick}> 
-        <EditIcon/>
+        <GearSmallGreyIcon/>
       </div>
     </div>
   );
