@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { ExitIcon, AddCollabIcon, EditIcon, SaveIcon } from "../atoms/icons";
 import ErrorMessage from "../atoms/ErrorMessage";
 import CollaboratorItem from "../molecules/CollaboratorItem";
+import ConfirmationPopup from "../molecules/ConfirmationPopup";
 import Button  from "../atoms/Button";
 import DeleteButton from "../atoms/DeleteButton";
 import "./WorkspaceSettings.css";
@@ -16,6 +17,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
   const [renderedName, setRenderedName] = useState("");
   const [renderedCollaborators, setRenderedCollaborators] = useState([]);
+  const [showDeleteWorkspacePopup, setShowDeleteWorkspacePopup ] = useState(false);
   const [renderSave, setRenderSave] = useState(false);
   const [collabError, setCollabError] = useState("");
   const [editingTitle, setEditingTitle] = useState(false);
@@ -118,6 +120,10 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
 
   const handleExitClick = () => onChangeVisibility(false);
 
+  const handleOnChangePopupVisibility = (visible) => setShowDeleteWorkspacePopup(visible);
+  
+  const handleOnWorkspaceDelete = () => setShowDeleteWorkspacePopup(true);
+
   // Removes the first instance of the input email found in the renderedCollaborators list
   const handleRemoveCollaborator = (email) => {
     const collabCopy = [...renderedCollaborators];
@@ -130,11 +136,6 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       const deletedEmailList = [email, ...deletedEmails];
       setDeletedEmails(deletedEmailList);
     }
-  };
-
-  const handleDeleteWorkspace = () => {
-    //Todo: Add popup for confirmation
-    console.log("Deleting workspace with ID: " + workspaceId);
   };
 
   const renderCollaboratorList = () =>
@@ -214,10 +215,11 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
           <div className={`${componentName}-collab-list`}>{renderCollaboratorList()}</div>
         </div>
         <div className={`${componentName}-footer`}>
-          <div className={`${componentName}-delete`} onClick={handleDeleteWorkspace} ><DeleteButton label="Delete"/></div>
+          <div className={`${componentName}-delete`} onClick={handleOnWorkspaceDelete}><DeleteButton label="Delete"/></div>
           <div className={`${componentName}-footer-pad`} />
           <div className={`${componentName}-save`}>{renderSave && <Button label="Save" onClick={handleUpdateWorkspace}/>}</div>
         </div>
+        { showDeleteWorkspacePopup && <ConfirmationPopup workspaceId={workspaceId} onChangeDeleteVisibility={(visible) => handleOnChangePopupVisibility(visible)}/>}
       </div>
     </div>
   );
