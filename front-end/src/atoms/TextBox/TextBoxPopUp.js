@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { trimLongText } from "../../util/util";
 import { ChainIconSmallIcon, ExitIcon } from "../icons";
 
 import "./TextBoxPopUp.css";
 
 const MAX_CHAR_FOR_SOURCE_TO_SHOW = 50;
 
-function TextBoxPopUp( {text, source, onChangeVisibility} ) {
+function TextBoxPopUp( {textItem, onChangeVisibility} ) {
 
   const handleBackgroundClick = (e) => {
     // clicked outside of modal
@@ -21,19 +22,20 @@ function TextBoxPopUp( {text, source, onChangeVisibility} ) {
   };
 
   const handleOnSourceClick = () => {
-    alert(`Link copied: ${source}`);
-
-    //Create a temporary element to be able to copy the source
     var temp = document.createElement("textarea");
-    temp.value = source;
+    temp.value = textItem.source;
     document.body.appendChild(temp);
     temp.select();
-    document.execCommand("copy");
+    navigator.clipboard.writeText(temp.value);
     document.body.removeChild(temp);
+
+    var tooltip = document.getElementById("TextBoxPopUp-source-tooltip-text");
+    tooltip.innerHTML = "Copied!";
   };
 
-  const renderSource = (srcText) => {
-    return srcText.substring(0, MAX_CHAR_FOR_SOURCE_TO_SHOW) + "...";
+  const handleOnSourceHover = () => {
+    var tooltip = document.getElementById("TextBoxPopUp-source-tooltip-text");
+    tooltip.innerHTML = "Click to copy source";
   };
 
   return (
@@ -42,16 +44,15 @@ function TextBoxPopUp( {text, source, onChangeVisibility} ) {
         <div className="TextBoxPopUp-exit" onClick={handleExitClick}>
           <ExitIcon/>
         </div>
-        <div className="TextBoxPopUp-source" onClick={handleOnSourceClick}>
-          <div className="TextBoxPopUp-source-icon">
-            <ChainIconSmallIcon/>
-          </div>
-          <div className="TextBoxPopUp-source-text">
-            <a className="TextBoxPopUp-source-text-a">{renderSource(source)}</a>
+        <div className="TextBoxPopUp-source-tooltip">
+          <div className="TextBoxPopUp-source" onClick={handleOnSourceClick} onMouseEnter={handleOnSourceHover}>
+            <span id={"TextBoxPopUp-source-tooltip-text"} className="TextBoxPopUp-source-tooltip-text">Click to copy source</span>
+            <ChainIconSmallIcon className="TextBoxPopUp-source-icon"/>
+            <div className="TextBoxPopUp-source-text">{trimLongText(textItem.source, MAX_CHAR_FOR_SOURCE_TO_SHOW)}</div>
           </div>
         </div>
         <div className="TextBoxPopUp-text">
-          {text}
+          {textItem.text}
         </div>
       </div>
     </div>
@@ -59,8 +60,12 @@ function TextBoxPopUp( {text, source, onChangeVisibility} ) {
 }
 
 TextBoxPopUp.propTypes = {
-  text: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired,
+  textItem: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    source: PropTypes.string.isRequired,
+    creationDate: PropTypes.number.isRequired
+  }),
   onChangeVisibility: PropTypes.func.isRequired,
 };
 

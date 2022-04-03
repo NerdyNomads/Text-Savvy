@@ -17,6 +17,15 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const { user } = useAuth0();
   const [ editingWorkspaceId, setEditingWorkspaceId ] = useState();
+  const [ currentWorkspaceId, setCurrentWorkspaceId ] = useState("");
+
+  // Updates which workspace is highlighted and selected in the dashboard
+  const updateSelectedWorkspace = workspaceId =>{
+    setCurrentWorkspaceId(workspaceId);
+    setEditingWorkspaceId(workspaceId);
+    onSelectWorkspace(workspaceId);
+    localStorage.setItem("currentWorkspaceId", workspaceId);
+  };
 
   const handleWorkspaceSubmit = async (e) => {
     if (e.key === "Enter") {
@@ -31,7 +40,7 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       window.location.reload(false);  // to update extension with new workspace
       e.target.value = "";
       setShowAddWorkspace(false);
-      setEditingWorkspaceId(response.data._id);
+      updateSelectedWorkspace(response.data._id);
     }
   };
 
@@ -50,19 +59,14 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
 
   const handleOnWorkspaceEdit = workspaceId => {
     setShowWorkspaceSettingPopup(true);
-    setEditingWorkspaceId(workspaceId);
+    updateSelectedWorkspace(workspaceId);
   };
 
   const handleOnChangeVisibility = (visible) => setShowWorkspaceSettingPopup(visible);
 
-  const handleOnClickWorkspace = (selectedId) => { 
-    onSelectWorkspace(selectedId);
-    setEditingWorkspaceId(selectedId);
-  };
-
   const renderList = () => (
     workspaceList && workspaceList.map( ({_id, name}) => 
-      <SidebarWorkspaceItem key={_id} id={_id} selected={false} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={handleOnClickWorkspace}/>)
+      <SidebarWorkspaceItem key={_id} id={_id} selected={_id === currentWorkspaceId} name={name} onEdit={() => handleOnWorkspaceEdit(_id)} onClickWorkspace={updateSelectedWorkspace}/>)
   );
 
   useEffect( async () => {
@@ -70,15 +74,32 @@ function SidebarWorkspace( {onSelectWorkspace, accountId} ) {
       let ownedWorkspaces = await getOwnedWorkspaces(accountId);
       let collabWorkspaces = await getCollabWorkspaces(user.email);
       let workspaces = (ownedWorkspaces.data).concat(collabWorkspaces.data);
-
-      if (workspaces.length > 0) {
-        onSelectWorkspace(workspaces[0]._id); // by default the first workspace (recently will render)
-        setEditingWorkspaceId(workspaces[0]._id);
-      } // else, do not show any workspace because there aren't any workspaces
     
       setWorkspaceList(workspaces);
     }
   }, [accountId]); 
+
+  useEffect(() => {
+    if (workspaceList.length > 0){
+
+      var retrievedWorkspace = localStorage.getItem("currentWorkspaceId");
+      if (retrievedWorkspace == null) {
+        localStorage.setItem("currentWorkspaceId" , workspaceList[0]._id);
+      }
+
+      retrievedWorkspace = localStorage.getItem("currentWorkspaceId");
+      onSelectWorkspace(retrievedWorkspace);
+      setCurrentWorkspaceId(retrievedWorkspace);
+    } // else, do not show any workspace because there aren't any workspaces
+  }, [workspaceList]);
+
+  useEffect(() => {
+    if (currentWorkspaceId != "") {
+      onSelectWorkspace(currentWorkspaceId);
+      setEditingWorkspaceId(currentWorkspaceId);
+      localStorage.setItem("currentWorkspaceId", currentWorkspaceId);
+    }
+  }, [currentWorkspaceId]);
 
   const header = <div className={`${componentName}-header`}>
     <span>My Workspaces</span>
