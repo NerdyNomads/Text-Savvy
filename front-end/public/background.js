@@ -19,17 +19,18 @@ try {
   
   chrome.contextMenus.create(parentContextMenuItem);
   
-  var currUserId;
   var workspaceLength = 0;
   var workspaceIds = [];
   var isLoggedIn = false;
   chrome.runtime.onMessageExternal.addListener(
     function(request) {
+      // Make sure any other instance of our menus are removed first
+      chrome.contextMenus.removeAll();
+      chrome.contextMenus.create(parentContextMenuItem);
       // if there is no account logged in locally
       if (request.messageFromWeb.auth0Id === "") {
         isLoggedIn = false;
         workspaceIds = [];
-        currUserId = "";
       }
       // else, there is an account/user logged in
       else {
@@ -43,15 +44,8 @@ try {
               if (request.messageFromWeb.auth0Id === account.auth0Id) {
                 isLoggedIn = true;
                 workspaceLength = account.workspaces.length;
-                if (currUserId === account.auth0Id) {
-                  helper.createWorkspaceContextMenus(workspaceIds, account);
-                }
-                // if current user is different from currently logged user
-                else {
-                  workspaceIds = [];
-                  currUserId = account.auth0Id;
-                  helper.createWorkspaceContextMenus(workspaceIds, account);
-                }
+                workspaceIds = [];
+                helper.createWorkspaceContextMenus(workspaceIds, account);
               }
             });
           });
