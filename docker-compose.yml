@@ -1,15 +1,11 @@
 version: '3.1'
 services:
-  textsavvyfront:
+  web:
     image: textsavvyfront:latest
     environment:
       PORT: 3000
       PROXY_API: http://localhost:5000/
-    ports:
-      - 3000:3000
-  textsavvyback:
+  db:
     image: textsavvyback:latest
     environment:
       MONGODB_URI: File.read("/run/secrets/MONGO_URI").strip
-    ports:
-      - 5000:5000

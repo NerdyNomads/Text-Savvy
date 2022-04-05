@@ -23,16 +23,28 @@ jobs:
 
       - name: Build Backend
         working-directory: ./
-        run: docker build --file=back-end/backend.dockerfile -t playground-web-backend .
+        run: docker build --file=back-end/backend.dockerfile -t vaaletee/text-savvy:web .
+
+      - name: Push Frontend
+        working-directory: ./
+        run: docker push vaaletee/text-savvy:web
 
       - name: Build Frontend
         working-directory: ./
-        run: docker build --file=front-end/frontend.dockerfile -t playground-web-frontend .
+        run: docker build --file=front-end/frontend.dockerfile -t vaaletee/text-savvy:db .
 
-      - name: Build Docker Compose
+      - name: Push Frontend
         working-directory: ./
-        run: docker-compose build vaaletee/text-savvy
+        run: docker push vaaletee/text-savvy:db
 
-      - name: Deploy App
-        working-directory: ./
-        run: docker-compose push vaaletee/text-savvy
+      # - name: Build App
+      #   working-directory: ./
+      #   run: docker-compose build --file=docker-compose.yml -t text-savvy
+
+      # - name: Tag local image
+      #   working-directory: ./
+      #   run: docker-compose text-savvy vaaletee/text-savvy
+
+      # - name: Deploy App
+      #   working-directory: ./
+      #   run: docker-compose push vaaletee/text-savvy
