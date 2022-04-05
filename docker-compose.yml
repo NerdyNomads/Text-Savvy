@@ -1,11 +1,15 @@
 version: '3.1'
 services:
+  db:
+    image: vaaletee/text-savvy:db
+    environment:
+      MONGODB_URI: File.read("/run/secrets/MONGO_URI").strip
+    ports:
+      - 5000:5000
   web:
-    image: textsavvyfront:latest
+    image: vaaletee/text-savvy:web
     environment:
       PORT: 3000
       PROXY_API: http://localhost:5000/
-  db:
-    image: textsavvyback:latest
-    environment:
-      MONGODB_URI: File.read("/run/secrets/MONGO_URI").strip
+    ports:
+      - 3000:3000
