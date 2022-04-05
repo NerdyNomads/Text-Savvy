@@ -36,15 +36,3 @@ jobs:
       - name: Push Frontend
         working-directory: ./
         run: docker push vaaletee/text-savvy:web
-
-      # - name: Build App
-      #   working-directory: ./
-      #   run: docker-compose build --file=docker-compose.yml -t text-savvy
-
-      # - name: Tag local image
-      #   working-directory: ./
-      #   run: docker-compose text-savvy vaaletee/text-savvy
-
-      # - name: Deploy App
-      #   working-directory: ./
-      #   run: docker-compose push vaaletee/text-savvy

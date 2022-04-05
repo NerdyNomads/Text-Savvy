@@ -3,13 +3,14 @@ services:
   db:
     image: vaaletee/text-savvy:db
     environment:
-      MONGODB_URI: File.read("/run/secrets/MONGO_URI").strip
+      PORT: 5000
+      MONGO_URI: ${MONGO_URI}
     ports:
       - 5000:5000
   web:
     image: vaaletee/text-savvy:web
     environment:
       PORT: 3000
-      PROXY_API: http://localhost:5000/
+      PROXY_API: "http://localhost:5000/, http://localhost:3000/"
     ports:
       - 3000:3000
