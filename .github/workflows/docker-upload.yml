@@ -29,6 +29,10 @@ jobs:
         working-directory: ./
         run: docker build --file=front-end/frontend.dockerfile -t playground-web-frontend .
 
+      - name: Build Docker Compose
+        working-directory: ./
+        run: docker-compose build vaaletee/text-savvy
+
       - name: Deploy App
         working-directory: ./
         run: docker-compose push vaaletee/text-savvy
