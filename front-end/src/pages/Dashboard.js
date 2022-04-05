@@ -14,7 +14,7 @@ function Dashboard({ workspaceId }) {
   const getCurrentWorkspace = async () => {
     if (workspaceId) {
       let workspaceResult = await getWorkspaceInfo(workspaceId);
-      setRenderedWorkspaceTitle(workspaceResult?.data.name);
+      setRenderedWorkspaceTitle(workspaceResult?.data?.name);
 
       let textResult = await getWorkspaceTexts(workspaceId);
       setTextItems(textResult?.data);
@@ -22,7 +22,7 @@ function Dashboard({ workspaceId }) {
   };
 
   useEffect(() => {
-    getCurrentWorkspace(workspaceId);
+    getCurrentWorkspace();
   }, [workspaceId]);
 
   return (
