@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy App
         working-directory: ./
-        run: docker push vaaletee/text-savvy
+        run: docker-compose push vaaletee/text-savvy
