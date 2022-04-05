@@ -75,7 +75,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     window.location.reload(false);
   });
 
-  const updateAccountsWorkspaces = async (emails, newEmails) => {
+  const updateAccountsWorkspaces = async (emails, newEmailsExist) => {
     emails.forEach(async (email) => {
       let result = await getAccountByEmail(email);
 
@@ -85,7 +85,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
         
         // If we're adding new emails, add the current workspace to the user's workspaces.
         // Otherwise, we're deleting emails and should filter out the current workspace from the user's workspaces.
-        if (newEmails) {
+        if (newEmailsExist) {
           newWorkspaces = [ workspaceId, ...result.data[0].workspaces ];
         } else {
           newWorkspaces = result.data[0].workspaces.filter( workspace => workspace !== workspaceId);
