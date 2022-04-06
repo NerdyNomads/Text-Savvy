@@ -17,9 +17,9 @@ RUN npm ci
 COPY back-end/ .
 
 # Expose the port
-EXPOSE 5000
+EXPOSE $PORT
 
-ENV PORT=5000
+ENV PORT=$PORT
 
 #Set environment variable
 ENV MONGO_URI = $MONGO_URI
