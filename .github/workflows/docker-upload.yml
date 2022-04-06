@@ -24,6 +24,11 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      - name: Create env file for backend
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+
       - name: Build using Docker compose
         working-directory: ./
         run: docker-compose build 
