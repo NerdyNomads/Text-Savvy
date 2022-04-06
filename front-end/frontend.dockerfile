@@ -17,7 +17,7 @@ RUN npm ci
 COPY front-end/ .
 
 # Expose the port 3000
-EXPOSE 3000
+EXPOSE $PORT
 
 # Set the PORT
 ENV PORT=$PORT

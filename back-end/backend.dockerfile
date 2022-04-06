@@ -21,8 +21,5 @@ EXPOSE $PORT
 
 ENV PORT=$PORT
 
-#Set environment variable
-ENV MONGO_URI = $MONGO_URI
-
 # Start the backend
 CMD ["npm", "start"]
