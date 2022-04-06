@@ -16,7 +16,7 @@ services:
       dockerfile: ./front-end/frontend.dockerfile
     image: vaaletee/text-savvy:web
     environment:
-      PORT: 3000
+      PORT: "3000"
       PROXY_API: "http://localhost:5000/, http://localhost:3000/"
     ports:
       - 3000:3000
