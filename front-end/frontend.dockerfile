@@ -23,7 +23,7 @@ EXPOSE 3000
 ENV PORT=3000
 
 # Set the PROXY_API environement variable
-ENV PROXY_API=$PROXY_API
+ENV PROXY_API="http://localhost:5000/, http://localhost:3000/"
 
 # Start App
 CMD ["npm", "start"]
