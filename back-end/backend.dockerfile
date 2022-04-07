@@ -13,8 +13,6 @@ COPY back-end/package*.json ./
 # Install node dependencies
 RUN npm ci
 
-RUN npm install -g npm@8.6.0
-
 # Copy the rest of the back-end files into the working directory
 COPY back-end/ .
 
