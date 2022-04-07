@@ -27,6 +27,9 @@ jobs:
       - name: Build using Docker compose
         working-directory: ./
         run: docker-compose build 
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          
 
       - name: Push Backend
         working-directory: ./
