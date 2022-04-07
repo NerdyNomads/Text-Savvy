@@ -1,5 +1,5 @@
 # Use node image as base
-FROM node:alpine3.11
+FROM node:12-alpine
 
 # Create an application directory
 RUN mkdir -p /back-end
