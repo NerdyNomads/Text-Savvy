@@ -20,7 +20,7 @@ COPY back-end/ .
 EXPOSE $PORT
 
 #Set environment variable
-#ENV MONGO_URI = process.env.MONGO_URI
+ENV MONGO_URI = process.env.MONGO_URI
 
 # Start the backend
 CMD ["npm", "start"]
