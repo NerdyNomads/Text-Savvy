@@ -16,11 +16,5 @@ RUN npm ci
 # Copy the rest of the back-end files into the working directory
 COPY back-end/ .
 
-# Expose the port
-EXPOSE $PORT
-
-#Set environment variable
-
-
 # Start the backend
 CMD ["npm", "start"]
