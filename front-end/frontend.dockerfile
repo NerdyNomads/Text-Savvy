@@ -19,6 +19,9 @@ COPY front-end/ .
 # Expose the port 3000
 EXPOSE 3000
 
+#
+ENV PORT=$PORT
+
 # Set the PROXY_API environement variable
 ENV PROXY_API=$PROXY_API
 

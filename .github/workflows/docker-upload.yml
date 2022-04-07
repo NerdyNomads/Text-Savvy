@@ -5,6 +5,9 @@ on:
     types: closed
   workflow_dispatch:
 
+env:
+  MONGO_URI: ${{ secrets.MONGO_URI }}    
+
 jobs:
 
   build:
@@ -21,10 +24,16 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build Backend
+      - name: Build using Docker compose
         working-directory: ./
-        run: docker build --file=back-end/backend.dockerfile -t playground-web-backend .
+        run: docker-compose build 
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
 
-      - name: Build Frontend
+      - name: Push Backend
         working-directory: ./
-        run: docker build --file=front-end/frontend.dockerfile -t playground-web-frontend .
+        run: docker push vaaletee/text-savvy:db
+
+      - name: Push Frontend
+        working-directory: ./
+        run: docker push vaaletee/text-savvy:web
