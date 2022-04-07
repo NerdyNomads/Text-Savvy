@@ -38,7 +38,3 @@ jobs:
       - name: Push Frontend
         working-directory: ./
         run: docker push vaaletee/text-savvy:web
-
-      - name: Start containers
-        working-directory: ./
-        run: docker-compose -f docker-compose.yml up
