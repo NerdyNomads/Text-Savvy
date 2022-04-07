@@ -4,5 +4,5 @@ To run:
     - ```./```                
 - include front-end .env file in front-end directory 
     - ```./front-end```
-- build using: ```docker-compuse build```
+- build using: ```docker-compose build```
 - run using: ```docker-compose up```
