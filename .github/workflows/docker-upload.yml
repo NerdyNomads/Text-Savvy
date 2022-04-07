@@ -38,4 +38,4 @@ jobs:
 
       - name: Start containers
         working-directory: ./
-        run: docker-compose docker-compose.yml up
+        run: docker-compose -f docker-compose.yml up
