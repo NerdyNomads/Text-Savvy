@@ -17,10 +17,10 @@ RUN npm ci
 COPY front-end/ .
 
 # Expose the port 3000
-EXPOSE $PORT
+EXPOSE 3000
 
-# Set the PORT
-ENV PORT=$PORT
+#
+ENV PORT=3000
 
 # Set the PROXY_API environement variable
 ENV PROXY_API=$PROXY_API

@@ -5,6 +5,9 @@ on:
     types: closed
   workflow_dispatch:
 
+env:
+  MONGO_URI: ${{ secrets.MONGO_URI }}    
+
 jobs:
 
   build:
@@ -21,11 +24,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Create env file for backend
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-
       - name: Build using Docker compose
         working-directory: ./
         run: docker-compose build 
@@ -37,3 +35,7 @@ jobs:
       - name: Push Frontend
         working-directory: ./
         run: docker push vaaletee/text-savvy:web
+
+      - name: Start containers
+        working-directory: ./
+        run: docker-compose docker-compose.yml up
