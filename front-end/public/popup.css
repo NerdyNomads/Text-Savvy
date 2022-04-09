@@ -1,0 +1,32 @@
+html {
+    width: 330px;
+    height: 160px;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.extension-button {
+    width: 60%;
+    height: 35%;
+
+    background-color: #059862;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    padding: 6px 15px;
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.extension-button:hover{
+    background-color: #048d5b;
+}

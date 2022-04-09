@@ -1,0 +1,25 @@
+name: Auto Build
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Install frontend dependencies
+      working-directory: ./front-end
+      run: npm install
+  
+    - name: Build
+      working-directory: ./front-end
+      run: npm run auto-build

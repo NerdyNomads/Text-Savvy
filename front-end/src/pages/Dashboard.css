@@ -1,0 +1,9 @@
+.Dashboard {
+    margin-left: 250px; /* size of sidebar */
+}
+
+.Dashboard-title {
+    font-weight: 600;
+    font-size: 36px;
+    margin: 20px;
+}

@@ -1,0 +1,28 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+
+env:
+  MONGO_URI: ${{ secrets.MONGO_URI }}    
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install backend dependencies
+      working-directory: ./back-end
+      run: npm install
+
+    - name: Run backend tests
+      working-directory: ./back-end
+      run: npm test

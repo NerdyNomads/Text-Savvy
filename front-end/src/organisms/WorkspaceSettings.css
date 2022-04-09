@@ -1,0 +1,171 @@
+.WorkspaceSettings-background {
+    background-color: rgba(0, 0, 0, 0.692);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.WorkspaceSettings {
+    width: 582px;
+    height: 687px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+
+    position: fixed;
+    z-index: 51;
+    top:10%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
+.WorkspaceSettings-top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.WorkspaceSettings-exit{
+    user-select: none;
+    cursor: pointer;
+
+    padding-top: 30px;
+    padding-right: 30px;
+}
+
+.WorkspaceSettings-header-text{
+    display: flex;
+    flex-direction: row;
+}
+
+.WorkspaceSettings-header-text-title{
+    font-weight: 400;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.WorkspaceSettings-header-edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.WorkspaceSettings-header-edit-input {
+    font-size: 36px;
+    border-style: hidden;
+    outline: none;
+    width: 60%;
+}
+
+.WorkspaceSettings-header-edit-icon,
+.WorkspaceSettings-header-text-icon {
+    margin-left: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.WorkspaceSettings-body {
+    width: calc(100% - 150px);
+    margin: 0 10px;
+    padding: 0 20px;
+    height: 500px;
+
+}
+
+.WorkspaceSettings-add-collab {
+    width: 100%;
+    background-color: #F3F3F3;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.WorkspaceSettings-add-collab-label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.WorkspaceSettings-add-collab-top {
+    display: flex;
+}
+
+.WorkspaceSettings-add-collab-bottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.WorkspaceSettings-add-collab-input {
+    width: calc(100% - 40px);
+
+    border-style: hidden;
+    outline: none;
+    resize: none; 
+    
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 0;
+}
+
+.WorkspaceSettings-add-collab-icon {
+    margin-left: 5px;
+    margin-right: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.WorkspaceSettings-edit-title-label{
+    font-size: 16px;
+}
+
+.WorkspaceSettings-collab-list {
+    max-height: 390px;
+    overflow: auto;
+}
+
+.WorkspaceSettings-footer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 95px;
+}
+
+.WorkspaceSettings-save{
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+.WorkspaceSettings-footer-pad {
+    flex-grow: 2;
+}
+
+.WorkspaceSettings-delete{
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+}

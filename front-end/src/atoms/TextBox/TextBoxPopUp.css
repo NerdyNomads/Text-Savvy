@@ -1,0 +1,143 @@
+
+.TextBoxPopUp-background{
+
+  background-color: rgba(0, 0, 0, 0.692);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+
+.TextBoxPopUp{
+    min-width: 300px;
+    max-width: 1022px;
+    max-height: 693px;
+    height:fit-content;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.23);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: 0px 50px;
+
+    position: fixed;
+    z-index: 51;
+    top:10%;
+}
+
+.TextBoxPopUp-exit{
+    align-self: flex-end;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.TextBoxPopUp-source{
+  cursor:pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+}
+
+.TextBoxPopUp-source-icon {
+  user-select:none;
+  padding: 5px;
+  padding-left: 15px;
+}
+
+.TextBoxPopUp-source-text {
+  font-size: 12px;
+  padding: 5px;
+  color: #808080;
+  font-style: italic;
+
+}
+
+.TextBoxPopUp-source-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.TextBoxPopUp-source-tooltip .TextBoxPopUp-source-tooltip-text{
+  visibility: hidden;
+  background-color: #535353;
+  color: #fff;
+
+  padding: 5px 10px;
+  padding-bottom: 7px;
+  text-align: center;
+  border-radius: 4px;
+
+  font-size: 12px;
+
+  width: fit-content;
+  bottom: 110%;
+  left: 70px;
+  margin-left: -60px;
+
+  position: absolute;
+  z-index: 1;
+
+  opacity: 0;
+  transition: opacity 1s;
+  
+}
+
+/*  arrow on border */
+.TextBoxPopUp-source-tooltip .TextBoxPopUp-source-tooltip-text::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 18px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #535353 transparent transparent transparent;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.TextBoxPopUp-source-tooltip:hover .TextBoxPopUp-source-tooltip-text{
+  visibility: visible;
+  opacity: 0.8;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.TextBoxPopUp-text{
+    text-align: left;
+    margin: 20px;
+    margin-top: 5px;
+    overflow: auto;
+}
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+  /* custom scrollbar ends */
