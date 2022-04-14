@@ -1,3 +1,5 @@
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=NerdyNomads_Text-Savvy)
+
 # Text Savvy
 
 by [Nerdy Nomads](https://github.com/NerdyNomads)
