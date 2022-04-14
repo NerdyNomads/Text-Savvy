@@ -30,7 +30,7 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ develop, [dm][ea][vi][en]* ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ develop ]
   workflow_dispatch:
