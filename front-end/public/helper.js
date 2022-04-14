@@ -14,10 +14,9 @@ export const workspaceExists = (id, workspaces) => {
   const matchingIds = workspaces.filter((workspace) => id === workspace._id);
   
   if (matchingIds.length != 1) {
-    throw errorMessage =
-        matchingIds.length === 0
-          ? "No workspace ID matched the menuID"
-          : matchingIds.length + " IDs were found.";
+    throw mmatchingIds.length === 0
+      ? "No workspace ID matched the menuID"
+      : matchingIds.length + " IDs were found.";
   }
 
   return matchingIds.length == 1;
