@@ -88,8 +88,8 @@ export const updateWorkspaceToDb = (textData, workspaceID) => {
   fetch(`${serverAddr}/workspaces/update/${workspaceID}`, putPackedData)
     .then(response => response.json());}; 
 
-export const createContextMenus = (workspace, workspaceIds, account) => {
-  if (account.workspaces.indexOf(workspace._id) !== -1) {
+export const createContextMenus = (workspace, workspaceIds, totalWorkspaces) => {
+  if (totalWorkspaces.indexOf(workspace._id) !== -1) {
     workspaceIds.push(workspace._id);
     chrome.contextMenus.create({
       id: workspace._id,
@@ -100,7 +100,7 @@ export const createContextMenus = (workspace, workspaceIds, account) => {
   }
 };
 
-export const createWorkspaceContextMenus = (workspaceIds, account) => {
+export const createWorkspaceContextMenus = (workspaceIds, totalWorkspaces) => {
   // Add all the workspaces as children
   fetch(`${serverAddr}/workspaces`)
     .then((r) => r.text())
@@ -110,7 +110,7 @@ export const createWorkspaceContextMenus = (workspaceIds, account) => {
       workspaces.map((workspace) => {
         // condition to avoid creating duplicate context menus
         if (workspaceIds.indexOf(workspace._id) === -1) { 
-          createContextMenus(workspace, workspaceIds, account);
+          createContextMenus(workspace, workspaceIds, totalWorkspaces);
         }
       });
     });

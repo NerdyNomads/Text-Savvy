@@ -34,6 +34,7 @@ try {
       }
       // else, there is an account/user logged in
       else {
+        var totalWorkspaces;
         fetch(`${helper.serverAddr}/accounts`)
           .then((r) => r.text())
           .then((accountResult) => {
@@ -45,13 +46,25 @@ try {
                 isLoggedIn = true;
                 workspaceLength = account.workspaces.length;
                 workspaceIds = [];
-                helper.createWorkspaceContextMenus(workspaceIds, account);
+                totalWorkspaces = account.workspaces;
+                fetch(`${helper.serverAddr}/workspaces/byCollaborator/${account.email}`)
+                  .then((r) => r.text())
+                  .then((workspacesResult) => {
+                    const workspaces = JSON.parse(workspacesResult);
+                    workspaces.map((workspace) => {
+                      if (totalWorkspaces.indexOf(workspace._id) === -1)
+                        totalWorkspaces.push(workspace._id);
+                    });
+                    helper.createWorkspaceContextMenus(workspaceIds, totalWorkspaces);
+                  });
               }
             });
           });
       }
     }
   );
+
+  
 
   // Handling when a menu Item is clicked
   //--------------------------------------------------------------
