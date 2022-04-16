@@ -10,8 +10,9 @@ import { addNewAccount, getAccountByAuth0Id } from "./util/requests";
 function App() {
   const [currentAccountId, setCurrentAccountId] = useState(null);
   const [currentWorkspaceId, setCurrentWorkspaceId] = useState("");
-  const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } = useAuth0();
-  
+  const { isAuthenticated, user, isLoading, loginWithRedirect, getAccessTokenSilently } =
+    useAuth0();
+
   async function getAccount(auth0Id) {
     let result = await getAccountByAuth0Id(auth0Id);
     return result?.data[0];
@@ -19,19 +20,19 @@ function App() {
 
   useEffect(async () => {
     let abortController = new AbortController();
-    if(isLoading){
+    if (isLoading) {
       return;
     }
 
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       console.log("not authenticated. redirecting to login");
       loginWithRedirect();
       return;
-    
-    // If someone is currently logged in, then this checks if the account needs to be added to the database.
+
+      // If someone is currently logged in, then this checks if the account needs to be added to the database.
     } else {
       let userId = user.sub;
-      let auth0Id = userId.replace("|", "-");	// Must replace "|" to allow for GET query
+      let auth0Id = userId.replace("|", "-"); // Must replace "|" to allow for GET query
 
       if (chrome.runtime !== undefined) {
         // send auth0Id to web extension
@@ -44,24 +45,25 @@ function App() {
       if (account) {
         setCurrentAccountId(account._id);
       } else {
-        const response = await addNewAccount(auth0Id,user);
+        const response = await addNewAccount(auth0Id, user);
         setCurrentAccountId(response.data._id);
       }
     }
 
     getToken({});
-    return () => {  
-      abortController.abort();  
-    }; 
+    return () => {
+      abortController.abort();
+    };
   }, [isLoading, isAuthenticated]);
 
   const getToken = (options) => {
-    getAccessTokenSilently(options).then()
-      .catch(e => {
+    getAccessTokenSilently(options)
+      .then()
+      .catch((e) => {
         console.error("failed to get token!", e);
       });
   };
-  
+
   const handleGoToWorkspace = (id) => setCurrentWorkspaceId(id);
 
   if (!isAuthenticated || !currentAccountId) {

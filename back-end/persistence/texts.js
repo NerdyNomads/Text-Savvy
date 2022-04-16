@@ -14,12 +14,7 @@ router.route("/byWorkspace/:workspaceId").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-	const text = req.body.text;
-	const source = req.body.source;
-	const workspaceID = req.body.workspaceID;
-	const creationDate = req.body.creationDate;
-	const deleteDate = req.body.deleteDate;
-	const updateDate = req.body.updateDate;
+	const {text, source, workspaceID, creationDate, deleteDate, updateDate} = req.body;
 
 	const newText = new Text({ text, source, workspaceID, creationDate, deleteDate, updateDate });
 
