@@ -12,11 +12,11 @@ function App() {
   const { isAuthenticated, isLoading, user, loginWithRedirect } = useAuth0();
 
   useEffect(async () => {
-    if(isLoading){
+    if (isLoading) {
       return;
     }
 
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
       console.log("not authenticated. redirecting to login");
       loginWithRedirect();
       return;
