@@ -19,6 +19,7 @@
     min-height: 45px;
     max-height: 45px;
     cursor: pointer;
+    word-wrap: break-word;
 }
 
 .textfield {
