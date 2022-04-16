@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { getCurrentAccountId } from "./util/authentication";
 
 import SideBar from "./organisms/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
-import { getCurrentAccountId } from "./util/authentication";
 
 function App() {
   const [currentAccountId, setCurrentAccountId] = useState(null);
