@@ -7,10 +7,10 @@ import CollaboratorItem from "../molecules/CollaboratorItem";
 import ConfirmationPopup from "../molecules/ConfirmationPopup";
 import Button  from "../atoms/Button";
 import DeleteButton from "../atoms/DeleteButton";
-import "./WorkspaceSettings.css";
-
 import { isValidEmail } from "../util/util";
 import { getAccountByEmail, getWorkspaceInfo, updateWorkspace, updateAccountWorkspaces } from "../util/requests";
+
+import "./WorkspaceSettings.css";
 
 function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
   const componentName = "WorkspaceSettings";

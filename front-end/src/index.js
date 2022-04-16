@@ -2,12 +2,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+// third-party
+import { Auth0Provider } from "@auth0/auth0-react";
+
 // local
 import "./index.css";
 import App from "./App";
-
-// third-party
-import { Auth0Provider } from "@auth0/auth0-react";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;

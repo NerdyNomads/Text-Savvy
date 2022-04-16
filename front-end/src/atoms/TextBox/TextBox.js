@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 import { trimLongText } from "../../util/util";
 import { ChainIcon, TrashCanIcon } from "../icons";
+import { deleteText } from "../../util/requests";
 import TextBoxPopUp from "./TextBoxPopUp";
 import "./TextBox.css";
 
-import { deleteText } from "../../util/requests";
 
 const MAX_CHARACTERS = 142;
 

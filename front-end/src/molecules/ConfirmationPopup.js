@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./ConfirmationPopup.css";
 import Button  from "../atoms/Button";
 import DeleteButton  from "../atoms/DeleteButton";
 import { getWorkspaceAccounts, updateAccountWorkspaces, deleteWorkspace, deleteText, getWorkspaceTexts } from "../util/requests";
+
+import "./ConfirmationPopup.css";
 
 function ConfirmationPopup({ onChangeDeleteVisibility, workspaceId }) {
   const componentName = "ConfirmationPopup";
