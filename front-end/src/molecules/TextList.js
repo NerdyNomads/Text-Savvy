@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 import TextBox from "../atoms/TextBox/TextBox";
 import TextBoxAdd from "../atoms/TextBox/TextBoxAdd";
+import { updateWorkspace } from "../util/requests";
 import "./TextList.css";
 
-import { updateWorkspace } from "../util/requests";
 
 function TextList({ textList, workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);

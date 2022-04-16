@@ -10,9 +10,11 @@ const MAX_CHAR_FOR_SOURCE_TO_SHOW = 50;
 
 function TextBoxPopUp( {textItem, onChangeVisibility} ) {
 
+  const componentName = "TextBoxPopUp";
+
   const handleBackgroundClick = (e) => {
     // clicked outside of modal
-    if(e.target.className == "TextBoxPopUp-background") {
+    if(e.target.className == `${componentName}-background`) {
       onChangeVisibility(false);
     }
   };
@@ -29,29 +31,29 @@ function TextBoxPopUp( {textItem, onChangeVisibility} ) {
     navigator.clipboard.writeText(temp.value);
     document.body.removeChild(temp);
 
-    var tooltip = document.getElementById("TextBoxPopUp-source-tooltip-text");
+    var tooltip = document.getElementById(`${componentName}-source-tooltip-text`);
     tooltip.innerHTML = "Copied!";
   };
 
   const handleOnSourceHover = () => {
-    var tooltip = document.getElementById("TextBoxPopUp-source-tooltip-text");
+    var tooltip = document.getElementById(`${componentName}-source-tooltip-text`);
     tooltip.innerHTML = "Click to copy source";
   };
 
   return (
-    <div className="TextBoxPopUp-background" onClick={handleBackgroundClick}>
-      <div className="TextBoxPopUp">
-        <div className="TextBoxPopUp-exit" onClick={handleExitClick}>
+    <div className={`${componentName}-background`} onClick={handleBackgroundClick}>
+      <div className={`${componentName}`}>
+        <div className={`${componentName}-exit`} onClick={handleExitClick}>
           <ExitIcon/>
         </div>
-        <div className="TextBoxPopUp-source-tooltip">
-          <div className="TextBoxPopUp-source" onClick={handleOnSourceClick} onMouseEnter={handleOnSourceHover}>
-            <span id={"TextBoxPopUp-source-tooltip-text"} className="TextBoxPopUp-source-tooltip-text">Click to copy source</span>
-            <ChainIconSmallIcon className="TextBoxPopUp-source-icon"/>
-            <div className="TextBoxPopUp-source-text">{trimLongText(textItem.source, MAX_CHAR_FOR_SOURCE_TO_SHOW)}</div>
+        <div className={`${componentName}-source-tooltip`}>
+          <div className={`${componentName}-source`} onClick={handleOnSourceClick} onMouseEnter={handleOnSourceHover}>
+            <span id={`${componentName}-source-tooltip-text`} className={`${componentName}-source-tooltip-text`}>Click to copy source</span>
+            <ChainIconSmallIcon className={`${componentName}-source-icon`}/>
+            <div className={`${componentName}-source-text`}>{trimLongText(textItem.source, MAX_CHAR_FOR_SOURCE_TO_SHOW)}</div>
           </div>
         </div>
-        <div className="TextBoxPopUp-text">
+        <div className={`${componentName}-text`}>
           {textItem.text}
         </div>
       </div>

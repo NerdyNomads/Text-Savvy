@@ -51,7 +51,7 @@ function TextBoxAdd({ workspaceId, onSubmit }) {
     }, 130);
   };
 
-  editCard= <div className="TextBoxEdit">
+  editCard = <div className="TextBoxEdit">
     <div className="edit-header" onClick={handleOnTextCancel}>
       <div className="delete-icon">
         <ExitIcon/>

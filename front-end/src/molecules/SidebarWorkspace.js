@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { AddWorkspaceIcon } from "../atoms/icons";
 import SidebarWorkspaceItem from "../atoms/SidebarWorkspaceItem";
 import WorkspaceSettings from "../organisms/WorkspaceSettings";
+import { addNewWorkspace, getCollabWorkspaces, getOwnedWorkspaces, updateAccountWorkspaces } from "../util/requests";
 import "./SidebarWorkspace.css";
 
-import { addNewWorkspace, getCollabWorkspaces, getOwnedWorkspaces, updateAccountWorkspaces } from "../util/requests";
 
 const componentName = "SidebarWorkspace";
 function SidebarWorkspace( {onSelectWorkspace, accountId} ) {  
+  
   const [ showAddWorkspace, setShowAddWorkspace ] = useState(false);
   const [ workspaceList, setWorkspaceList ] = useState([]);
   const [ showWorkspaceSettingPopup, setShowWorkspaceSettingPopup ] = useState(false);
