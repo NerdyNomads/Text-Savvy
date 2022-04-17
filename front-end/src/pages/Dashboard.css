@@ -3,15 +3,18 @@
     width: 100%; /* Fill the rest of the screen*/
 }
 
+.Dashboard-header-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
 .Dashboard-title {
     font-weight: 600;
     font-size: 36px;
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
 }
 
-.Dashboard-title-reload {
+.Dashboard-reload-button {
     display: flex;
     justify-content: space-between;
     column-gap: 10px;

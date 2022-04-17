@@ -28,7 +28,7 @@ function Dashboard({ workspaceId }) {
   }, [workspaceId]);
 
   const icon = (
-    <div className={`${componentName}-title-reload`}>
+    <div className={`${componentName}-reload-button`}>
       <div>Refresh</div>
       <ReloadIcon />
     </div>
@@ -36,10 +36,12 @@ function Dashboard({ workspaceId }) {
 
   return (
     <div className={`${componentName}`}>
-      <div className={`${componentName}-title`}>
-        {renderedWorkspaceTitle}
+      {/* Dashboard Header */}
+      <div className={`${componentName}-header-container`}>
+        <div className={`${componentName}-title`}>{renderedWorkspaceTitle}</div>
         <RefreshingButton child={icon} onClick={() => location.reload()} />
       </div>
+      {/* Dashboard Text */}
       { textItems &&
           <TextList textList={textItems} workspaceId={workspaceId}/>
       }
