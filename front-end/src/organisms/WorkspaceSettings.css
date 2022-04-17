@@ -29,6 +29,8 @@
     justify-content: space-between;
     align-items: center;
     align-self: center;
+
+    overflow: auto;
 }
 
 .WorkspaceSettings-top{
@@ -46,9 +48,14 @@
     padding-right: 30px;
 }
 
+.WorkspaceSettings-header {
+    width: 70%;
+}
+
 .WorkspaceSettings-header-text{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .WorkspaceSettings-header-text-title{
@@ -56,6 +63,8 @@
     font-size: 36px;
     text-align: center;
     margin-bottom: 10px;
+    overflow: auto;
+    word-wrap: break-word;
 }
 
 .WorkspaceSettings-header-edit {
@@ -68,7 +77,7 @@
     font-size: 36px;
     border-style: hidden;
     outline: none;
-    width: 60%;
+    width: 100%;
 }
 
 .WorkspaceSettings-header-edit-icon,
