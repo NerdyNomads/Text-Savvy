@@ -2,9 +2,10 @@
 Non-functional Feature - This application will respond to 1000 user requests across 100 accounts per minute concurrently.
 
 # Test Conditions
-Number of threads (users) used: 100
+- Used Apache JMeter to do load testing
+- Number of threads (users) used: 100
+- Thread duration: 60 seconds
 
-Thread duration: 60 seconds
 1. Loop Controller (Loop Count = 2)
     1. Add ```Workspace```
     2. Loop Controller (Loop Count = 1)
