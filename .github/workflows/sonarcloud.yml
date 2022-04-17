@@ -1,4 +1,4 @@
-name: Build
+name: SonarClund Analysis
 on:
   push:
     branches: [main, develop]
