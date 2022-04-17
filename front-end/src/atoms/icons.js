@@ -14,11 +14,11 @@ export function BookMarkIcon(props) {
 }
 
 export function ChainIconSmallIcon(props) {
-  return <img alt="chain_sm" src="/assets/images/chain_sm.svg" className="icon" {...props}/>;
+  return <img alt="chain_sm" src="/assets/images/chain_sm.svg" className="icon" {...props} />;
 }
 
 export function ChainIcon(props) {
-  return <img alt="link" src="/assets/images/chain.svg" className="icon" {...props}/>;
+  return <img alt="link" src="/assets/images/chain.svg" className="icon" {...props} />;
 }
 
 export function LogoutIcon(props) {
@@ -26,7 +26,7 @@ export function LogoutIcon(props) {
 }
 
 export function GearIcon(props) {
-  return <img alt="gear" src="/assets/images/gear.svg" className="icon" {...props}/>;
+  return <img alt="gear" src="/assets/images/gear.svg" className="icon" {...props} />;
 }
 
 export function GearSmallIcon(props) {
@@ -38,7 +38,7 @@ export function GearSmallGreyIcon(props) {
 }
 
 export function ExitIcon(props) {
-  return <img alt="cross" src="/assets/images/delete.svg" className="icon-delete" {...props}/>;
+  return <img alt="cross" src="/assets/images/delete.svg" className="icon-delete" {...props} />;
 }
 
 export function DragVerticalIcon(props) {
@@ -46,11 +46,11 @@ export function DragVerticalIcon(props) {
 }
 
 export function EditIcon(props) {
-  return <img alt="edit" src="/assets/images/edit.svg" className="icon" {...props}/>;
+  return <img alt="edit" src="/assets/images/edit.svg" className="icon" {...props} />;
 }
 
 export function SaveIcon(props) {
-  return <img alt="save" src="/assets/images/save.svg" className="icon" {...props}/>;
+  return <img alt="save" src="/assets/images/save.svg" className="icon" {...props} />;
 }
 
 export function ShareIcon(props) {
@@ -58,7 +58,7 @@ export function ShareIcon(props) {
 }
 
 export function TrashCanIcon(props) {
-  return <img alt="trash can" src="/assets/images/trash_can.svg" className="icon" {...props}/>;
+  return <img alt="trash can" src="/assets/images/trash_can.svg" className="icon" {...props} />;
 }
 
 export function AddIcon(props) {
@@ -68,7 +68,11 @@ export function AddIcon(props) {
 export function PaperPlaneIcon(props) {
   return <img alt="send" src="/assets/images/paper_plane.svg" className="icon" {...props}/>;
 }
+  
+export function ReloadIcon(props) {
+  return <img alt="reload" src="/assets/images/reload_arrows.svg" className="icon" {...props} />;
+}
 
 export function LogoIcon(props) {
-  return <img alt="text savvy logo" src="/assets/images/logo.svg" className="icon" {...props}/>;
+  return <img alt="text savvy logo" src="/assets/images/logo.svg" className="icon" {...props} />;
 }

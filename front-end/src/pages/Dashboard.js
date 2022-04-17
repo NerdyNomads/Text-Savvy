@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import TextList from "../molecules/TextList";
 import "./Dashboard.css";
 import { getWorkspaceInfo, getWorkspaceTexts } from "../util/requests";
+import RefreshingButton from "../atoms/RefreshButton";
+import { ReloadIcon } from "../atoms/icons";
 
 function Dashboard({ workspaceId }) {
   const [ textItems, setTextItems ] = useState(null);
@@ -25,9 +27,19 @@ function Dashboard({ workspaceId }) {
     getCurrentWorkspace();
   }, [workspaceId]);
 
+  const icon = (
+    <div className={`${componentName}-title-reload`}>
+      <div>Refresh</div>
+      <ReloadIcon />
+    </div>
+  );
+
   return (
     <div className={`${componentName}`}>
-      <div className={`${componentName}-title`}>{renderedWorkspaceTitle}</div>
+      <div className={`${componentName}-title`}>
+        {renderedWorkspaceTitle}
+        <RefreshingButton child={icon} onClick={() => location.reload()} />
+      </div>
       { textItems &&
           <TextList textList={textItems} workspaceId={workspaceId}/>
       }

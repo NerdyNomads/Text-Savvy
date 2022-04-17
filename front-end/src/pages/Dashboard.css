@@ -1,9 +1,18 @@
 .Dashboard {
     margin-left: 250px; /* size of sidebar */
+    width: 100%; /* Fill the rest of the screen*/
 }
 
 .Dashboard-title {
     font-weight: 600;
     font-size: 36px;
     margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Dashboard-title-reload {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 10px;
 }
