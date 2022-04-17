@@ -1,5 +1,5 @@
 .SidebarWorkspaceItem{
-    width: calc(100% - 24);
+    width: calc(100% - 24px);
     padding: 10px 0;
     padding-left: 24px;
     font-weight: 400;

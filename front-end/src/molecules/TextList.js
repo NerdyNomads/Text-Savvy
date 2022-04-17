@@ -24,8 +24,8 @@ function TextList({ textList, workspaceId }) {
     updateCurrentWorkspace(newTextItems);
   };
 
-  const updateCurrentWorkspace = async (textItems) => {
-    let textIds = textItems.map( textItem => textItem._id );
+  const updateCurrentWorkspace = async (item) => {
+    let textIds = item.map( item => item._id );
     let updatedWorkspace = {
       texts: textIds,
       updateDate: Date.now()

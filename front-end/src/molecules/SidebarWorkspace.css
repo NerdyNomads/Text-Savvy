@@ -1,7 +1,6 @@
 .SidebarWorkspace-header{
     width: calc(100% - 24);
     padding: 10px 12px;
-    font-weight: 400;
 
     display: flex;
     flex-direction: row;
