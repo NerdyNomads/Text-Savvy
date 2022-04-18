@@ -6,7 +6,7 @@ let Account = require('./models/accounts.model');
  * 
  * Get all of the accounts.
  */
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
     Account.find()
         .then(accounts => res.json(accounts))
         .catch(err => res.status(400).json('Error: ' + err));

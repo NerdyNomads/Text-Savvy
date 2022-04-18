@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Account = require('./models/accounts.model');
 let Workspace = require('./models/workspaces.model');
 
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
     Workspace.find()
         .then(workspaces => res.json(workspaces))
         .catch(err => res.status(400).json('Error: ' + err));
