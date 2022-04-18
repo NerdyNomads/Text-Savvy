@@ -36,7 +36,7 @@ Users will be able to save text located within another website, simply by highli
 
 5. **Browser Extension** - This will include a simplified version of the key features from the web application (e.g., save texts, sign-in/log out, settings, create/select workspace, home button linked to web page).
 
-6. **Non-functional Feature** - This application will respond to 1000 user requests across 100 different accounts per minute concurrently.
+6. **Non-functional Feature** - This application will respond to 1000 user requests across 100 accounts per minute concurrently.
 
 ## Our Proposal
 
