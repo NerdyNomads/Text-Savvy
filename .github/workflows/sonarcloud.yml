@@ -4,6 +4,8 @@ on:
     branches: [main, develop]
   pull_request:
     types: [opened, synchronize, reopened]
+env:
+  MONGO_URI: ${{ secrets.MONGO_URI }}    
 jobs:
   sonarcloud:
     name: SonarCloud
