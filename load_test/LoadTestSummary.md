@@ -14,6 +14,9 @@ Non-functional Feature - This application will respond to 1000 user requests acr
     3. Patch ```Workspace``` Name
     4. Delete ```Workspace```
 
+# To Test Locally
+- Must change the paths for the Config Element, CSV Data Set Config (i.e., ```path/load_test/csv_data/AddText.csv```)
+
 # Results
 | Label              | # Samples | Average | Median  | 90% Line |  95% Line  | 99% Line | Min | Max  | Error % | Throughput  | Received KB/sec | Sent KB/sec |
 | ------------------ | --------- | ------- | ------- | -------- | ---------- | -------- | --- | -----| ------- | ----------- | --------------- | ----------- |
