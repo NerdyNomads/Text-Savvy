@@ -24,8 +24,8 @@ jest.mock("../molecules/TextList", () => {
 });
 
 jest.mock("../organisms/Sidebar", () => {
-  const Sidebar = () => <div />;
-  return Sidebar;
+  const SidebarTest = () => <div />;
+  return SidebarTest;
 });
 
 const whenStable = async () => {
@@ -96,21 +96,21 @@ test("Auth0's loginWithRedirect function should be called if no user is logged i
     loginWithRedirect: jest.fn()
   });
 
-  let wrapper = mount(<App />);
+  mount(<App />);
   expect(useAuth0().loginWithRedirect).toBeCalledTimes(1);
 });
 
-// test("A new account should be added to the database if the user is new.", async () => { 
-//   useAuth0.mockReturnValue({
-//     isAuthenticated: true,
-//     user: auth0User,
-//     getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
-//   });
+test("A new account should be added to the database if the user is new.", async () => { 
+  useAuth0.mockReturnValue({
+    isAuthenticated: true,
+    user: auth0User,
+    getAccessTokenSilently: jest.fn().mockResolvedValueOnce()
+  });
 
-//   let wrapper = mount(<App />);
-//   await whenStable();
-//   expect(axios.get).toBeCalled();
+  let wrapper = mount(<App />);
+  await whenStable();
+  expect(axios.get).toBeCalled();
 
-//   wrapper.update();
-//   expect(axios.post).toBeCalledTimes(1);
-// });
+  wrapper.update();
+  expect(axios.post).toBeCalledTimes(1);
+});

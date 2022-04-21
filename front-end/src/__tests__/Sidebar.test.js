@@ -9,8 +9,8 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 jest.mock("@auth0/auth0-react"); 
 jest.mock("../molecules/SidebarWorkspace", () => {
-  const SidebarWorkspace = () => <div />;
-  return SidebarWorkspace;
+  const SidebarWorkspaceTest = () => <div />;
+  return SidebarWorkspaceTest;
 });
 
 beforeEach(() => {

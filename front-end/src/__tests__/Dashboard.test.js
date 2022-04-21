@@ -13,8 +13,8 @@ configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.mock("../molecules/TextList", () => {
-  const TextList = () => <div />;
-  return TextList;
+  const TextListTest = () => <div />;
+  return TextListTest;
 });
 
 const textItems = [
