@@ -153,6 +153,7 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     const crypto = window.crypto || window.msCrypto;
     var array = new Uint32Array(1);
     crypto.getRandomValues(array); // Compliant for security-sensitive use cases
+    return array[0];
   };
 
   const updateTitle = () => {

@@ -11,6 +11,18 @@ import WorkspaceSettings from "../organisms/WorkspaceSettings";
 configure({ adapter: new Adapter() });  
 jest.mock("axios");
 
+beforeEach(() => {
+  axios.get.mockResolvedValue({data: { collaborators: ["test@email.com"] }});
+  global.document.getElementById = jest.fn();
+  document.getElementById.mockReturnValue({value: ""});
+
+  const mGetRandomValues = jest.fn().mockReturnValueOnce(new Uint32Array(10));
+  Object.defineProperty(window, "crypto", {
+    value: { getRandomValues: mGetRandomValues },
+    configurable: true
+  });
+});
+
 test("Should match the snapshot.", () => { 
   const mockFunc = () => null;
   let wrapper = shallow(<WorkspaceSettings onChangeVisibility={mockFunc} workspaceId=""/>);
@@ -18,10 +30,6 @@ test("Should match the snapshot.", () => {
 });
 
 test("Should display the 'Save' button when a collaborator is added.", async () => { 
-  axios.get.mockResolvedValue({data: { collaborators: ["test@email.com"] }});
-  global.document.getElementById = jest.fn();
-  document.getElementById.mockReturnValue({value: ""});
-
   const mockFunc = () => null;
   let wrapper = mount(<WorkspaceSettings onChangeVisibility={mockFunc} workspaceId=""/>);
 
@@ -36,10 +44,6 @@ test("Should display the 'Save' button when a collaborator is added.", async () 
 });
 
 test("Should display an error message if not a valid collaborator email.", async () => { 
-  axios.get.mockResolvedValue({data: { collaborators: ["test@email.com"] }});
-  global.document.getElementById = jest.fn();
-  document.getElementById.mockReturnValue({value: ""});
-
   const mockFunc = () => null;
   let wrapper = mount(<WorkspaceSettings onChangeVisibility={mockFunc} workspaceId=""/>);
 
@@ -53,10 +57,6 @@ test("Should display an error message if not a valid collaborator email.", async
 });
 
 test("Should display an error message if duplicate collaborator email.", async () => { 
-  axios.get.mockResolvedValue({data: { collaborators: ["test@email.com"] }});
-  global.document.getElementById = jest.fn();
-  document.getElementById.mockReturnValue({value: ""});
-
   const mockFunc = () => null;
   let wrapper = mount(<WorkspaceSettings onChangeVisibility={mockFunc} workspaceId=""/>);
 

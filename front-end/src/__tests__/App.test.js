@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 /* global chrome */
 import React from "react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
@@ -19,13 +20,11 @@ jest.mock("axios");
 jest.mock("@auth0/auth0-react"); 
 
 jest.mock("../molecules/TextList", () => {
-  const TextList = () => <div />;
-  return TextList;
+  return () => <div/>;
 });
 
 jest.mock("../organisms/Sidebar", () => {
-  const SidebarTest = () => <div />;
-  return SidebarTest;
+  return () => <div/>;
 });
 
 const whenStable = async () => {
