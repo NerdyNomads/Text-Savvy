@@ -139,15 +139,21 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     }
   };
 
-  const renderCollaboratorList = () =>
+  const renderCollaboratorList = () => 
     renderedCollaborators.map(({ pending, email }) => (
       <CollaboratorItem
-        key={Math.random()}
+        key={getSecureKey()}
         pending={pending}
         email={email}
         onRemove={handleRemoveCollaborator}
       />
     ));
+
+  const getSecureKey = () => {
+    const crypto = window.crypto || window.msCrypto;
+    var array = new Uint32Array(1);
+    crypto.getRandomValues(array); // Compliant for security-sensitive use cases
+  };
 
   const updateTitle = () => {
     const newTitle = document.getElementById("edit-title-input").value;
