@@ -18,8 +18,12 @@ function SidebarWorkspaceItem( {id, name, onEdit, selected, onClickWorkspace} ) 
   
   const handleWorkspaceClick = () => onClickWorkspace(id);
 
+  const componentClassName = () => {
+    return selected ? `${componentName}-selected` : `${componentName}`;
+  };
+
   return (
-    <div className={`${componentName} ${selected ? `${componentName}-selected` : "" }`} onClick={handleWorkspaceClick}>
+    <div className={componentClassName()} onClick={handleWorkspaceClick}>
       <div className={`${componentName}-name`}>   
         {formattedName}
       </div>

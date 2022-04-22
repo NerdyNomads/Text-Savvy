@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 import React from "react";
 import { shallow } from "enzyme";
 
@@ -9,8 +10,7 @@ import SidebarWorkspace from "../molecules/SidebarWorkspace";
 
 jest.mock("@auth0/auth0-react"); 
 jest.mock("../molecules/SidebarWorkspace", () => {
-  const SidebarWorkspaceTest = () => <div />;
-  return SidebarWorkspaceTest;
+  return () => <div />;
 });
 
 beforeEach(() => {

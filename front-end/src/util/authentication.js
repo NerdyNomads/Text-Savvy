@@ -25,6 +25,6 @@ export const getCurrentAccountId = async (user) => {
     return account._id;
   } else {
     let newAccount = await addNewAccount(auth0Id,user);
-    return newAccount.data._id;
+    return newAccount?.data._id;
   }
 };

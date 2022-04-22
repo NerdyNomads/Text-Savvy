@@ -1,4 +1,4 @@
-.SidebarWorkspaceItem{
+.SidebarWorkspaceItem, .SidebarWorkspaceItem-selected {
     width: calc(100% - 24px);
     padding: 10px 0;
     padding-left: 24px;
@@ -8,17 +8,17 @@
     cursor: pointer;
 }
 
-.SidebarWorkspaceItem:hover{
+.SidebarWorkspaceItem:hover {
     background-color: #F3F3F3;
 }
 
-.SidebarWorkspaceItem:hover .SidebarWorkspaceItem-edit{
+.SidebarWorkspaceItem:hover .SidebarWorkspaceItem-edit {
     color: #7D7D7D;
     padding-right: 10px;
     visibility: visible;
 }
 
-.SidebarWorkspaceItem-edit{
+.SidebarWorkspaceItem-edit {
     visibility: hidden;
     user-select: none;
     cursor: pointer;
@@ -26,6 +26,12 @@
 
 .SidebarWorkspaceItem-selected {
     background-color: #F3F3F3;
+}
+
+.SidebarWorkspaceItem-selected:hover .SidebarWorkspaceItem-edit {
+    color: #7D7D7D;
+    padding-right: 10px;
+    visibility: visible;
 }
 
 .SidebarWorkspaceItem-spacing {

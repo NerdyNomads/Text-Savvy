@@ -4,10 +4,15 @@ const mongoose = require("mongoose");
 
 require("dotenv").config({ path: "./.env" });
 
-const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+let corsOptions = {
+	origin: process.env.CORS_ORIGIN
+};
+
+const app = express();
+app.disable("x-powered-by");
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const uri = process.env.MONGO_URI;

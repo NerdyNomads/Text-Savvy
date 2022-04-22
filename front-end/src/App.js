@@ -19,7 +19,6 @@ function App() {
     if (!isAuthenticated) {
       console.log("not authenticated. redirecting to login");
       loginWithRedirect();
-      return;
     } else {
       let accountId = await getCurrentAccountId(user); 
       setCurrentAccountId(accountId);

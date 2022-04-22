@@ -139,15 +139,22 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
     }
   };
 
-  const renderCollaboratorList = () =>
+  const renderCollaboratorList = () => 
     renderedCollaborators.map(({ pending, email }) => (
       <CollaboratorItem
-        key={Math.random()}
+        key={getSecureKey()}
         pending={pending}
         email={email}
         onRemove={handleRemoveCollaborator}
       />
     ));
+
+  const getSecureKey = () => {
+    const crypto = window.crypto || window.msCrypto;
+    var array = new Uint32Array(1);
+    crypto.getRandomValues(array); // Compliant for security-sensitive use cases
+    return array[0];
+  };
 
   const updateTitle = () => {
     const newTitle = document.getElementById("edit-title-input").value;
@@ -160,11 +167,14 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       setTitleError("Please input the new title");
     }
   };
+
+  const getTitleError = () => {
+    return titleError ? <ErrorMessage message={`${titleError}`}/> : <></>;
+  };
   
   const header = editingTitle ? 
     <>
-      {/* <label className={`${componentName}-edit-title-label`}>Workspace Title</label> */}
-      {titleError ? <ErrorMessage message={`${titleError}`}/> : <></>}
+      {getTitleError()}
       <div className={`${componentName}-header-edit`}>
         <input type={"text"} id={"edit-title-input"} className={`${componentName}-header-edit-input`} defaultValue={renderedName}/> 
         <SaveIcon className={`${componentName}-header-edit-icon`} onClick={updateTitle} />
