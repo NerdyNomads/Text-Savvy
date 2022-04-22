@@ -167,11 +167,14 @@ function WorkspaceSettings({ onChangeVisibility, workspaceId }) {
       setTitleError("Please input the new title");
     }
   };
+
+  const getTitleError = () => {
+    return titleError ? <ErrorMessage message={`${titleError}`}/> : <></>;
+  };
   
   const header = editingTitle ? 
     <>
-      {/* <label className={`${componentName}-edit-title-label`}>Workspace Title</label> */}
-      {titleError ? <ErrorMessage message={`${titleError}`}/> : <></>}
+      {getTitleError()}
       <div className={`${componentName}-header-edit`}>
         <input type={"text"} id={"edit-title-input"} className={`${componentName}-header-edit-input`} defaultValue={renderedName}/> 
         <SaveIcon className={`${componentName}-header-edit-icon`} onClick={updateTitle} />

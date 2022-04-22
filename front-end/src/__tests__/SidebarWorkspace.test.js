@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 import React from "react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { shallow, configure, mount } from "enzyme";
@@ -13,8 +14,7 @@ configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.mock("../atoms/SidebarWorkspaceItem", () => {
-  const SidebarWorkspaceItem = () => <div />;
-  return SidebarWorkspaceItem;
+  return () => <div />;
 });
 
 const whenStable = async () => {
