@@ -1,5 +1,5 @@
 .SidebarWorkspace-header{
-    width: calc(100% - 24);
+    width: calc(100% - 24px);
     padding: 10px 12px;
 
     display: flex;
@@ -19,12 +19,10 @@
 .SidebarWorkspace-add-icon{
     user-select: none;
     cursor: pointer;
-    
 }
 
 .SidebarWorkspace-add{
-    width: calc(100% - 24);
-    font-weight: 400;
+    width: 100%;
 
     display: flex;
     flex-direction: row;
@@ -34,8 +32,6 @@
     background-color: #e7e7e7;
     font-weight: 700;
     font-size: 18px;
-
-    
 }
 
 .SidebarWorkspace-add-input{
