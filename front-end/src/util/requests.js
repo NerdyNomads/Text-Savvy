@@ -30,7 +30,7 @@ export async function addNewAccount(auth0Id, user) {
  * @param {*} workspaceId The workspace's id you'd like to retrieve
  */
 export async function getWorkspaceInfo(workspaceId) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/${workspaceId}`);
 }
 
 /**
@@ -39,7 +39,7 @@ export async function getWorkspaceInfo(workspaceId) {
  * @param {*} workspaceId The workspace's id you'd like to retrieve
  */
 export async function getWorkspaceTexts(workspaceId) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/texts/byWorkspace/${workspaceId}`);
 }
 
 /**
@@ -100,7 +100,7 @@ export async function updateWorkspace(id, workspace) {
  * @param {*} accountId The id of the user.
  */
 export async function getOwnedWorkspaces(accountId) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byOwner/${accountId}/`);
 }
 
 /**
@@ -109,7 +109,7 @@ export async function getOwnedWorkspaces(accountId) {
  * @param {*} email The email of the user, which is listed in a workspace's list of collaborators.
  */
 export async function getCollabWorkspaces(email) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byCollaborator/${email}/`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/workspaces/byCollaborator/${email}/`);
 }
 
 /**
@@ -118,7 +118,7 @@ export async function getCollabWorkspaces(email) {
  * @param {*} email The email of the user.
  */
 export async function getAccountByEmail(email) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byEmail/${email}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byEmail/${email}`);
 }
 
 /**
@@ -127,7 +127,7 @@ export async function getAccountByEmail(email) {
  * @param {*} auth0Id The Auth0 id of the user.
  */
 export async function getAccountByAuth0Id(auth0Id) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/${auth0Id}`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/auth0/${auth0Id}`);
 }
 
 /**
@@ -154,5 +154,5 @@ export async function deleteWorkspace(id) {
  * @param {*} id The id of the workspace.
  */
 export async function getWorkspaceAccounts(workspaceId) {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byWorkspace/${workspaceId}/`);
+  return axios.get(`${process.env.REACT_APP_BACKEND_SERVER}/accounts/byWorkspace/${workspaceId}/`);
 }
