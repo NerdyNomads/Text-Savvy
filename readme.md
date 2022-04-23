@@ -4,7 +4,7 @@
 
 by [Nerdy Nomads](https://github.com/NerdyNomads)
 
-A web application with a browser extension that allows users to save important blocks of text in a convenient spot where they can easily access, organize and share their saved text with other users!
+Hello, we are Nerdy Nomads, a group of 5 student developers hoping to help fellow academics in this new age of digital information.  More and more people use the web to collect data, whether through a form of researching, studying or reading. There is vast information out there, but how can we keep track of them in an organized and efficient manner? Text Savvy is a browser extension tool to help with this. With a simple highlight and right-click, it allows users to save text on the go. It provides the ability to organize information through workspaces and share with other users. We value productivity, efficiency and collaboration. We believe that with the integration of Text Savvy into your workflow will make your flow as seamless as possible.
 
 https://user-images.githubusercontent.com/24909769/158043643-078718a1-54da-4fd8-8589-cc3f02cc9772.mp4
 
